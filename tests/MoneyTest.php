@@ -166,18 +166,18 @@ class MoneyTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(new Money(33, new Currency('BRL')), $part3);
     }
 
-     public function testAllocationOrderIsImportant()
-     {
-         $m = new Money(5, new Currency('BRL'));
+    public function testAllocationOrderIsImportant()
+    {
+        $m = new Money(5, new Currency('BRL'));
 
-         list($part1, $part2) = $m->allocate(array(3, 7));
-         $this->assertEquals(new Money(2, new Currency('BRL')), $part1);
-         $this->assertEquals(new Money(3, new Currency('BRL')), $part2);
+        list($part1, $part2) = $m->allocate(array(3, 7));
+        $this->assertEquals(new Money(2, new Currency('BRL')), $part1);
+        $this->assertEquals(new Money(3, new Currency('BRL')), $part2);
 
-         list($part1, $part2) = $m->allocate(array(7, 3));
-         $this->assertEquals(new Money(4, new Currency('BRL')), $part1);
-         $this->assertEquals(new Money(1, new Currency('BRL')), $part2);
-     }
+        list($part1, $part2) = $m->allocate(array(7, 3));
+        $this->assertEquals(new Money(4, new Currency('BRL')), $part1);
+        $this->assertEquals(new Money(1, new Currency('BRL')), $part2);
+    }
 
     public function testComparators()
     {
