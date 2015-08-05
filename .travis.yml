@@ -9,6 +9,6 @@ php:
 
 sudo: false
 
-install: then travis_retry composer install --no-interaction --prefer-source
+install: travis_retry composer install --no-interaction --prefer-source
 
 script: vendor/bin/phpunit
