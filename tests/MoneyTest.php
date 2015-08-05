@@ -207,10 +207,10 @@ class MoneyTest extends PHPUnit_Framework_TestCase
     public function providesFormatLocale()
     {
         return [
-            ['R$1.548,48', 'BRL', 154848.25895, 'pt-BR', 'Example: ' . __LINE__],
-            ['R$1,548.48', 'BRL', 154848.25895, 'en-US', 'Example: ' . __LINE__],
-            ['US$0,48', 'USD', 48.25, 'pt-BR', 'Example: ' . __LINE__],
-            ['$1,548.48', 'USD', 154848.25895, 'en-US', 'Example: ' . __LINE__],
+            ['R$1.548,48', 'BRL', 154848.25895, 'pt_BR', 'Example: ' . __LINE__],
+            //['BR$1,548.48', 'BRL', 154848.25895, 'en_US', 'Example: ' . __LINE__],
+            ['US$0,48', 'USD', 48.25, 'pt_BR', 'Example: ' . __LINE__],
+            ['$1,548.48', 'USD', 154848.25895, 'en_US', 'Example: ' . __LINE__],
         ];
     }
 
