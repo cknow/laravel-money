@@ -69,8 +69,7 @@ class Currency implements JsonSerializable
         $currency = strtoupper(trim($currency));
         $currencies = static::getCurrencies();
 
-        if ( ! array_key_exists($currency, $currencies))
-        {
+        if (! array_key_exists($currency, $currencies)) {
             throw new CurrencyException('Invalid currency "' . $currency . '"');
         }
 
@@ -118,8 +117,7 @@ class Currency implements JsonSerializable
      */
     public static function getCurrencies()
     {
-        if ( ! isset(static::$currencies))
-        {
+        if (! isset(static::$currencies)) {
             static::$currencies = require __DIR__ . '/../../resources/config/money.php';
         }
 
@@ -201,7 +199,7 @@ class Currency implements JsonSerializable
     /**
      * isSymbolFirst.
      *
-     * @return boolean
+     * @return bool
      */
     public function isSymbolFirst()
     {

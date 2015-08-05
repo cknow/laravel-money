@@ -49,7 +49,7 @@ class MoneyTest extends PHPUnit_Framework_TestCase
         $m2 = new Money(100, new Currency('BRL'));
         $m3 = new Money(200, new Currency('BRL'));
 
-        $this->assertEquals(- 1, $m2->compare($m3));
+        $this->assertEquals(-1, $m2->compare($m3));
         $this->assertEquals(1, $m2->compare($m1));
         $this->assertEquals(0, $m2->compare($m2));
 
@@ -153,14 +153,14 @@ class MoneyTest extends PHPUnit_Framework_TestCase
     {
         $m1 = new Money(100, new Currency('BRL'));
 
-        list($part1, $part2, $part3) = $m1->allocate(array(1, 1, 1));
+        list($part1, $part2, $part3) = $m1->allocate([1, 1, 1]);
         $this->assertEquals(new Money(34, new Currency('BRL')), $part1);
         $this->assertEquals(new Money(33, new Currency('BRL')), $part2);
         $this->assertEquals(new Money(33, new Currency('BRL')), $part3);
 
         $m2 = new Money(101, new Currency('BRL'));
 
-        list($part1, $part2, $part3) = $m2->allocate(array(1, 1, 1));
+        list($part1, $part2, $part3) = $m2->allocate([1, 1, 1]);
         $this->assertEquals(new Money(34, new Currency('BRL')), $part1);
         $this->assertEquals(new Money(34, new Currency('BRL')), $part2);
         $this->assertEquals(new Money(33, new Currency('BRL')), $part3);
@@ -170,11 +170,11 @@ class MoneyTest extends PHPUnit_Framework_TestCase
     {
         $m = new Money(5, new Currency('BRL'));
 
-        list($part1, $part2) = $m->allocate(array(3, 7));
+        list($part1, $part2) = $m->allocate([3, 7]);
         $this->assertEquals(new Money(2, new Currency('BRL')), $part1);
         $this->assertEquals(new Money(3, new Currency('BRL')), $part2);
 
-        list($part1, $part2) = $m->allocate(array(7, 3));
+        list($part1, $part2) = $m->allocate([7, 3]);
         $this->assertEquals(new Money(4, new Currency('BRL')), $part1);
         $this->assertEquals(new Money(1, new Currency('BRL')), $part2);
     }
@@ -182,11 +182,11 @@ class MoneyTest extends PHPUnit_Framework_TestCase
     public function testComparators()
     {
         $m1 = new Money(0, new Currency('BRL'));
-        $m2 = new Money(- 1, new Currency('BRL'));
+        $m2 = new Money(-1, new Currency('BRL'));
         $m3 = new Money(1, new Currency('BRL'));
         $m4 = new Money(1, new Currency('BRL'));
         $m5 = new Money(1, new Currency('BRL'));
-        $m6 = new Money(- 1, new Currency('BRL'));
+        $m6 = new Money(-1, new Currency('BRL'));
 
         $this->assertTrue($m1->isZero());
         $this->assertTrue($m2->isNegative());

@@ -55,33 +55,25 @@ class Money implements JsonSerializable
      */
     protected function parseAmount($amount, $convert = false)
     {
-        if (is_callable($amount))
-        {
+        if (is_callable($amount)) {
             $amount = $amount();
         }
 
-        if (is_string($amount))
-        {
+        if (is_string($amount)) {
             $amount = preg_replace('/[^0-9\\' . $this->currency->getThousandsSeparator() . '\\' . $this->currency->getDecimalMark() . '\-\+]/', '', $amount);
             $amount = str_replace($this->currency->getThousandsSeparator(), '', $amount);
             $amount = str_replace($this->currency->getDecimalMark(), '.', $amount);
 
-            if (preg_match('/^([\-\+])?\d+$/', $amount))
-            {
+            if (preg_match('/^([\-\+])?\d+$/', $amount)) {
                 $amount = (int) $amount;
-            }
-            else if (preg_match('/^([\-\+])?\d+\.\d+$/', $amount))
-            {
+            } elseif (preg_match('/^([\-\+])?\d+\.\d+$/', $amount)) {
                 $amount = (float) $amount;
             }
         }
 
-        if (is_int($amount))
-        {
+        if (is_int($amount)) {
             return ($convert) ? $amount * $this->currency->getSubunit() : $amount;
-        }
-        else if (is_float($amount))
-        {
+        } elseif (is_float($amount)) {
             return (int) round(($convert) ? $amount * $this->currency->getSubunit() : $amount, 0);
         }
 
@@ -108,8 +100,7 @@ class Money implements JsonSerializable
      */
     public static function getLocale()
     {
-        if ( ! isset(static::$locale))
-        {
+        if (! isset(static::$locale)) {
             static::$locale = 'pt_BR';
         }
 
@@ -137,14 +128,13 @@ class Money implements JsonSerializable
      */
     protected function assertSameCurrency(self $other)
     {
-        if ( ! $this->isSameCurrency($other))
-        {
+        if (! $this->isSameCurrency($other)) {
             throw new MoneyException('Different currencies "' . $this->currency . '" and "' . $other->currency . '"');
         }
     }
 
     /**
-     * assertOperand
+     * assertOperand.
      *
      * @param int|float $operand
      *
@@ -152,14 +142,13 @@ class Money implements JsonSerializable
      */
     protected function assertOperand($operand)
     {
-        if ( ! is_int($operand) && ! is_float($operand))
-        {
+        if (! is_int($operand) && ! is_float($operand)) {
             throw new MoneyException('Operand "' . $operand . '" should be an integer or a float');
         }
     }
 
     /**
-     * assertRoundingMode
+     * assertRoundingMode.
      *
      * @param int $rounding_mode
      *
@@ -167,8 +156,7 @@ class Money implements JsonSerializable
      */
     protected function assertRoundingMode($rounding_mode)
     {
-        if ( ! in_array($rounding_mode, [self::ROUND_HALF_DOWN, self::ROUND_HALF_EVEN, self::ROUND_HALF_ODD, self::ROUND_HALF_UP]))
-        {
+        if (! in_array($rounding_mode, [self::ROUND_HALF_DOWN, self::ROUND_HALF_EVEN, self::ROUND_HALF_ODD, self::ROUND_HALF_UP])) {
             throw new MoneyException('Rounding mode should be Money::ROUND_HALF_DOWN | Money::ROUND_HALF_EVEN | Money::ROUND_HALF_ODD | Money::ROUND_HALF_UP');
         }
     }
@@ -228,8 +216,12 @@ class Money implements JsonSerializable
     {
         $this->assertSameCurrency($other);
 
-        if ($this->amount < $other->amount) return - 1;
-        if ($this->amount > $other->amount) return 1;
+        if ($this->amount < $other->amount) {
+            return -1;
+        }
+        if ($this->amount > $other->amount) {
+            return 1;
+        }
 
         return 0;
     }
@@ -279,7 +271,7 @@ class Money implements JsonSerializable
      */
     public function lessThan(self $other)
     {
-        return $this->compare($other) == - 1;
+        return $this->compare($other) == -1;
     }
 
     /**
@@ -378,8 +370,7 @@ class Money implements JsonSerializable
         $this->assertOperand($divisor);
         $this->assertRoundingMode($rounding_mode);
 
-        if ($divisor == 0)
-        {
+        if ($divisor == 0) {
             throw new MoneyException('Division by zero');
         }
 
@@ -399,17 +390,15 @@ class Money implements JsonSerializable
         $results = [];
         $total = array_sum($ratios);
 
-        foreach ($ratios as $ratio)
-        {
+        foreach ($ratios as $ratio) {
             $share = (int) floor($this->amount * $ratio / $total);
             $results[] = new self($share, $this->currency);
             $remainder -= $share;
         }
 
-        for ($i = 0; $remainder > 0; $i ++)
-        {
-            $results[ $i ]->amount ++;
-            $remainder --;
+        for ($i = 0; $remainder > 0; $i++) {
+            $results[ $i ]->amount++;
+            $remainder--;
         }
 
         return $results;
@@ -457,8 +446,7 @@ class Money implements JsonSerializable
     {
         $formatter = new NumberFormatter($locale ?: static::getLocale(), NumberFormatter::CURRENCY);
 
-        if (is_callable($closure))
-        {
+        if (is_callable($closure)) {
             $closure($formatter);
         }
 
@@ -488,7 +476,7 @@ class Money implements JsonSerializable
     {
         $negative = $this->isNegative();
         $value = $this->getValue();
-        $amount = $negative ? - $value : $value;
+        $amount = $negative ? -$value : $value;
         $thousands = $this->currency->getThousandsSeparator();
         $decimals = $this->currency->getDecimalMark();
         $symbolFirst = $this->currency->isSymbolFirst();
@@ -516,7 +504,7 @@ class Money implements JsonSerializable
     }
 
     /**
-     * __toString
+     * __toString.
      *
      * @return string
      */
