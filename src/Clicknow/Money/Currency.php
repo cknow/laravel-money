@@ -40,17 +40,17 @@ class Currency implements JsonSerializable
     /**
      * @var bool
      */
-    protected $symbol_first;
+    protected $symbolFirst;
 
     /**
      * @var string
      */
-    protected $decimal_mark;
+    protected $decimalMark;
 
     /**
      * @var string
      */
-    protected $thousands_separator;
+    protected $thousandsSeparator;
 
     /**
      * @var array
@@ -80,9 +80,9 @@ class Currency implements JsonSerializable
         $this->precision = (int) $attributes['precision'];
         $this->subunit = (int) $attributes['subunit'];
         $this->symbol = (string) $attributes['symbol'];
-        $this->symbol_first = (bool) $attributes['symbol_first'];
-        $this->decimal_mark = (string) $attributes['decimal_mark'];
-        $this->thousands_separator = (string) $attributes['thousands_separator'];
+        $this->symbolFirst = (bool) $attributes['symbol_first'];
+        $this->decimalMark = (string) $attributes['decimal_mark'];
+        $this->thousandsSeparator = (string) $attributes['thousands_separator'];
     }
 
     /**
@@ -203,7 +203,7 @@ class Currency implements JsonSerializable
      */
     public function isSymbolFirst()
     {
-        return $this->symbol_first;
+        return $this->symbolFirst;
     }
 
     /**
@@ -213,7 +213,7 @@ class Currency implements JsonSerializable
      */
     public function getDecimalMark()
     {
-        return $this->decimal_mark;
+        return $this->decimalMark;
     }
 
     /**
@@ -223,7 +223,7 @@ class Currency implements JsonSerializable
      */
     public function getThousandsSeparator()
     {
-        return $this->thousands_separator;
+        return $this->thousandsSeparator;
     }
 
     /**
@@ -239,9 +239,9 @@ class Currency implements JsonSerializable
             'precision'           => $this->precision,
             'subunit'             => $this->subunit,
             'symbol'              => $this->symbol,
-            'symbol_first'        => $this->symbol_first,
-            'decimal_mark'        => $this->decimal_mark,
-            'thousands_separator' => $this->thousands_separator,
+            'symbol_first'        => $this->symbolFirst,
+            'decimal_mark'        => $this->decimalMark,
+            'thousands_separator' => $this->thousandsSeparator,
         ]];
     }
 

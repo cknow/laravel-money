@@ -150,13 +150,13 @@ class Money implements JsonSerializable
     /**
      * assertRoundingMode.
      *
-     * @param int $rounding_mode
+     * @param int $roundingMode
      *
      * @throws \Clicknow\Money\Exceptions\MoneyException
      */
-    protected function assertRoundingMode($rounding_mode)
+    protected function assertRoundingMode($roundingMode)
     {
-        if (! in_array($rounding_mode, [self::ROUND_HALF_DOWN, self::ROUND_HALF_EVEN, self::ROUND_HALF_ODD, self::ROUND_HALF_UP])) {
+        if (! in_array($roundingMode, [self::ROUND_HALF_DOWN, self::ROUND_HALF_EVEN, self::ROUND_HALF_ODD, self::ROUND_HALF_UP])) {
             throw new MoneyException('Rounding mode should be Money::ROUND_HALF_DOWN | Money::ROUND_HALF_EVEN | Money::ROUND_HALF_ODD | Money::ROUND_HALF_UP');
         }
     }
@@ -291,18 +291,18 @@ class Money implements JsonSerializable
      *
      * @param \Clicknow\Money\Currency $currency
      * @param int|float                $ratio
-     * @param int                      $rounding_mode
+     * @param int                      $roundingMode
      *
      * @return \Clicknow\Money\Money
      *
      * @throws \Clicknow\Money\Exceptions\MoneyException
      */
-    public function convert(Currency $currency, $ratio, $rounding_mode = self::ROUND_HALF_UP)
+    public function convert(Currency $currency, $ratio, $roundingMode = self::ROUND_HALF_UP)
     {
         $this->assertOperand($ratio);
-        $this->assertRoundingMode($rounding_mode);
+        $this->assertRoundingMode($roundingMode);
 
-        return new self((int) round($this->amount * $ratio, 0, $rounding_mode), $currency);
+        return new self((int) round($this->amount * $ratio, 0, $roundingMode), $currency);
     }
 
     /**
@@ -341,40 +341,40 @@ class Money implements JsonSerializable
      * multiply.
      *
      * @param int|float $multiplier
-     * @param int       $rounding_mode
+     * @param int       $roundingMode
      *
      * @return \Clicknow\Money\Money
      *
      * @throws \Clicknow\Money\Exceptions\MoneyException
      */
-    public function multiply($multiplier, $rounding_mode = self::ROUND_HALF_UP)
+    public function multiply($multiplier, $roundingMode = self::ROUND_HALF_UP)
     {
         $this->assertOperand($multiplier);
-        $this->assertRoundingMode($rounding_mode);
+        $this->assertRoundingMode($roundingMode);
 
-        return new self((int) round($this->amount * $multiplier, 0, $rounding_mode), $this->currency);
+        return new self((int) round($this->amount * $multiplier, 0, $roundingMode), $this->currency);
     }
 
     /**
      * divide.
      *
      * @param int|float $divisor
-     * @param int       $rounding_mode
+     * @param int       $roundingMode
      *
      * @return \Clicknow\Money\Money
      *
      * @throws \Clicknow\Money\Exceptions\MoneyException
      */
-    public function divide($divisor, $rounding_mode = self::ROUND_HALF_UP)
+    public function divide($divisor, $roundingMode = self::ROUND_HALF_UP)
     {
         $this->assertOperand($divisor);
-        $this->assertRoundingMode($rounding_mode);
+        $this->assertRoundingMode($roundingMode);
 
         if ($divisor == 0) {
             throw new MoneyException('Division by zero');
         }
 
-        return new self((int) round($this->amount / $divisor, 0, $rounding_mode), $this->currency);
+        return new self((int) round($this->amount / $divisor, 0, $roundingMode), $this->currency);
     }
 
     /**
@@ -457,14 +457,14 @@ class Money implements JsonSerializable
      * formatSimple.
      *
      * @param int    $decimals
-     * @param string $dec_point
-     * @param string $thousands_sep
+     * @param string $decPoint
+     * @param string $thousandsSep
      *
      * @return string
      */
-    public function formatSimple($decimals = 2, $dec_point = ',', $thousands_sep = '.')
+    public function formatSimple($decimals = 2, $decPoint = ',', $thousandsSep = '.')
     {
-        return number_format($this->getValue(), $decimals, $dec_point, $thousands_sep);
+        return number_format($this->getValue(), $decimals, $decPoint, $thousandsSep);
     }
 
     /**
