@@ -37,7 +37,7 @@ checks:
         no_commented_out_code: true
         no_duplicate_arguments: true
         no_else_if_statements: true
-        no_space_between_concatenation_operator: true
+        no_space_between_concatenation_operator: false
         no_space_inside_cast_operator: true
         no_trailing_whitespace: true
         no_underscore_prefix_in_properties: true
@@ -51,5 +51,5 @@ checks:
         require_scope_for_methods: true
         require_scope_for_properties: true
         spacing_around_conditional_operators: true
-        spacing_around_non_conditional_operators: true
+        spacing_around_non_conditional_operators: false
         spacing_of_function_arguments: true
