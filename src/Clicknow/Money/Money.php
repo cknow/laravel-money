@@ -60,7 +60,7 @@ class Money implements JsonSerializable
         }
 
         if (is_string($amount)) {
-            $amount = preg_replace('/[^0-9\\' . $this->currency->getThousandsSeparator() . '\\' . $this->currency->getDecimalMark() . '\-\+]/', '', $amount);
+            $amount = preg_replace('/[^0-9\\'.$this->currency->getThousandsSeparator().'\\'.$this->currency->getDecimalMark().'\-\+]/', '', $amount);
             $amount = str_replace($this->currency->getThousandsSeparator(), '', $amount);
             $amount = str_replace($this->currency->getDecimalMark(), '.', $amount);
 
@@ -77,7 +77,7 @@ class Money implements JsonSerializable
             return (int) round(($convert) ? $amount * $this->currency->getSubunit() : $amount, 0);
         }
 
-        throw new MoneyException('Invalid amount "' . $amount . '"');
+        throw new MoneyException('Invalid amount "'.$amount.'"');
     }
 
     /**
@@ -129,7 +129,7 @@ class Money implements JsonSerializable
     protected function assertSameCurrency(self $other)
     {
         if (! $this->isSameCurrency($other)) {
-            throw new MoneyException('Different currencies "' . $this->currency . '" and "' . $other->currency . '"');
+            throw new MoneyException('Different currencies "'.$this->currency.'" and "'.$other->currency.'"');
         }
     }
 
@@ -143,7 +143,7 @@ class Money implements JsonSerializable
     protected function assertOperand($operand)
     {
         if (! is_int($operand) && ! is_float($operand)) {
-            throw new MoneyException('Operand "' . $operand . '" should be an integer or a float');
+            throw new MoneyException('Operand "'.$operand.'" should be an integer or a float');
         }
     }
 
@@ -482,11 +482,11 @@ class Money implements JsonSerializable
         $symbolFirst = $this->currency->isSymbolFirst();
         $symbol = $this->currency->getSymbol();
 
-        $prefix = ($negative ? '-' : '') . ($symbolFirst ? $symbol . ' ' : '');
+        $prefix = ($negative ? '-' : '').($symbolFirst ? $symbol.' ' : '');
         $value = number_format($amount, 2, $decimals, $thousands);
         $suffix = ! $symbolFirst ? $symbol : '';
 
-        return $prefix . $value . $suffix;
+        return $prefix.$value.$suffix;
     }
 
     /**

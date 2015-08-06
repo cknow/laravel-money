@@ -13,12 +13,12 @@ class MoneyServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $config = __DIR__ . '/../../resources/config/money.php';
+        $config = __DIR__.'/../../resources/config/money.php';
 
         $this->mergeConfigFrom($config, 'clicknow.money');
 
         $this->publishes([
-            $config => $this->app->make('path.config') . '/clicknow.money.php',
+            $config => $this->app->make('path.config').'/clicknow.money.php',
         ]);
 
         Money::setLocale($this->app->make('translator')->getLocale());
