@@ -4,7 +4,6 @@ namespace Clicknow\Money;
 
 use Clicknow\Money\Exceptions\MoneyException;
 use JsonSerializable;
-use NumberFormatter;
 
 class Money implements JsonSerializable
 {
@@ -441,10 +440,16 @@ class Money implements JsonSerializable
      * @param callable $closure
      *
      * @return string
+     *
+     * @throws \Clicknow\Money\Exceptions\MoneyException
      */
     public function formatLocale($locale = null, callable $closure = null)
     {
-        $formatter = new NumberFormatter($locale ?: static::getLocale(), NumberFormatter::CURRENCY);
+        if (! class_exists('\NumberFormatter')) {
+            throw new MoneyException('Class NumberFormatter not exists. Require ext-intl extension.');
+        }
+
+        $formatter = new \NumberFormatter($locale ?: static::getLocale(), \NumberFormatter::CURRENCY);
 
         if (is_callable($closure)) {
             $closure($formatter);
