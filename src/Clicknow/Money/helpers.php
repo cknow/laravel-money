@@ -1,5 +1,8 @@
 <?php
 
+use \Clicknow\Money\Money;
+use \Clicknow\Money\Currency;
+
 if (! function_exists('money')) {
     /**
      * money.
@@ -12,7 +15,7 @@ if (! function_exists('money')) {
      */
     function money($amount, $currency = 'BRL', $convert = false)
     {
-        return new \Clicknow\Money\Money($amount, currency($currency), $convert);
+        return new Money($amount, currency($currency), $convert);
     }
 }
 
@@ -26,6 +29,6 @@ if (! function_exists('currency')) {
      */
     function currency($currency)
     {
-        return new \Clicknow\Money\Currency($currency);
+        return new Currency($currency);
     }
 }
