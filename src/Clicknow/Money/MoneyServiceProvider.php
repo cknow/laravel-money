@@ -32,15 +32,6 @@ class MoneyServiceProvider extends ServiceProvider
      */
     public function register()
     {
-    }
-
-    /**
-     * Get the services provided by the provider.
-     *
-     * @return array
-     */
-    public function provides()
-    {
-        return ['clicknow.money'];
+        //
     }
 }
