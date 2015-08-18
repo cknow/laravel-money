@@ -118,7 +118,7 @@ class Currency implements JsonSerializable
     public static function getCurrencies()
     {
         if (! isset(static::$currencies)) {
-            static::$currencies = require __DIR__.'/../../resources/config/money.php';
+            static::$currencies = require __DIR__.'/../../config/money.php';
         }
 
         return (array) static::$currencies;

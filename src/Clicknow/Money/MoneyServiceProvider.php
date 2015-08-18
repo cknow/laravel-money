@@ -13,7 +13,7 @@ class MoneyServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $config = __DIR__.'/../../resources/config/money.php';
+        $config = __DIR__.'/../../config/money.php';
 
         $this->mergeConfigFrom($config, 'clicknow.money');
 
