@@ -2,6 +2,7 @@
 
 namespace Clicknow\Money;
 
+use Closure;
 use Clicknow\Money\Exceptions\MoneyException;
 use JsonSerializable;
 
@@ -436,14 +437,14 @@ class Money implements JsonSerializable
     /**
      * formatLocale.
      *
-     * @param string   $locale
-     * @param callable $closure
+     * @param string  $locale
+     * @param Closure $callback
      *
      * @return string
      *
      * @throws \Clicknow\Money\Exceptions\MoneyException
      */
-    public function formatLocale($locale = null, callable $closure = null)
+    public function formatLocale($locale = null, Closure $callback = null)
     {
         if (! class_exists('\NumberFormatter')) {
             throw new MoneyException('Class NumberFormatter not exists. Require ext-intl extension.');
@@ -451,8 +452,8 @@ class Money implements JsonSerializable
 
         $formatter = new \NumberFormatter($locale ?: static::getLocale(), \NumberFormatter::CURRENCY);
 
-        if (is_callable($closure)) {
-            $closure($formatter);
+        if (is_callable($callback)) {
+            $callback($formatter);
         }
 
         return $formatter->formatCurrency($this->getValue(), $this->currency->getCurrency());
