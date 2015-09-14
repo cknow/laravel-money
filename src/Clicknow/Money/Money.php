@@ -219,6 +219,7 @@ class Money implements JsonSerializable
         if ($this->amount < $other->amount) {
             return -1;
         }
+
         if ($this->amount > $other->amount) {
             return 1;
         }
