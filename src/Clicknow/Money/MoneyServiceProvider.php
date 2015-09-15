@@ -13,7 +13,7 @@ class MoneyServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        BladeExtensions::register($this->app->make('blade.compiler'));
     }
 
     /**

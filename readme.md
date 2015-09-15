@@ -75,3 +75,10 @@ $m1->format();
 money(500, 'BRL')
 currency('BRL')
 ```
+
+## Blade Extensions
+
+```php
+@money(500, 'BRL')
+@currency('BRL')
+```
