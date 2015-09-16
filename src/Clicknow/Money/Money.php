@@ -3,12 +3,13 @@
 namespace Clicknow\Money;
 
 use Closure;
+use JsonSerializable;
 use Clicknow\Money\Exceptions\MoneyException;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Contracts\Support\Renderable;
 
-class Money implements Arrayable, Jsonable, Renderable
+class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
 {
     const ROUND_HALF_UP = PHP_ROUND_HALF_UP;
     const ROUND_HALF_DOWN = PHP_ROUND_HALF_DOWN;
@@ -521,6 +522,16 @@ class Money implements Arrayable, Jsonable, Renderable
     public function toJson($options = 0)
     {
         return json_encode($this->toArray(), $options);
+    }
+
+    /**
+     * jsonSerialize.
+     *
+     * @return array
+     */
+    public function jsonSerialize()
+    {
+        return $this->toArray();
     }
 
     /**
