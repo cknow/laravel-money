@@ -3,9 +3,11 @@
 namespace Clicknow\Money;
 
 use Clicknow\Money\Exceptions\CurrencyException;
-use JsonSerializable;
+use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Contracts\Support\Jsonable;
+use Illuminate\Contracts\Support\Renderable;
 
-class Currency implements JsonSerializable
+class Currency implements Arrayable, Jsonable, Renderable
 {
     /**
      * @var string
@@ -227,11 +229,11 @@ class Currency implements JsonSerializable
     }
 
     /**
-     * jsonSerialize.
+     * Get the instance as an array.
      *
      * @return array
      */
-    public function jsonSerialize()
+    public function toArray()
     {
         return [$this->currency => [
             'name'                => $this->name,
@@ -246,12 +248,33 @@ class Currency implements JsonSerializable
     }
 
     /**
+     * Convert the object to its JSON representation.
+     *
+     * @param  int  $options
+     * @return string
+     */
+    public function toJson($options = 0)
+    {
+        return json_encode($this->toArray(), $options);
+    }
+
+    /**
+     * Get the evaluated contents of the object.
+     *
+     * @return string
+     */
+    public function render()
+    {
+        return $this->currency.' ('.$this->name.')';
+    }
+
+    /**
      * __toString.
      *
      * @return string
      */
     public function __toString()
     {
-        return $this->currency.' ('.$this->name.')';
+        return $this->render();
     }
 }
