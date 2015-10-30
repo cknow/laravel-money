@@ -2,8 +2,8 @@
 
 namespace Clicknow\Money;
 
+use OutOfBoundsException;
 use JsonSerializable;
-use Clicknow\Money\Exceptions\CurrencyException;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Contracts\Support\Renderable;
@@ -65,7 +65,7 @@ class Currency implements Arrayable, Jsonable, JsonSerializable, Renderable
      *
      * @param string $currency
      *
-     * @throws \Clicknow\Money\Exceptions\CurrencyException
+     * @throws \OutOfBoundsException
      */
     public function __construct($currency)
     {
@@ -73,7 +73,7 @@ class Currency implements Arrayable, Jsonable, JsonSerializable, Renderable
         $currencies = static::getCurrencies();
 
         if (! array_key_exists($currency, $currencies)) {
-            throw new CurrencyException('Invalid currency "'.$currency.'"');
+            throw new OutOfBoundsException('Invalid currency "'.$currency.'"');
         }
 
         $attributes = $currencies[ $currency ];

@@ -21,7 +21,7 @@ class MoneyTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Clicknow\Money\Exceptions\MoneyException
+     * @expectedException \UnexpectedValueException
      */
     public function testStringThrowsException()
     {
@@ -70,7 +70,7 @@ class MoneyTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Clicknow\Money\Exceptions\MoneyException
+     * @expectedException \InvalidArgumentException
      */
     public function testDifferentCurrenciesCannotBeCompared()
     {
@@ -99,7 +99,7 @@ class MoneyTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Clicknow\Money\Exceptions\MoneyException
+     * @expectedException \InvalidArgumentException
      */
     public function testDifferentCurrenciesCannotBeAdded()
     {
@@ -121,7 +121,7 @@ class MoneyTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Clicknow\Money\Exceptions\MoneyException
+     * @expectedException \InvalidArgumentException
      */
     public function testDifferentCurrenciesCannotBeSubtracted()
     {

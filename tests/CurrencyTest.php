@@ -11,7 +11,7 @@ class CurrencyTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Clicknow\Money\Exceptions\CurrencyException
+     * @expectedException \OutOfBoundsException
      */
     public function testCantInstantiateUnknownCurrency()
     {

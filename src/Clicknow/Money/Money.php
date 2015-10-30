@@ -2,9 +2,12 @@
 
 namespace Clicknow\Money;
 
+use BadFunctionCallException;
 use Closure;
+use InvalidArgumentException;
 use JsonSerializable;
-use Clicknow\Money\Exceptions\MoneyException;
+use OutOfBoundsException;
+use UnexpectedValueException;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Contracts\Support\Renderable;
@@ -38,7 +41,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      * @param \Clicknow\Money\Currency $currency
      * @param bool                     $convert
      *
-     * @throws \Clicknow\Money\Exceptions\MoneyException
+     * @throws \UnexpectedValueException
      */
     public function __construct($amount, Currency $currency, $convert = false)
     {
@@ -54,7 +57,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      *
      * @return int|float
      *
-     * @throws \Clicknow\Money\Exceptions\MoneyException
+     * @throws \UnexpectedValueException
      */
     protected function parseAmount($amount, $convert = false)
     {
@@ -63,7 +66,10 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
         }
 
         if (is_string($amount)) {
-            $amount = preg_replace('/[^0-9\\'.$this->currency->getThousandsSeparator().'\\'.$this->currency->getDecimalMark().'\-\+]/', '', $amount);
+            $thousandsSeparator = $this->currency->getThousandsSeparator();
+            $decimalMark = $this->currency->getDecimalMark();
+
+            $amount = preg_replace('/[^0-9\\'.$thousandsSeparator.'\\'.$decimalMark.'\-\+]/', '', $amount);
             $amount = str_replace($this->currency->getThousandsSeparator(), '', $amount);
             $amount = str_replace($this->currency->getDecimalMark(), '.', $amount);
 
@@ -80,7 +86,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
             return (int) round(($convert) ? $amount * $this->currency->getSubunit() : $amount, 0);
         }
 
-        throw new MoneyException('Invalid amount "'.$amount.'"');
+        throw new UnexpectedValueException('Invalid amount "'.$amount.'"');
     }
 
     /**
@@ -93,7 +99,9 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      */
     public static function __callStatic($method, array $arguments)
     {
-        return new static($arguments[0], new Currency($method), (isset($arguments[1]) && is_bool($arguments[1])) ? (bool) $arguments[1] : false);
+        $convert = (isset($arguments[1]) && is_bool($arguments[1])) ? (bool) $arguments[1] : false;
+
+        return new static($arguments[0], new Currency($method), $convert);
     }
 
     /**
@@ -127,12 +135,12 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      *
      * @param \Clicknow\Money\Money $other
      *
-     * @throws \Clicknow\Money\Exceptions\MoneyException
+     * @throws \InvalidArgumentException
      */
     protected function assertSameCurrency(self $other)
     {
         if (! $this->isSameCurrency($other)) {
-            throw new MoneyException('Different currencies "'.$this->currency.'" and "'.$other->currency.'"');
+            throw new InvalidArgumentException('Different currencies "'.$this->currency.'" and "'.$other->currency.'"');
         }
     }
 
@@ -141,12 +149,12 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      *
      * @param int|float $operand
      *
-     * @throws \Clicknow\Money\Exceptions\MoneyException
+     * @throws \InvalidArgumentException
      */
     protected function assertOperand($operand)
     {
         if (! is_int($operand) && ! is_float($operand)) {
-            throw new MoneyException('Operand "'.$operand.'" should be an integer or a float');
+            throw new InvalidArgumentException('Operand "'.$operand.'" should be an integer or a float');
         }
     }
 
@@ -155,12 +163,14 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      *
      * @param int $roundingMode
      *
-     * @throws \Clicknow\Money\Exceptions\MoneyException
+     * @throws \OutOfBoundsException
      */
     protected function assertRoundingMode($roundingMode)
     {
-        if (! in_array($roundingMode, [self::ROUND_HALF_DOWN, self::ROUND_HALF_EVEN, self::ROUND_HALF_ODD, self::ROUND_HALF_UP])) {
-            throw new MoneyException('Rounding mode should be Money::ROUND_HALF_DOWN | Money::ROUND_HALF_EVEN | Money::ROUND_HALF_ODD | Money::ROUND_HALF_UP');
+        $roundingModes = [self::ROUND_HALF_DOWN, self::ROUND_HALF_EVEN, self::ROUND_HALF_ODD, self::ROUND_HALF_UP];
+
+        if (! in_array($roundingMode, $roundingModes)) {
+            throw new OutOfBoundsException('Rounding mode should be '.implode(' | ', $roundingModes));
         }
     }
 
@@ -213,7 +223,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      *
      * @return int
      *
-     * @throws \Clicknow\Money\Exceptions\MoneyException
+     * @throws \InvalidArgumentException
      */
     public function compare(self $other)
     {
@@ -299,7 +309,8 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      *
      * @return \Clicknow\Money\Money
      *
-     * @throws \Clicknow\Money\Exceptions\MoneyException
+     * @throws \InvalidArgumentException
+     * @throws \OutOfBoundsException
      */
     public function convert(Currency $currency, $ratio, $roundingMode = self::ROUND_HALF_UP)
     {
@@ -316,7 +327,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      *
      * @return \Clicknow\Money\Money
      *
-     * @throws \Clicknow\Money\Exceptions\MoneyException
+     * @throws \InvalidArgumentException
      */
     public function add(self $addend)
     {
@@ -332,7 +343,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      *
      * @return \Clicknow\Money\Money
      *
-     * @throws \Clicknow\Money\Exceptions\MoneyException
+     * @throws \InvalidArgumentException
      */
     public function subtract(self $subtrahend)
     {
@@ -349,7 +360,8 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      *
      * @return \Clicknow\Money\Money
      *
-     * @throws \Clicknow\Money\Exceptions\MoneyException
+     * @throws \InvalidArgumentException
+     * @throws \OutOfBoundsException
      */
     public function multiply($multiplier, $roundingMode = self::ROUND_HALF_UP)
     {
@@ -367,7 +379,8 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      *
      * @return \Clicknow\Money\Money
      *
-     * @throws \Clicknow\Money\Exceptions\MoneyException
+     * @throws \InvalidArgumentException
+     * @throws \OutOfBoundsException
      */
     public function divide($divisor, $roundingMode = self::ROUND_HALF_UP)
     {
@@ -375,7 +388,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
         $this->assertRoundingMode($roundingMode);
 
         if ($divisor == 0) {
-            throw new MoneyException('Division by zero');
+            throw new InvalidArgumentException('Division by zero');
         }
 
         return new self((int) round($this->amount / $divisor, 0, $roundingMode), $this->currency);
@@ -446,12 +459,12 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      *
      * @return string
      *
-     * @throws \Clicknow\Money\Exceptions\MoneyException
+     * @throws \BadFunctionCallException
      */
     public function formatLocale($locale = null, Closure $callback = null)
     {
         if (! class_exists('\NumberFormatter')) {
-            throw new MoneyException('Class NumberFormatter not exists. Require ext-intl extension.');
+            throw new BadFunctionCallException('Class NumberFormatter not exists. Require ext-intl extension.');
         }
 
         $formatter = new \NumberFormatter($locale ?: static::getLocale(), \NumberFormatter::CURRENCY);
