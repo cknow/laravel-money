@@ -1,10 +1,9 @@
 <?php
 
-use \Clicknow\Money\Money;
-use \Clicknow\Money\Currency;
+use Clicknow\Money\Money;
+use Clicknow\Money\Currency;
 
 if (! function_exists('money')) {
-
     /**
      * money.
      *
@@ -21,7 +20,6 @@ if (! function_exists('money')) {
 }
 
 if (! function_exists('currency')) {
-
     /**
      * currency.
      *
