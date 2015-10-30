@@ -1,7 +1,7 @@
 <?php
 
-use \Clicknow\Money\Currency;
-use \Clicknow\Money\Money;
+use Clicknow\Money\Currency;
+use Clicknow\Money\Money;
 
 class HelpersTest extends PHPUnit_Framework_TestCase
 {
