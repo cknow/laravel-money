@@ -23,9 +23,6 @@ class MoneyServiceProvider extends ServiceProvider
 
         Money::setLocale($this->app->make('translator')->getLocale());
         Currency::setCurrencies($this->app->make('config')->get('clicknow.money'));
-        
-        // Blade Directive 
-        BladeExtensions::register($this->app->make('blade.compiler'));
     }
 
     /**
@@ -35,6 +32,6 @@ class MoneyServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        
+        BladeExtensions::register($this->app->make('view')->getEngineResolver()->resolve('blade')->getCompiler());
     }
 }
