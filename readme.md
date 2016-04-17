@@ -17,7 +17,7 @@ composer require cknow/laravel-money:~0.1.0
 or add this to require section in your composer.json file:
 
 ```
-"cknow/laravel-money: ~0.1.0"
+"cknow/laravel-money": "~0.1.0"
 ```
 
 then run ```composer update```
@@ -28,7 +28,7 @@ In your **config/app.php** add *'Clicknow\Money\MoneyServiceProvider'* to the en
 'providers' => array(
     ...
     ...
-    'Clicknow\Money\MoneyServiceProvider',
+    Clicknow\Money\MoneyServiceProvider::class,
 ),
 ```
 
