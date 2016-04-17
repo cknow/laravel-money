@@ -7,16 +7,6 @@ use Illuminate\Support\ServiceProvider;
 class MoneyServiceProvider extends ServiceProvider
 {
     /**
-     * Register the service provider.
-     *
-     * @return void
-     */
-    public function register()
-    {
-        BladeExtensions::register($this->app->make('blade.compiler'));
-    }
-
-    /**
      * Bootstrap the application events.
      *
      * @return void
@@ -33,5 +23,18 @@ class MoneyServiceProvider extends ServiceProvider
 
         Money::setLocale($this->app->make('translator')->getLocale());
         Currency::setCurrencies($this->app->make('config')->get('clicknow.money'));
+        
+        // Blade Directive 
+        BladeExtensions::register($this->app->make('blade.compiler'));
+    }
+
+    /**
+     * Register the service provider.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        
     }
 }
