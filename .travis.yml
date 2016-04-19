@@ -13,4 +13,9 @@ before_script:
   - composer self-update
   - composer install --no-interaction --prefer-source
 
-script: vendor/bin/phpunit
+script:
+  - vendor/bin/phpunit --colors --coverage-clover=coverage.clover
+
+after_script:
+  - test "5.6" == "${TRAVIS_PHP_VERSION}" && wget https://scrutinizer-ci.com/ocular.phar
+  - test -f ocular.phar && php ocular.phar code-coverage:upload --format=php-clover coverage.clover

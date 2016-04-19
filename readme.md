@@ -1,6 +1,8 @@
 # Laravel Money
 
 [![Build Status](https://travis-ci.org/cknow/laravel-money.svg)](https://travis-ci.org/cknow/laravel-money)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/cknow/laravel-money/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/cknow/laravel-money/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/cknow/laravel-money/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/cknow/laravel-money/?branch=master)
 [![Total Downloads](https://poser.pugx.org/cknow/laravel-money/d/total.svg)](https://packagist.org/packages/cknow/laravel-money)
 [![Latest Stable Version](https://poser.pugx.org/cknow/laravel-money/v/stable.svg)](https://packagist.org/packages/cknow/laravel-money)
 [![Latest Unstable Version](https://poser.pugx.org/cknow/laravel-money/v/unstable.svg)](https://packagist.org/packages/cknow/laravel-money)
