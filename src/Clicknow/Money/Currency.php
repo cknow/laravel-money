@@ -92,10 +92,11 @@ class Currency implements Arrayable, Jsonable, JsonSerializable, Renderable
      * __callStatic.
      *
      * @param string $method
+     * @param array  $arguments
      *
      * @return \Clicknow\Money\Currency
      */
-    public static function __callStatic($method)
+    public static function __callStatic($method, array $arguments)
     {
         return new static($method);
     }
