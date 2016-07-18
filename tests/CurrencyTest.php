@@ -42,11 +42,22 @@ class CurrencyTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(true, $c->isSymbolFirst());
         $this->assertEquals(',', $c->getDecimalMark());
         $this->assertEquals('.', $c->getThousandsSeparator());
+        $this->assertNotEmpty($c->toArray()['BRL']);
+        $this->assertJson($c->toJson());
+        $this->assertNotEmpty($c->jsonSerialize()['BRL']);
     }
 
     public function testToString()
     {
         $this->assertEquals('BRL (Brazilian Real)', (string) new Currency('BRL'));
         $this->assertEquals('USD (US Dollar)', (string) new Currency('USD'));
+    }
+
+    public function testResetCurrencies()
+    {
+        $currencies = Currency::getCurrencies();
+        Currency::setCurrencies([]);
+        $this->assertEmpty(Currency::getCurrencies());
+        Currency::setCurrencies($currencies);
     }
 }

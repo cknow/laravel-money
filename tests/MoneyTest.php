@@ -216,13 +216,19 @@ class MoneyTest extends PHPUnit_Framework_TestCase
 
     public function testFormatSimple()
     {
-        $m = new Money(100000, new Currency('BRL'));
+        $m1 = new Money(1, new Currency('BRL'));
+        $m2 = new Money(10, new Currency('BRL'));
+        $m3 = new Money(100, new Currency('BRL'));
+        $m4 = new Money(1000, new Currency('BRL'));
+        $m5 = new Money(10000, new Currency('BRL'));
+        $m6 = new Money(100000, new Currency('BRL'));
 
-        $this->assertEquals('1.000,00', $m->formatSimple());
-        $this->assertEquals('1,000.00', $m->formatSimple(2, '.', ','));
-        $this->assertEquals('1.000,00', $m->formatSimple(2, ',', '.'));
-        $this->assertEquals('1.000', $m->formatSimple(0));
-        $this->assertEquals('1.000,000', $m->formatSimple(3));
+        $this->assertEquals('0,01', $m1->formatSimple());
+        $this->assertEquals('0,10', $m2->formatSimple());
+        $this->assertEquals('1,00', $m3->formatSimple());
+        $this->assertEquals('10,00', $m4->formatSimple());
+        $this->assertEquals('100,00', $m5->formatSimple());
+        $this->assertEquals('1.000,00', $m6->formatSimple());
     }
 
     /**
