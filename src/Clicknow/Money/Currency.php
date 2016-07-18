@@ -98,7 +98,7 @@ class Currency implements Arrayable, Jsonable, JsonSerializable, Renderable
      */
     public static function __callStatic($method, array $arguments)
     {
-        return new static($method);
+        return new static($method, $arguments);
     }
 
     /**
