@@ -476,15 +476,16 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     /**
      * formatSimple.
      *
-     * @param int    $decimals
-     * @param string $decPoint
-     * @param string $thousandsSep
-     *
      * @return string
      */
-    public function formatSimple($decimals = 2, $decPoint = ',', $thousandsSep = '.')
+    public function formatSimple()
     {
-        return number_format($this->getValue(), $decimals, $decPoint, $thousandsSep);
+        return number_format(
+            $this->getValue(),
+            $this->currency->getPrecision(),
+            $this->currency->getDecimalMark(),
+            $this->currency->getThousandsSeparator()
+        );
     }
 
     /**
