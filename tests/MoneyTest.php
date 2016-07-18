@@ -11,6 +11,24 @@ class MoneyTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(Money::USD(25), Money::USD(10)->add(Money::USD(15)));
     }
 
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testInvalidOperandThrowsException()
+    {
+        $m = new Money(100, new Currency('BRL'));
+        $m->convert(new Currency('BRL'), 'foo');
+    }
+
+    /**
+     * @expectedException \OutOfBoundsException
+     */
+    public function testInvalidRoundingModeThrowsException()
+    {
+        $m = new Money(100, new Currency('BRL'));
+        $m->convert(new Currency('BRL'), 1, 'foo');
+    }
+
     public function testConvertUnit()
     {
         $m1 = new Money(100, new Currency('BRL'), true);
@@ -34,6 +52,9 @@ class MoneyTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(100, $m->getAmount());
         $this->assertEquals(1, $m->getValue());
         $this->assertEquals(new Currency('BRL'), $m->getCurrency());
+        $this->assertNotEmpty($m->toArray());
+        $this->assertJson($m->toJson());
+        $this->assertNotEmpty($m->jsonSerialize());
     }
 
     public function testSameCurrency()
@@ -149,6 +170,15 @@ class MoneyTest extends PHPUnit_Framework_TestCase
         $this->assertNotEquals($m1, $m2->divide(2));
     }
 
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testInvalidDivisor()
+    {
+        $m = new Money(100, new Currency('BRL'));
+        $m->divide(0);
+    }
+
     public function testAllocation()
     {
         $m1 = new Money(100, new Currency('BRL'));
@@ -212,6 +242,16 @@ class MoneyTest extends PHPUnit_Framework_TestCase
             ['US$0,48', 'USD', 48.25, 'pt_BR', 'Example: '.__LINE__],
             ['$1,548.48', 'USD', 154848.25895, 'en_US', 'Example: '.__LINE__],
         ];
+    }
+
+    public function testCallbackFormatLocale()
+    {
+        $m = new Money(1, new Currency('BRL'));
+        $actual = $m->formatLocale(null, function (NumberFormatter $formatter) {
+            $formatter->setAttribute(NumberFormatter::MAX_FRACTION_DIGITS, 0);
+        });
+
+        $this->assertEquals('R$0', $actual);
     }
 
     public function testFormatSimple()
