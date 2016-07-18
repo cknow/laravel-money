@@ -25,9 +25,20 @@ class BladeExtensionsTest extends PHPUnit_Framework_TestCase
 
     public function testMoney()
     {
-        $this->assertEquals('<?php echo money(500); ?>', $this->compiler->compileString('@money(500)'));
-        $this->assertEquals('<?php echo money(500, "BRL"); ?>', $this->compiler->compileString('@money(500, "BRL")'));
-        $this->assertEquals('<?php echo money(500, "BRL", true); ?>', $this->compiler->compileString('@money(500, "BRL", true)'));
+        $this->assertEquals(
+            '<?php echo money(500); ?>',
+            $this->compiler->compileString('@money(500)')
+        );
+
+        $this->assertEquals(
+            '<?php echo money(500, "BRL"); ?>',
+            $this->compiler->compileString('@money(500, "BRL")')
+        );
+
+        $this->assertEquals(
+            '<?php echo money(500, "BRL", true); ?>',
+            $this->compiler->compileString('@money(500, "BRL", true)')
+        );
     }
 
     public function testCurrency()
