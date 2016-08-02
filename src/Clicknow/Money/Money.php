@@ -18,17 +18,14 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     const ROUND_HALF_DOWN = PHP_ROUND_HALF_DOWN;
     const ROUND_HALF_EVEN = PHP_ROUND_HALF_EVEN;
     const ROUND_HALF_ODD = PHP_ROUND_HALF_ODD;
-
     /**
      * @var int
      */
     protected $amount;
-
     /**
      * @var \Clicknow\Money\Currency
      */
     protected $currency;
-
     /**
      * @var string
      */
@@ -55,7 +52,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      * @param mixed $amount
      * @param bool  $convert
      *
-     * @return int|float|float
+     * @return int
      *
      * @throws \UnexpectedValueException
      */
@@ -82,7 +79,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
 
         if (is_int($amount)) {
             return ($convert) ? $amount * $this->currency->getSubunit() : $amount;
-        } elseif (is_float($amount) || is_double($amount)) {
+        } elseif (is_float($amount)) {
             return (int) round(($convert) ? $amount * $this->currency->getSubunit() : $amount, 0);
         }
 
@@ -147,14 +144,14 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     /**
      * assertOperand.
      *
-     * @param int|float|float $operand
+     * @param int|float $operand
      *
      * @throws \InvalidArgumentException
      */
     protected function assertOperand($operand)
     {
-        if (! is_int($operand) && ! is_float($operand) && ! is_double($operand)) {
-            throw new InvalidArgumentException('Operand "'.$operand.'" should be an integer, float or a double');
+        if (! is_int($operand) && ! is_float($operand)) {
+            throw new InvalidArgumentException('Operand "'.$operand.'" should be an integer or a float');
         }
     }
 
@@ -304,7 +301,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      * convert.
      *
      * @param \Clicknow\Money\Currency $currency
-     * @param int|float|float         $ratio
+     * @param int|float                $ratio
      * @param int                      $roundingMode
      *
      * @return \Clicknow\Money\Money
@@ -355,8 +352,8 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     /**
      * multiply.
      *
-     * @param int|float|float $multiplier
-     * @param int              $roundingMode
+     * @param int|float $multiplier
+     * @param int       $roundingMode
      *
      * @return \Clicknow\Money\Money
      *
@@ -371,8 +368,8 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     /**
      * divide.
      *
-     * @param int|float|float $divisor
-     * @param int              $roundingMode
+     * @param int|float $divisor
+     * @param int       $roundingMode
      *
      * @return \Clicknow\Money\Money
      *
@@ -411,7 +408,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
         }
 
         for ($i = 0; $remainder > 0; $i++) {
-            $results[ $i ]->amount++;
+            $results[$i]->amount++;
             $remainder--;
         }
 
@@ -527,7 +524,8 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     /**
      * Convert the object to its JSON representation.
      *
-     * @param  int  $options
+     * @param  int $options
+     *
      * @return string
      */
     public function toJson($options = 0)
