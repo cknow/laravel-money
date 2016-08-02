@@ -18,14 +18,17 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     const ROUND_HALF_DOWN = PHP_ROUND_HALF_DOWN;
     const ROUND_HALF_EVEN = PHP_ROUND_HALF_EVEN;
     const ROUND_HALF_ODD = PHP_ROUND_HALF_ODD;
+
     /**
      * @var int
      */
     protected $amount;
+
     /**
      * @var \Clicknow\Money\Currency
      */
     protected $currency;
+
     /**
      * @var string
      */
