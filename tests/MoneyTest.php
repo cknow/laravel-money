@@ -24,7 +24,7 @@ class MoneyTest extends PHPUnit_Framework_TestCase
 
     public function testValueFunction()
     {
-        $this->assertEquals(new Money(function() {
+        $this->assertEquals(new Money(function () {
             return 1;
         }, new Currency('BRL')), new Money(1, new Currency('BRL')));
     }
