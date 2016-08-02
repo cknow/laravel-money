@@ -5,10 +5,43 @@ use Clicknow\Money\Currency;
 
 class MoneyTest extends PHPUnit_Framework_TestCase
 {
+    protected function setUp()
+    {
+        Money::setLocale('pt_BR');
+    }
+
     public function testFactoryMethods()
     {
         $this->assertEquals(Money::BRL(25), Money::BRL(10)->add(Money::BRL(15)));
         $this->assertEquals(Money::USD(25), Money::USD(10)->add(Money::USD(15)));
+    }
+
+    public function testValueString()
+    {
+        $this->assertEquals(new Money('1', new Currency('BRL')), new Money(1, new Currency('BRL')));
+        $this->assertEquals(new Money('1,1', new Currency('BRL')), new Money(1.1, new Currency('BRL')));
+    }
+
+    public function testValueFunction()
+    {
+        $this->assertEquals(new Money(function() {
+            return 1;
+        }, new Currency('BRL')), new Money(1, new Currency('BRL')));
+    }
+
+    /**
+     * @expectedException \UnexpectedValueException
+     */
+    public function testStringThrowsException()
+    {
+        new Money('foo', new Currency('BRL'));
+    }
+
+    public function testLocale()
+    {
+        $this->assertEquals('pt_BR', Money::getLocale());
+        Money::setLocale('en-US');
+        $this->assertEquals('en-US', Money::getLocale());
     }
 
     /**
@@ -36,14 +69,6 @@ class MoneyTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals(10000, $m1->getAmount());
         $this->assertNotEquals($m1, $m2);
-    }
-
-    /**
-     * @expectedException \UnexpectedValueException
-     */
-    public function testStringThrowsException()
-    {
-        new Money('foo', new Currency('BRL'));
     }
 
     public function testGetters()
