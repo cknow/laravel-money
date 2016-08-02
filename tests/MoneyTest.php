@@ -39,6 +39,7 @@ class MoneyTest extends PHPUnit_Framework_TestCase
 
     public function testLocale()
     {
+        Money::setLocale(null);
         $this->assertEquals('pt_BR', Money::getLocale());
         Money::setLocale('en-US');
         $this->assertEquals('en-US', Money::getLocale());
