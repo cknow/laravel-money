@@ -55,7 +55,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      * @param mixed $amount
      * @param bool  $convert
      *
-     * @return int|float
+     * @return int|float|double
      *
      * @throws \UnexpectedValueException
      */
@@ -82,7 +82,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
 
         if (is_int($amount)) {
             return ($convert) ? $amount * $this->currency->getSubunit() : $amount;
-        } elseif (is_float($amount)) {
+        } elseif (is_float($amount) || is_double($amount)) {
             return (int) round(($convert) ? $amount * $this->currency->getSubunit() : $amount, 0);
         }
 
@@ -147,14 +147,14 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     /**
      * assertOperand.
      *
-     * @param int|float $operand
+     * @param int|float|double $operand
      *
      * @throws \InvalidArgumentException
      */
     protected function assertOperand($operand)
     {
-        if (! is_int($operand) && ! is_float($operand)) {
-            throw new InvalidArgumentException('Operand "'.$operand.'" should be an integer or a float');
+        if (! is_int($operand) && ! is_float($operand) && ! is_double($operand)) {
+            throw new InvalidArgumentException('Operand "'.$operand.'" should be an integer, float or a double');
         }
     }
 
@@ -304,7 +304,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      * convert.
      *
      * @param \Clicknow\Money\Currency $currency
-     * @param int|float                $ratio
+     * @param int|float|double         $ratio
      * @param int                      $roundingMode
      *
      * @return \Clicknow\Money\Money
@@ -355,8 +355,8 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     /**
      * multiply.
      *
-     * @param int|float $multiplier
-     * @param int       $roundingMode
+     * @param int|float|double $multiplier
+     * @param int              $roundingMode
      *
      * @return \Clicknow\Money\Money
      *
@@ -371,8 +371,8 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     /**
      * divide.
      *
-     * @param int|float $divisor
-     * @param int       $roundingMode
+     * @param int|float|double $divisor
+     * @param int              $roundingMode
      *
      * @return \Clicknow\Money\Money
      *
