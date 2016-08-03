@@ -230,6 +230,34 @@ class Currency implements Arrayable, Jsonable, JsonSerializable, Renderable
     }
 
     /**
+     * getPrefix.
+     *
+     * @return string
+     */
+    public function getPrefix()
+    {
+        if (! $this->symbolFirst) {
+            return '';
+        }
+
+        return $this->symbol . ' ';
+    }
+
+    /**
+     * getSuffix.
+     *
+     * @return string
+     */
+    public function getSuffix()
+    {
+        if ($this->symbolFirst) {
+            return '';
+        }
+
+        return $this->symbol;
+    }
+
+    /**
      * Get the instance as an array.
      *
      * @return array
@@ -245,6 +273,8 @@ class Currency implements Arrayable, Jsonable, JsonSerializable, Renderable
             'symbol_first'        => $this->symbolFirst,
             'decimal_mark'        => $this->decimalMark,
             'thousands_separator' => $this->thousandsSeparator,
+            'prefix'              => $this->getPrefix(),
+            'suffix'              => $this->getSuffix(),
         ]];
     }
 

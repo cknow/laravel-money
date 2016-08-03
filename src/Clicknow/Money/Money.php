@@ -75,23 +75,6 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     }
 
     /**
-     * convertAmount.
-     *
-     * @param int|float $amount
-     * @param bool      $convert
-     *
-     * @return int|float
-     */
-    protected function convertAmount($amount, $convert = false)
-    {
-        if (! $convert) {
-            return $amount;
-        }
-
-        return $amount * $this->currency->getSubunit();
-    }
-
-    /**
      * parseAmountFromCallable.
      *
      * @param mixed $amount
@@ -134,6 +117,23 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
         }
 
         return $amount;
+    }
+
+    /**
+     * convertAmount.
+     *
+     * @param int|float $amount
+     * @param bool      $convert
+     *
+     * @return int|float
+     */
+    protected function convertAmount($amount, $convert = false)
+    {
+        if (! $convert) {
+            return $amount;
+        }
+
+        return $amount * $this->currency->getSubunit();
     }
 
     /**
@@ -547,14 +547,11 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
         $amount = $negative ? -$value : $value;
         $thousands = $this->currency->getThousandsSeparator();
         $decimals = $this->currency->getDecimalMark();
-        $symbolFirst = $this->currency->isSymbolFirst();
-        $symbol = $this->currency->getSymbol();
-
-        $prefix = ($negative ? '-' : '').($symbolFirst ? $symbol.' ' : '');
+        $prefix = $this->currency->getPrefix();
+        $suffix = $this->currency->getSuffix();
         $value = number_format($amount, 2, $decimals, $thousands);
-        $suffix = ! $symbolFirst ? $symbol : '';
 
-        return $prefix.$value.$suffix;
+        return ($negative ? '-' : '').$prefix.$value.$suffix;
     }
 
     /**
