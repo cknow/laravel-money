@@ -61,32 +61,62 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      */
     protected function parseAmount($amount, $convert = false)
     {
-        if (is_callable($amount)) {
-            $amount = $amount();
-        }
-
-        if (is_string($amount)) {
-            $thousandsSeparator = $this->currency->getThousandsSeparator();
-            $decimalMark = $this->currency->getDecimalMark();
-
-            $amount = preg_replace('/[^0-9\\'.$thousandsSeparator.'\\'.$decimalMark.'\-\+]/', '', $amount);
-            $amount = str_replace($this->currency->getThousandsSeparator(), '', $amount);
-            $amount = str_replace($this->currency->getDecimalMark(), '.', $amount);
-
-            if (preg_match('/^([\-\+])?\d+$/', $amount)) {
-                $amount = (int) $amount;
-            } elseif (preg_match('/^([\-\+])?\d+\.\d+$/', $amount)) {
-                $amount = (float) $amount;
-            }
-        }
+        $amount = $this->parseAmountFromString($this->parseAmountFromCallable($amount));
 
         if (is_int($amount)) {
             return ($convert) ? $amount * $this->currency->getSubunit() : $amount;
-        } elseif (is_float($amount)) {
+        }
+
+        if (is_float($amount)) {
             return (int) round(($convert) ? $amount * $this->currency->getSubunit() : $amount, 0);
         }
 
         throw new UnexpectedValueException('Invalid amount "'.$amount.'"');
+    }
+
+    /**
+     * parseAmountFromCallable.
+     *
+     * @param mixed $amount
+     *
+     * @return mixed
+     */
+    protected function parseAmountFromCallable($amount)
+    {
+        if (! is_callable($amount)) {
+            return $amount;
+        }
+
+        return $amount();
+    }
+
+    /**
+     * parseAmountFromString.
+     *
+     * @param mixed $amount
+     *
+     * @return int|float|mixed
+     */
+    protected function parseAmountFromString($amount)
+    {
+        if (! is_string($amount)) {
+            return $amount;
+        }
+
+        $thousandsSeparator = $this->currency->getThousandsSeparator();
+        $decimalMark = $this->currency->getDecimalMark();
+
+        $amount = preg_replace('/[^0-9\\'.$thousandsSeparator.'\\'.$decimalMark.'\-\+]/', '', $amount);
+        $amount = str_replace($this->currency->getThousandsSeparator(), '', $amount);
+        $amount = str_replace($this->currency->getDecimalMark(), '.', $amount);
+
+        if (preg_match('/^([\-\+])?\d+$/', $amount)) {
+            $amount = (int) $amount;
+        } elseif (preg_match('/^([\-\+])?\d+\.\d+$/', $amount)) {
+            $amount = (float) $amount;
+        }
+
+        return $amount;
     }
 
     /**
