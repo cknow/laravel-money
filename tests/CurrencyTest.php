@@ -42,6 +42,8 @@ class CurrencyTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(true, $c->isSymbolFirst());
         $this->assertEquals(',', $c->getDecimalMark());
         $this->assertEquals('.', $c->getThousandsSeparator());
+        $this->assertEquals('R$ ', $c->getPrefix());
+        $this->assertEquals('', $c->getSuffix());
         $this->assertNotEmpty($c->toArray()['BRL']);
         $this->assertJson($c->toJson());
         $this->assertNotEmpty($c->jsonSerialize()['BRL']);
