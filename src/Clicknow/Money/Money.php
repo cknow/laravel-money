@@ -64,7 +64,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
         $amount = $this->parseAmountFromString($this->parseAmountFromCallable($amount));
 
         if (is_int($amount)) {
-            return $this->convertAmount($amount, $convert);
+            return (int) $this->convertAmount($amount, $convert);
         }
 
         if (is_float($amount)) {
