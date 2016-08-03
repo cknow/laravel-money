@@ -64,14 +64,31 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
         $amount = $this->parseAmountFromString($this->parseAmountFromCallable($amount));
 
         if (is_int($amount)) {
-            return ($convert) ? $amount * $this->currency->getSubunit() : $amount;
+            return $this->convertAmount($amount, $convert);
         }
 
         if (is_float($amount)) {
-            return (int) round(($convert) ? $amount * $this->currency->getSubunit() : $amount, 0);
+            return (int) round($this->convertAmount($amount, $convert), 0);
         }
 
         throw new UnexpectedValueException('Invalid amount "'.$amount.'"');
+    }
+
+    /**
+     * convertAmount.
+     *
+     * @param int|float $amount
+     * @param bool      $convert
+     *
+     * @return int|float
+     */
+    protected function convertAmount($amount, $convert = false)
+    {
+        if (! $convert) {
+            return $amount;
+        }
+
+        return $amount * $this->currency->getSubunit();
     }
 
     /**
