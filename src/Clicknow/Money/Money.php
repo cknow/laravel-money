@@ -13,9 +13,7 @@ use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Contracts\Support\Renderable;
 
 /**
- * Class Money
- *
- * @package Clicknow\Money
+ * Class Money.
  *
  * @method static Money AED(mixed $amount, bool $convert = false)
  * @method static Money AFN(mixed $amount, bool $convert = false)

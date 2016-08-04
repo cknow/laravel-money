@@ -9,9 +9,7 @@ use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Contracts\Support\Renderable;
 
 /**
- * Class Currency
- *
- * @package Clicknow\Money
+ * Class Currency.
  *
  * @method static Currency AED()
  * @method static Currency AFN()
