@@ -244,7 +244,7 @@ class Currency implements Arrayable, Jsonable, JsonSerializable, Renderable
             throw new OutOfBoundsException('Invalid currency "'.$currency.'"');
         }
 
-        $attributes = $currencies[ $currency ];
+        $attributes = $currencies[$currency];
         $this->currency = $currency;
         $this->name = (string) $attributes['name'];
         $this->code = (int) $attributes['code'];
