@@ -5,6 +5,7 @@ use Symfony\CS\FixerInterface;
 use Symfony\CS\Finder\DefaultFinder;
 
 $fixers = [
+    'align_double_arrow',
     'blankline_after_open_tag',
     'braces',
     'concat_without_spaces',
@@ -36,11 +37,15 @@ $fixers = [
     'object_operator',
     'operators_spaces',
     'parenthesis',
+    'php_closing_tag',
     'phpdoc_indent',
     'phpdoc_inline_tag',
     'phpdoc_no_access',
     'phpdoc_no_package',
+    'phpdoc_order',
+    'phpdoc_params',
     'phpdoc_scalar',
+    'phpdoc_separation',
     'phpdoc_short_description',
     'phpdoc_to_comment',
     'phpdoc_trim',

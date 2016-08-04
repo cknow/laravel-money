@@ -55,9 +55,9 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      * @param mixed $amount
      * @param bool  $convert
      *
-     * @return int
-     *
      * @throws \UnexpectedValueException
+     *
+     * @return int
      */
     protected function parseAmount($amount, $convert = false)
     {
@@ -268,9 +268,9 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      *
      * @param \Clicknow\Money\Money $other
      *
-     * @return int
-     *
      * @throws \InvalidArgumentException
+     *
+     * @return int
      */
     public function compare(self $other)
     {
@@ -354,10 +354,10 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      * @param int|float                $ratio
      * @param int                      $roundingMode
      *
-     * @return \Clicknow\Money\Money
-     *
      * @throws \InvalidArgumentException
      * @throws \OutOfBoundsException
+     *
+     * @return \Clicknow\Money\Money
      */
     public function convert(Currency $currency, $ratio, $roundingMode = self::ROUND_HALF_UP)
     {
@@ -372,9 +372,9 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      *
      * @param \Clicknow\Money\Money $addend
      *
-     * @return \Clicknow\Money\Money
-     *
      * @throws \InvalidArgumentException
+     *
+     * @return \Clicknow\Money\Money
      */
     public function add(self $addend)
     {
@@ -388,9 +388,9 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      *
      * @param \Clicknow\Money\Money $subtrahend
      *
-     * @return \Clicknow\Money\Money
-     *
      * @throws \InvalidArgumentException
+     *
+     * @return \Clicknow\Money\Money
      */
     public function subtract(self $subtrahend)
     {
@@ -405,10 +405,10 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      * @param int|float $multiplier
      * @param int       $roundingMode
      *
-     * @return \Clicknow\Money\Money
-     *
      * @throws \InvalidArgumentException
      * @throws \OutOfBoundsException
+     *
+     * @return \Clicknow\Money\Money
      */
     public function multiply($multiplier, $roundingMode = self::ROUND_HALF_UP)
     {
@@ -421,10 +421,10 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      * @param int|float $divisor
      * @param int       $roundingMode
      *
-     * @return \Clicknow\Money\Money
-     *
      * @throws \InvalidArgumentException
      * @throws \OutOfBoundsException
+     *
+     * @return \Clicknow\Money\Money
      */
     public function divide($divisor, $roundingMode = self::ROUND_HALF_UP)
     {
@@ -501,9 +501,9 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      * @param string  $locale
      * @param Closure $callback
      *
-     * @return string
-     *
      * @throws \BadFunctionCallException
+     *
+     * @return string
      */
     public function formatLocale($locale = null, Closure $callback = null)
     {
@@ -571,7 +571,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     /**
      * Convert the object to its JSON representation.
      *
-     * @param  int $options
+     * @param int $options
      *
      * @return string
      */
