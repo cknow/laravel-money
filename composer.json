@@ -29,10 +29,10 @@
   },
   "autoload": {
     "files": [
-      "src/Clicknow/Money/helpers.php"
+      "src/ClickNow/Money/helpers.php"
     ],
     "psr-4": {
-      "Clicknow\\": "src/Clicknow"
+      "ClickNow\\": "src/ClickNow"
     }
   },
   "suggest": {

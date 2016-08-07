@@ -1,7 +1,7 @@
 <?php
 
-use Clicknow\Money\Money;
-use Clicknow\Money\Currency;
+use ClickNow\Money\Money;
+use ClickNow\Money\Currency;
 
 if (! function_exists('money')) {
     /**
@@ -11,7 +11,7 @@ if (! function_exists('money')) {
      * @param string $currency
      * @param bool   $convert
      *
-     * @return \Clicknow\Money\Money
+     * @return \ClickNow\Money\Money
      */
     function money($amount, $currency = 'BRL', $convert = false)
     {
@@ -25,7 +25,7 @@ if (! function_exists('currency')) {
      *
      * @param string $currency
      *
-     * @return \Clicknow\Money\Currency
+     * @return \ClickNow\Money\Currency
      */
     function currency($currency)
     {

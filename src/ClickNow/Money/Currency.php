@@ -1,6 +1,6 @@
 <?php
 
-namespace Clicknow\Money;
+namespace ClickNow\Money;
 
 use OutOfBoundsException;
 use JsonSerializable;
@@ -262,7 +262,7 @@ class Currency implements Arrayable, Jsonable, JsonSerializable, Renderable
      * @param string $method
      * @param array  $arguments
      *
-     * @return \Clicknow\Money\Currency
+     * @return \ClickNow\Money\Currency
      */
     public static function __callStatic($method, array $arguments)
     {
@@ -298,7 +298,7 @@ class Currency implements Arrayable, Jsonable, JsonSerializable, Renderable
     /**
      * equals.
      *
-     * @param \Clicknow\Money\Currency $currency
+     * @param \ClickNow\Money\Currency $currency
      *
      * @return bool
      */

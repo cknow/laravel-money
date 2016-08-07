@@ -1,6 +1,6 @@
 <?php
 
-namespace Clicknow\Money;
+namespace ClickNow\Money;
 
 use Illuminate\View\Compilers\BladeCompiler;
 

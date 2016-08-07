@@ -1,6 +1,6 @@
 <?php
 
-use Clicknow\Money\Currency;
+use ClickNow\Money\Currency;
 
 class CurrencyTest extends PHPUnit_Framework_TestCase
 {

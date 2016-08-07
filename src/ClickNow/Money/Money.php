@@ -1,6 +1,6 @@
 <?php
 
-namespace Clicknow\Money;
+namespace ClickNow\Money;
 
 use BadFunctionCallException;
 use Closure;
@@ -193,7 +193,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     protected $amount;
 
     /**
-     * @var \Clicknow\Money\Currency
+     * @var \ClickNow\Money\Currency
      */
     protected $currency;
 
@@ -206,7 +206,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      * Create a new instance.
      *
      * @param mixed                    $amount
-     * @param \Clicknow\Money\Currency $currency
+     * @param \ClickNow\Money\Currency $currency
      * @param bool                     $convert
      *
      * @throws \UnexpectedValueException
@@ -310,7 +310,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      * @param string $method
      * @param array  $arguments
      *
-     * @return \Clicknow\Money\Money
+     * @return \ClickNow\Money\Money
      */
     public static function __callStatic($method, array $arguments)
     {
@@ -348,7 +348,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     /**
      * assertSameCurrency.
      *
-     * @param \Clicknow\Money\Money $other
+     * @param \ClickNow\Money\Money $other
      *
      * @throws \InvalidArgumentException
      */
@@ -412,7 +412,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     /**
      * getCurrency.
      *
-     * @return \Clicknow\Money\Currency
+     * @return \ClickNow\Money\Currency
      */
     public function getCurrency()
     {
@@ -422,7 +422,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     /**
      * isSameCurrency.
      *
-     * @param \Clicknow\Money\Money $other
+     * @param \ClickNow\Money\Money $other
      *
      * @return bool
      */
@@ -434,7 +434,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     /**
      * compare.
      *
-     * @param \Clicknow\Money\Money $other
+     * @param \ClickNow\Money\Money $other
      *
      * @throws \InvalidArgumentException
      *
@@ -458,7 +458,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     /**
      * equals.
      *
-     * @param \Clicknow\Money\Money $other
+     * @param \ClickNow\Money\Money $other
      *
      * @return bool
      */
@@ -470,7 +470,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     /**
      * greaterThan.
      *
-     * @param \Clicknow\Money\Money $other
+     * @param \ClickNow\Money\Money $other
      *
      * @return bool
      */
@@ -482,7 +482,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     /**
      * greaterThanOrEqual.
      *
-     * @param \Clicknow\Money\Money $other
+     * @param \ClickNow\Money\Money $other
      *
      * @return bool
      */
@@ -494,7 +494,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     /**
      * lessThan.
      *
-     * @param \Clicknow\Money\Money $other
+     * @param \ClickNow\Money\Money $other
      *
      * @return bool
      */
@@ -506,7 +506,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     /**
      * lessThanOrEqual.
      *
-     * @param \Clicknow\Money\Money $other
+     * @param \ClickNow\Money\Money $other
      *
      * @return bool
      */
@@ -518,14 +518,14 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     /**
      * convert.
      *
-     * @param \Clicknow\Money\Currency $currency
+     * @param \ClickNow\Money\Currency $currency
      * @param int|float                $ratio
      * @param int                      $roundingMode
      *
      * @throws \InvalidArgumentException
      * @throws \OutOfBoundsException
      *
-     * @return \Clicknow\Money\Money
+     * @return \ClickNow\Money\Money
      */
     public function convert(Currency $currency, $ratio, $roundingMode = self::ROUND_HALF_UP)
     {
@@ -538,11 +538,11 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     /**
      * add.
      *
-     * @param \Clicknow\Money\Money $addend
+     * @param \ClickNow\Money\Money $addend
      *
      * @throws \InvalidArgumentException
      *
-     * @return \Clicknow\Money\Money
+     * @return \ClickNow\Money\Money
      */
     public function add(self $addend)
     {
@@ -554,11 +554,11 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     /**
      * subtract.
      *
-     * @param \Clicknow\Money\Money $subtrahend
+     * @param \ClickNow\Money\Money $subtrahend
      *
      * @throws \InvalidArgumentException
      *
-     * @return \Clicknow\Money\Money
+     * @return \ClickNow\Money\Money
      */
     public function subtract(self $subtrahend)
     {
@@ -576,7 +576,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      * @throws \InvalidArgumentException
      * @throws \OutOfBoundsException
      *
-     * @return \Clicknow\Money\Money
+     * @return \ClickNow\Money\Money
      */
     public function multiply($multiplier, $roundingMode = self::ROUND_HALF_UP)
     {
@@ -592,7 +592,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      * @throws \InvalidArgumentException
      * @throws \OutOfBoundsException
      *
-     * @return \Clicknow\Money\Money
+     * @return \ClickNow\Money\Money
      */
     public function divide($divisor, $roundingMode = self::ROUND_HALF_UP)
     {

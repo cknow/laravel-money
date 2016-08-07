@@ -24,20 +24,20 @@ or add this to require section in your composer.json file:
 
 then run ```composer update```
 
-In your **config/app.php** add *'Clicknow\Money\MoneyServiceProvider'* to the end of the **'providers'** array:
+In your **config/app.php** add *'ClickNow\Money\MoneyServiceProvider'* to the end of the **'providers'** array:
 
 ```php
 'providers' => array(
     ...
     ...
-    Clicknow\Money\MoneyServiceProvider::class,
+    ClickNow\Money\MoneyServiceProvider::class,
 ),
 ```
 
 ## Usage
 
 ```php
-use Clicknow\Money\Money;
+use ClickNow\Money\Money;
 
 echo Money::BRL(500); // 'R$ 5,00' unconverted
 echo new Money(500, new Currency('BRL')); // 'R$ 5,00' unconverted

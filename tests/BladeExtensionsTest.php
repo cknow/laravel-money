@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\View\Compilers\BladeCompiler;
-use Clicknow\Money\BladeExtensions;
+use ClickNow\Money\BladeExtensions;
 
 class BladeExtensionsTest extends PHPUnit_Framework_TestCase
 {
