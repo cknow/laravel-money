@@ -59,7 +59,7 @@ $m1->greaterThan($m2);
 $m1->greaterThanOrEqual($m2);
 $m1->lessThan($m2);
 $m1->lessThanOrEqual($m2);
-$m1->convert('USD', 3.5);
+$m1->convert(Currency::USD, 3.5);
 $m1->add($m2);
 $m1->subtract($m2);
 $m1->multiply(2);
