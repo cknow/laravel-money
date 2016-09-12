@@ -1,6 +1,7 @@
 {
   "name": "cknow/laravel-money",
   "description": "Laravel Money",
+  "type": "library",
   "keywords": [
     "laravel",
     "money",
@@ -16,7 +17,9 @@
     }
   ],
   "support": {
-    "email": "ricardo@clicknow.com.br"
+    "email": "ricardo@clicknow.com.br",
+    "issues": "https://github.com/cknow/laravel-money/issues",
+    "source": "https://github.com/cknow/laravel-money"
   },
   "require": {
     "php": ">=5.5.9",
