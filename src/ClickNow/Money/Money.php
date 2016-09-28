@@ -188,7 +188,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     const ROUND_HALF_ODD = PHP_ROUND_HALF_ODD;
 
     /**
-     * @var int
+     * @var int|float
      */
     protected $amount;
 
@@ -225,7 +225,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      *
      * @throws \UnexpectedValueException
      *
-     * @return int
+     * @return int|float
      */
     protected function parseAmount($amount, $convert = false)
     {
@@ -236,7 +236,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
         }
 
         if (is_float($amount)) {
-            return (int) round($this->convertAmount($amount, $convert), 0);
+            return (float) round($this->convertAmount($amount, $convert), 0);
         }
 
         throw new UnexpectedValueException('Invalid amount "'.$amount.'"');
@@ -392,7 +392,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     /**
      * getAmount.
      *
-     * @return int
+     * @return int|float
      */
     public function getAmount()
     {
@@ -532,7 +532,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
         $this->assertOperand($ratio);
         $this->assertRoundingMode($roundingMode);
 
-        return new self((int) round($this->amount * $ratio, 0, $roundingMode), $currency);
+        return new self(round($this->amount * $ratio, 0, $roundingMode), $currency);
     }
 
     /**
@@ -603,7 +603,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
             throw new InvalidArgumentException('Division by zero');
         }
 
-        return new self((int) round($this->amount / $divisor, 0, $roundingMode), $this->currency);
+        return new self(round($this->amount / $divisor, 0, $roundingMode), $this->currency);
     }
 
     /**

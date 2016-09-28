@@ -16,6 +16,11 @@ class MoneyTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(Money::USD(25), Money::USD(10)->add(Money::USD(15)));
     }
 
+    public function testBigValue()
+    {
+        $this->assertEquals((string) new Money(123456789.321, new Currency('BRL'), true), 'R$ 123.456.789,32');
+    }
+
     public function testValueString()
     {
         $this->assertEquals(new Money('1', new Currency('BRL')), new Money(1, new Currency('BRL')));
