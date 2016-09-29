@@ -620,7 +620,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
         $total = array_sum($ratios);
 
         foreach ($ratios as $ratio) {
-            $share = (int) floor($this->amount * $ratio / $total);
+            $share = floor($this->amount * $ratio / $total);
             $results[] = new self($share, $this->currency);
             $remainder -= $share;
         }
