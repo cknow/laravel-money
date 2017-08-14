@@ -717,7 +717,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
         $decimals = $this->currency->getDecimalMark();
         $prefix = $this->currency->getPrefix();
         $suffix = $this->currency->getSuffix();
-        $value = number_format($amount, 2, $decimals, $thousands);
+        $value = number_format($amount, $this->currency->getPrecision(), $decimals, $thousands);
 
         return ($negative ? '-' : '').$prefix.$value.$suffix;
     }
