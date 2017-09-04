@@ -1,8 +1,12 @@
 parameters:
   tasks:
-    phpunit: ~
+    phpunit:
+      metadata:
+        priority: 1
     clover_coverage:
-      clover_file: /tmp/coverage.xml
+      clover_file: build/logs/clover.xml
+      metadata:
+        priority: 2
     composer:
       no_check_lock: true
     phpcpd: ~
