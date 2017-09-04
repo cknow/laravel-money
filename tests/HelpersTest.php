@@ -1,9 +1,10 @@
 <?php
 
-use ClickNow\Money\Currency;
-use ClickNow\Money\Money;
+namespace Cknow\Money;
 
-class HelpersTest extends PHPUnit_Framework_TestCase
+use Money\Currency;
+
+class HelpersTest extends \PHPUnit_Framework_TestCase
 {
     public function testMoney()
     {

@@ -1,21 +1,55 @@
 language: php
 
-php:
-  - 5.5.9
-  - 5.5
-  - 5.6
-  - 7.0
-  - hhvm
+dist: trusty
 
 sudo: false
 
-before_script:
-  - composer self-update
-  - composer install --no-interaction --prefer-source
+env:
+  global:
+    - setup=stable
+
+matrix:
+  fast_finish: true
+  include:
+    - php: 7.0
+    - php: 7.0
+      env: setup=lowest
+    - php: 7.1
+    - php: 7.1
+      env: setup=lowest
+    - php: 7.2
+    - php: 7.2
+      env: setup=lowest
+
+cache:
+  directories:
+    - $HOME/.composer/cache
+
+before_install:
+  - travis_retry composer self-update
+  - travis_retry composer global require hirak/prestissimo
+
+install:
+  - |
+    if [[ "$setup" == "stable" ]]; then
+      travis_retry composer update --prefer-dist --no-scripts --no-interaction --prefer-stable --no-suggest;
+    fi
+    if [[ "$setup" == "lowest" ]]; then
+      travis_retry composer update --prefer-dist --no-scripts --no-interaction --prefer-lowest --prefer-stable --no-suggest;
+    fi
 
 script:
-  - vendor/bin/phpunit --colors --coverage-clover=coverage.clover
+  - composer test
 
 after_script:
-  - test "5.6" == "${TRAVIS_PHP_VERSION}" && wget https://scrutinizer-ci.com/ocular.phar
-  - test -f ocular.phar && php ocular.phar code-coverage:upload --format=php-clover coverage.clover
+  - |
+    if [[ "$TRAVIS_PHP_VERSION" == "7.0" && "$setup" == "stable" ]]; then
+      travis_retry composer require --dev scrutinizer/ocular
+      vendor/bin/ocular code-coverage:upload --format=php-clover build/logs/clover.xml
+
+      travis_retry composer require --dev satooshi/php-coveralls
+      vendor/bin/coveralls -v
+
+      travis_retry composer require --dev codeclimate/php-test-reporter
+      CODECLIMATE_REPO_TOKEN="bfe1331818a2cea90bc5dde922a6aba5753c65b63bb46ad63b970eb24fb0cc5e" vendor/bin/test-reporter
+    fi

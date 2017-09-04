@@ -1,0 +1,26 @@
+parameters:
+  tasks:
+    phpunit: ~
+    clover_coverage:
+      clover_file: /tmp/coverage.xml
+    composer:
+      no_check_lock: true
+    phpcpd: ~
+    phpcs:
+      standard: PSR2
+      encoding: utf-8
+    phplint: ~
+    phpmd:
+      ruleset: ['phpmd.xml']
+    phpmnd: ~
+    phpparser:
+      visitors:
+        no_exit_statements: ~
+        never_use_else: ~
+        forbidden_function_calls:
+          blacklist: [var_dump]
+    phpstan: ~
+    phpversion:
+      project: '7.0'
+    securitychecker: ~
+    git_commit_message: ~

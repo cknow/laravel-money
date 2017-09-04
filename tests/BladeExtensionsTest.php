@@ -1,9 +1,14 @@
 <?php
 
-use Illuminate\View\Compilers\BladeCompiler;
-use ClickNow\Money\BladeExtensions;
+namespace Cknow\Money;
 
-class BladeExtensionsTest extends PHPUnit_Framework_TestCase
+use Illuminate\View\Compilers\BladeCompiler;
+use Mockery;
+
+/**
+ * @covers \Cknow\Money\BladeExtensions
+ */
+class BladeExtensionsTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var \Illuminate\View\Compilers\BladeCompiler
@@ -15,6 +20,7 @@ class BladeExtensionsTest extends PHPUnit_Framework_TestCase
         parent::setUp();
 
         $this->compiler = new BladeCompiler(Mockery::mock('Illuminate\Filesystem\Filesystem'), __DIR__);
+
         BladeExtensions::register($this->compiler);
     }
 
@@ -31,18 +37,16 @@ class BladeExtensionsTest extends PHPUnit_Framework_TestCase
         );
 
         $this->assertEquals(
-            '<?php echo money(500, "BRL"); ?>',
-            $this->compiler->compileString('@money(500, "BRL")')
-        );
-
-        $this->assertEquals(
-            '<?php echo money(500, "BRL", true); ?>',
-            $this->compiler->compileString('@money(500, "BRL", true)')
+            '<?php echo money(500, "USD"); ?>',
+            $this->compiler->compileString('@money(500, "USD")')
         );
     }
 
     public function testCurrency()
     {
-        $this->assertEquals('<?php echo currency("BRL"); ?>', $this->compiler->compileString('@currency("BRL")'));
+        $this->assertEquals(
+            '<?php echo currency("BRL"); ?>',
+            $this->compiler->compileString('@currency("BRL")')
+        );
     }
 }

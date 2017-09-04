@@ -83,3 +83,21 @@ currency('BRL')
 @money(500, 'BRL')
 @currency('BRL')
 ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//"phpunit --colors --coverage-clover=coverage.clover"

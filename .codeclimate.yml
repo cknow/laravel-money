@@ -1,0 +1,20 @@
+php: true
+
+ratings:
+  paths:
+    - src/**/*.php
+    - tests/**/*.php
+
+engines:
+  duplication:
+    enabled: true
+
+  phpcodesniffer:
+    enabled: true
+    config:
+      standard: psr2
+
+  phpmd:
+    enabled: true
+    config:
+      rulesets: phpmd.xml

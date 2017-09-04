@@ -1,0 +1,46 @@
+build: false
+
+shallow_clone: false
+
+platform:
+  - x86
+  - x64
+
+clone_folder: c:\projects\laravel-money
+
+environment:
+  matrix:
+    - php_ver: 7.0
+    - php_ver: 7.1
+    - php_ver: 7.2
+
+cache:
+  - '%APPDATA%\Composer'
+  - '%LOCALAPPDATA%\Composer'
+  - c:\tools\php -> appveyor.yml
+  - C:\tools\composer.phar -> .appveyor.yml
+
+init:
+  - SET PATH=C:\tools\php;%PATH%
+
+install:
+  - ps: Set-Service wuauserv -StartupType Manual
+  - IF NOT EXIST C:\tools\php (choco install --yes --allow-empty-checksums php --version %php_ver% --params '/InstallDir:C:\tools\php')
+  - cd C:\tools\php
+  - copy php.ini-production php.ini
+  - echo date.timezone="UTC" >> php.ini
+  - echo memory_limit=512M >> php.ini
+  - echo extension_dir=ext >> php.ini
+  - echo extension=php_curl.dll >> php.ini
+  - echo extension=php_openssl.dll >> php.ini
+  - IF NOT EXIST C:\tools\composer.phar (cd C:\tools && appveyor DownloadFile https://getcomposer.org/download/1.5.1/composer.phar)
+  - cd C:\projects\laravel-money
+  - php C:\tools\composer.phar global show -ND 2>1 | findstr "hirak/prestissimo" || php C:\tools\composer.phar global require hirak/prestissimo
+
+before_test:
+    - cd C:\projects\laravel-money
+    - php C:\tools\composer.phar update --no-progress --profile --prefer-dist --no-scripts --no-interaction --no-suggest
+
+test_script:
+  - cd c:\projects\laravel-money
+  - php C:\tools\composer.phar test

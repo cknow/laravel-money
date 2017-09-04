@@ -22,24 +22,53 @@
     "source": "https://github.com/cknow/laravel-money"
   },
   "require": {
-    "php": ">=5.5.9",
-    "illuminate/support": "~5.1",
-    "illuminate/view": "~5.1"
+    "php": ">=7.0",
+    "illuminate/support": "~5.5",
+    "illuminate/view": "~5.5",
+    "moneyphp/money": "~3.0"
   },
   "require-dev": {
     "mockery/mockery": "~0.9",
-    "phpunit/phpunit": "~4.0"
+    "phpunit/phpunit": "~6.0",
+    "graham-campbell/testbench": "~4.0",
+    "phpro/grumphp": "~0.12",
+    "sebastian/phpcpd": "~3.0",
+    "squizlabs/php_codesniffer": "~3.0",
+    "jakub-onderka/php-parallel-lint": "~0.9",
+    "phpmd/phpmd": "~2.6",
+    "povils/phpmnd": "~1.1",
+    "nikic/php-parser": "~3.1",
+    "phpstan/phpstan": "~0.8",
+    "sensiolabs/security-checker": "~4.1"
   },
   "autoload": {
     "files": [
-      "src/ClickNow/Money/helpers.php"
+      "src/helpers.php"
     ],
     "psr-4": {
-      "ClickNow\\": "src/ClickNow"
+      "Cknow\\Money\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Cknow\\Money\\": "tests/"
     }
   },
   "suggest": {
     "ext-intl": "Required to use NumberFormatter."
   },
-  "minimum-stability": "stable"
+  "minimum-stability": "stable",
+  "prefer-stable": true,
+  "scripts": {
+    "test": [
+      "grumphp run"
+    ]
+  },
+  "extra": {
+    "laravel": {
+        "providers": [
+            "Cknow\\Money\\MoneyServiceProvider"
+        ]
+    }
+  }
 }
