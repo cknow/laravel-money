@@ -272,12 +272,6 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      */
     public function format($locale = null, Currencies $currencies = null)
     {
-        // @codeCoverageIgnoreStart
-        if (!class_exists('\NumberFormatter')) {
-            return $this->formatSimple($currencies);
-        }
-        // @codeCoverageIgnoreEnd
-
         $numberFormatter = new \NumberFormatter($locale ?: static::getLocale(), \NumberFormatter::CURRENCY);
         $formatter = new IntlMoneyFormatter($numberFormatter, $currencies ?: static::getCurrencies());
 
