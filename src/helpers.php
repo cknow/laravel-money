@@ -4,8 +4,8 @@ if (!function_exists('money')) {
     /**
      * money.
      *
-     * @param mixed  $amount
-     * @param string $currency
+     * @param int|string $amount
+     * @param string     $currency
      *
      * @return \Cknow\Money\Money
      */
