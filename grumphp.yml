@@ -1,13 +1,6 @@
 parameters:
   tasks:
-    composer_script:
-      script: phpunit
-      metadata:
-        priority: 1
-    clover_coverage:
-      clover_file: build/logs/clover.xml
-      metadata:
-        priority: 2
+    phpunit: ^
     composer:
       no_check_lock: true
     phpcpd: ~
