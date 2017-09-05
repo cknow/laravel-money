@@ -26,11 +26,11 @@
     "ext-intl": "*",
     "illuminate/support": "~5.5",
     "illuminate/view": "~5.5",
-    "moneyphp/money": "~3.0"
+    "moneyphp/money": "^3.0"
   },
   "require-dev": {
     "mockery/mockery": "~0.9",
-    "phpunit/phpunit": "6.2.*",
+    "phpunit/phpunit": "~6.0",
     "graham-campbell/testbench": "~4.0",
     "phpro/grumphp": "~0.12",
     "sebastian/phpcpd": "~3.0",
@@ -41,7 +41,7 @@
     "nikic/php-parser": "~3.1",
     "phpstan/phpstan": "~0.8",
     "sensiolabs/security-checker": "~4.1",
-    "friendsofphp/php-cs-fixer": "^2.5"
+    "friendsofphp/php-cs-fixer": "~2.5"
   },
   "autoload": {
     "files": [
@@ -59,6 +59,9 @@
   "minimum-stability": "stable",
   "prefer-stable": true,
   "scripts": {
+    "lint": [
+      "php-cs-fixer fix"
+    ],
     "test": [
       "grumphp run"
     ]
