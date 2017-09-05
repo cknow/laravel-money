@@ -10,6 +10,7 @@ use Money\Currencies;
 use Money\Currency;
 use Money\Formatter\DecimalMoneyFormatter;
 use Money\Formatter\IntlMoneyFormatter;
+use NumberFormatter;
 
 /**
  * Money.
@@ -209,7 +210,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      * Money.
      *
      * @param int|string     $amount
-     * @param Money\Currency $currency
+     * @param \Money\Currency $currency
      */
     public function __construct($amount, Currency $currency)
     {
@@ -272,7 +273,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      */
     public function format($locale = null, Currencies $currencies = null)
     {
-        $numberFormatter = new \NumberFormatter($locale ?: static::getLocale(), \NumberFormatter::CURRENCY);
+        $numberFormatter = new NumberFormatter($locale ?: static::getLocale(), NumberFormatter::CURRENCY);
         $formatter = new IntlMoneyFormatter($numberFormatter, $currencies ?: static::getCurrencies());
 
         return $formatter->format($this->money);
