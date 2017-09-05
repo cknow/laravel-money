@@ -23,6 +23,7 @@
   },
   "require": {
     "php": ">=7.0",
+    "ext-intl": "*",
     "illuminate/support": "~5.5",
     "illuminate/view": "~5.5",
     "moneyphp/money": "~3.0"
@@ -53,9 +54,6 @@
     "psr-4": {
       "Cknow\\Money\\": "tests/"
     }
-  },
-  "suggest": {
-    "ext-intl": "Required to use NumberFormatter."
   },
   "minimum-stability": "stable",
   "prefer-stable": true,
