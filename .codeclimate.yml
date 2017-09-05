@@ -8,6 +8,9 @@ ratings:
 engines:
   duplication:
     enabled: true
+    config:
+      languages:
+      - php: true
 
   phpcodesniffer:
     enabled: true
