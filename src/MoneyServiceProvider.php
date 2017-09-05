@@ -11,7 +11,7 @@ class MoneyServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        BladeExtensions::register($this->app->make('view')->getEngineResolver()->resolve('blade')->getCompiler());
+        BladeExtensions::register($this->app->make('blade.compiler'));
         Money::setLocale($this->app->make('translator')->getLocale());
     }
 }

@@ -16,8 +16,7 @@ class MoneyServiceProviderTest extends AbstractPackageTestCase
 
     public function testBladeDirectives()
     {
-        $compiler = $this->app->make('view')->getEngineResolver()->resolve('blade')->getCompiler();
-        $customDirectives = $compiler->getCustomDirectives();
+        $customDirectives = $this->app->make('blade.compiler')->getCustomDirectives();
 
         $this->assertArrayHasKey('money', $customDirectives);
         $this->assertArrayHasKey('currency', $customDirectives);
