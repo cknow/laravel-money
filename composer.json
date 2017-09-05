@@ -30,7 +30,7 @@
   },
   "require-dev": {
     "mockery/mockery": "~0.9",
-    "phpunit/phpunit": "~6.0",
+    "phpunit/phpunit": "6.2.*",
     "graham-campbell/testbench": "~4.0",
     "phpro/grumphp": "~0.12",
     "sebastian/phpcpd": "~3.0",
@@ -40,7 +40,8 @@
     "povils/phpmnd": "~1.1",
     "nikic/php-parser": "~3.1",
     "phpstan/phpstan": "~0.8",
-    "sensiolabs/security-checker": "~4.1"
+    "sensiolabs/security-checker": "~4.1",
+    "friendsofphp/php-cs-fixer": "^2.5"
   },
   "autoload": {
     "files": [
