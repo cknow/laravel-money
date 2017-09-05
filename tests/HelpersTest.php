@@ -4,6 +4,9 @@ namespace Cknow\Money;
 
 use Money\Currency;
 
+/**
+ * @coversNothing
+ */
 class HelpersTest extends \PHPUnit_Framework_TestCase
 {
     public function testMoney()

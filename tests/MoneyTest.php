@@ -48,8 +48,6 @@ class MoneyTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertEquals(Money::BRL(10), Money::BRL(5)->multiply(2));
         $this->assertEquals(Money::BRL(10), Money::BRL(20)->divide(2));
-        $this->assertEquals(Money::BRL(-15), Money::BRL(15)->negative());
-        $this->assertEquals(Money::BRL(15), Money::BRL(-15)->absolute());
         $this->assertEquals([Money::BRL(5), Money::BRL(5)], Money::BRL(10)->allocateTo(2));
     }
 
