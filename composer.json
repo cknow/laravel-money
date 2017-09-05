@@ -40,8 +40,7 @@
     "povils/phpmnd": "~1.1",
     "nikic/php-parser": "~3.1",
     "phpstan/phpstan": "~0.8",
-    "sensiolabs/security-checker": "~4.1",
-    "friendsofphp/php-cs-fixer": "~2.5"
+    "sensiolabs/security-checker": "~4.1"
   },
   "autoload": {
     "files": [
@@ -59,9 +58,6 @@
   "minimum-stability": "stable",
   "prefer-stable": true,
   "scripts": {
-    "lint": [
-      "php-cs-fixer fix"
-    ],
     "test": [
       "grumphp run"
     ]

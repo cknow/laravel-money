@@ -4,8 +4,6 @@ parameters:
     phpunit: ~
     composer:
       no_check_lock: true
-    phpcsfixer2:
-      allow_risky: true
     phpcpd: ~
     phpcs:
       standard: PSR2
