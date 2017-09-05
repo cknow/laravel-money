@@ -39,17 +39,17 @@ class MoneyTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('R$1,00', $money);
     }
 
-    public function testFormatSimple()
-    {
-        $this->assertEquals('1.00', Money::BRL(100)->formatSimple(Money::getCurrencies()));
-        $this->assertEquals('1.00', Money::BRL(100)->formatSimple());
-    }
-
     public function testFormat()
     {
         $this->assertEquals('R$1,00', Money::BRL(100)->format());
         $this->assertEquals('US$1,00', Money::USD(100)->format());
         $this->assertEquals('R$1.00', Money::BRL(100)->format('en_US'));
         $this->assertEquals('$1.00', Money::USD(100)->format('en_US', Money::getCurrencies()));
+    }
+
+    public function testFormatSimple()
+    {
+        $this->assertEquals('1.00', Money::BRL(100)->formatSimple(Money::getCurrencies()));
+        $this->assertEquals('1.00', Money::BRL(100)->formatSimple());
     }
 }
