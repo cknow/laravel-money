@@ -21,10 +21,36 @@ class MoneyTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(Money::BRL(10), new Money(10, new Currency('BRL')));
     }
 
-    public function testCallMethodsInRealObject()
+    public function testAdd()
     {
-        $this->assertEquals(Money::BRL(25)->getMoney(), Money::BRL(10)->add(Money::BRL(15)->getMoney()));
-        $this->assertEquals(Money::USD(25)->getMoney(), Money::USD(10)->add(Money::USD(15)->getMoney()));
+        $this->assertEquals(Money::BRL(25), Money::BRL(10)->add(Money::BRL(15)));
+        $this->assertEquals(Money::USD(25), Money::USD(10)->add(Money::USD(15)));
+    }
+
+    public function testSubtract()
+    {
+        $this->assertEquals(Money::BRL(15), Money::BRL(20)->subtract(Money::BRL(5)));
+        $this->assertEquals(Money::USD(20), Money::USD(25)->subtract(Money::USD(5)));
+    }
+
+    public function testCallUndefinedMethod()
+    {
+        $this->assertEquals(Money::BRL(15), Money::BRL(15)->undefined());
+    }
+
+    public function testCallMethodInRealObject()
+    {
+        $this->assertTrue(Money::BRL(25)->isPositive());
+        $this->assertTrue(Money::BRL(-25)->isNegative());
+    }
+
+    public function testCallMethodWhatNeedConvert()
+    {
+        $this->assertEquals(Money::BRL(10), Money::BRL(5)->multiply(2));
+        $this->assertEquals(Money::BRL(10), Money::BRL(20)->divide(2));
+        $this->assertEquals(Money::BRL(-15), Money::BRL(15)->negative());
+        $this->assertEquals(Money::BRL(15), Money::BRL(-15)->absolute());
+        $this->assertEquals([Money::BRL(5), Money::BRL(5)], Money::BRL(10)->allocateTo(2));
     }
 
     public function testGetters()

@@ -209,7 +209,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     /**
      * Money.
      *
-     * @param int|string     $amount
+     * @param int|string      $amount
      * @param \Money\Currency $currency
      */
     public function __construct($amount, Currency $currency)
@@ -236,11 +236,15 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      * @param string $method
      * @param array  $arguments
      *
-     * @return mixed
+     * @return \Cknow\Money\Money|\Cknow\Money\Money[]|mixed
      */
     public function __call($method, array $arguments)
     {
-        return $this->money->{$method}(...$arguments);
+        if (!method_exists($this->money, $method)) {
+            return $this;
+        }
+
+        return $this->convertResult(call_user_func_array([$this->money, $method], $arguments), $method);
     }
 
     /**
@@ -251,6 +255,42 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     public function __toString()
     {
         return $this->render();
+    }
+
+    /**
+     * Convert.
+     *
+     * @param \Money\Money $intance
+     *
+     * @return \Cknow\Money\Money
+     */
+    public function convert(\Money\Money $intance)
+    {
+        return new self($intance->getAmount(), $intance->getCurrency());
+    }
+
+    /**
+     * Add.
+     *
+     * @param \Cknow\Money\Money $addend
+     *
+     * @return \Cknow\Money\Money
+     */
+    public function add(Money $addend)
+    {
+        return $this->convert($this->money->add($addend->getMoney()));
+    }
+
+    /**
+     * Subtract.
+     *
+     * @param \Cknow\Money\Money $subtrahend
+     *
+     * @return \Cknow\Money\Money
+     */
+    public function subtract(Money $subtrahend)
+    {
+        return $this->convert($this->money->subtract($subtrahend->getMoney()));
     }
 
     /**
@@ -333,5 +373,32 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     public function render()
     {
         return $this->format();
+    }
+
+    /**
+     * Convert result.
+     *
+     * @param mixed|\Money\Money|\Money\Money[] $result
+     * @param string                            $method
+     *
+     * @return \Cknow\Money\Money|\Cknow\Money\Money[]|mixed
+     */
+    private function convertResult($result, $method)
+    {
+        if (!in_array($method, ['multiply', 'divide', 'allocate', 'allocateTo', 'absolute', 'negative'])) {
+            return $result;
+        }
+
+        if (!is_array($result)) {
+            return $this->convert($result);
+        }
+
+        $results = [];
+
+        foreach ($result as $item) {
+            $results[] = $this->convert($item);
+        }
+
+        return $results;
     }
 }
