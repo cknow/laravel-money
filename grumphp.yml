@@ -1,6 +1,6 @@
 parameters:
   tasks:
-    phpunit: ^
+    phpunit: ~
     composer:
       no_check_lock: true
     phpcpd: ~
