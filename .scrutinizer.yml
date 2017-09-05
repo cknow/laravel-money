@@ -1,3 +1,8 @@
+checks:
+    php:
+        code_rating: true
+        duplication: true
+
 tools:
   external_code_coverage:
     enabled: true
@@ -35,7 +40,7 @@ tools:
 
   php_mess_detector:
     enabled: true
-  
+
   php_pdepend:
     enabled: true
 
