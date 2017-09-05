@@ -8,12 +8,17 @@ finder:
     - tests/**/*.php
 
 enabled:
+  - align_comments
   - align_double_arrow
   - alpha_ordered_imports
   - binary_operator_spaces
   - blank_line_after_namespace
   - blank_line_after_opening_tag
+  - blank_line_before_break
+  - blank_line_before_continue
   - blank_line_before_return
+  - blank_line_before_throw
+  - blank_line_before_try
   - braces
   - cast_spaces
   - class_definition
@@ -21,6 +26,10 @@ enabled:
   - concat_without_spaces
   - declare_equal_normalize
   - dir_constant
+  - doctrine_annotation_array_assignment
+  - doctrine_annotation_braces
+  - doctrine_annotation_indentation
+  - doctrine_annotation_spaces
   - elseif
   - encoding
   - ereg_to_preg
@@ -30,6 +39,7 @@ enabled:
   - hash_to_slash_comment
   - heredoc_to_nowdoc
   - include
+  - is_null
   - linebreak_after_opening_tag
   - lowercase_cast
   - lowercase_constants
@@ -48,10 +58,10 @@ enabled:
   - no_blank_lines_between_imports
   - no_blank_lines_between_traits
   - no_closing_tag
-  - no_extra_block_blank_lines
   - no_empty_comment
   - no_empty_phpdoc
   - no_empty_statement
+  - no_extra_block_blank_lines
   - no_extra_consecutive_blank_lines
   - no_leading_import_slash
   - no_leading_namespace_whitespace
@@ -71,22 +81,33 @@ enabled:
   - no_trailing_whitespace
   - no_trailing_whitespace_in_comment
   - no_unneeded_control_parentheses
+  - no_unneeded_curly_braces
+  - no_unneeded_final_method
   - no_unreachable_default_argument_value
   - no_unused_imports
   - no_useless_else
   - no_useless_return
   - no_whitespace_before_comma_in_array
   - no_whitespace_in_blank_line
+  - non_printable_character
   - normalize_index_brace
   - object_operator_without_whitespace
+  - ordered_class_elements
+  - php_unit_construct
+  - php_unit_dedicate_assert
   - php_unit_fqcn_annotation
+  - php_unit_test_class_requires_covers
+  - phpdoc_add_missing_param_annotation
   - phpdoc_align
   - phpdoc_indent
   - phpdoc_inline_tag
   - phpdoc_link_to_see
   - phpdoc_no_access
+  - phpdoc_no_empty_return
   - phpdoc_no_package
+  - phpdoc_no_useless_inheritdoc
   - phpdoc_order
+  - phpdoc_return_self_reference
   - phpdoc_scalar
   - phpdoc_separation
   - phpdoc_single_line_var_spacing
@@ -95,15 +116,21 @@ enabled:
   - phpdoc_trim
   - phpdoc_type_to_var
   - phpdoc_types
+  - phpdoc_types_order
   - phpdoc_var_without_name
+  - pow_to_exponentiation
   - pre_increment
   - print_to_echo
   - property_visibility_required
+  - protected_to_private
   - psr4
+  - random_api_migration
   - return_type_declaration
   - self_accessor
   - short_array_syntax
+  - short_list_syntax
   - short_scalar_cast
+  - silenced_deprecation_error
   - single_blank_line_at_eof
   - single_blank_line_before_namespace
   - single_class_element_per_statement
@@ -116,8 +143,10 @@ enabled:
   - switch_case_semicolon_to_colon
   - switch_case_space
   - ternary_operator_spaces
+  - ternary_to_null_coalescing
   - trailing_comma_in_multiline_array
   - trim_array_spaces
   - unalign_equals
   - unary_operator_spaces
   - unix_line_endings
+  - whitespace_after_comma_in_array

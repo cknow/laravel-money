@@ -16,6 +16,7 @@ return PhpCsFixer\Config::create()
         'general_phpdoc_annotation_remove' => ['annotations' => ["author", "package"]],
         'heredoc_to_nowdoc' => true,
         'linebreak_after_opening_tag' => true,
+        'list_syntax' => ['syntax' => 'short'],
         'no_multiline_whitespace_before_semicolons' => true,
         'no_php4_constructor' => true,
         'no_short_echo_tag' => true,
@@ -27,8 +28,9 @@ return PhpCsFixer\Config::create()
         'phpdoc_add_missing_param_annotation' => ['only_untyped' => false],
         'phpdoc_order' => true,
         'phpdoc_types_order' => ['null_adjustment'=> 'always_last'],
+        'php_unit_test_class_requires_covers' => true,
         'semicolon_after_instruction' => true,
-        'single_line_comment_style' => true,
+        'single_line_comment_style' => true
     ])
     ->setCacheFile(__DIR__.'/.php_cs.cache')
     ->setFinder($finder)
