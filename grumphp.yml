@@ -1,6 +1,7 @@
 parameters:
   tasks:
-    phpunit:
+    composer_script:
+      script: phpunit
       metadata:
         priority: 1
     clover_coverage:

@@ -60,6 +60,9 @@
   "minimum-stability": "stable",
   "prefer-stable": true,
   "scripts": {
+    "phpunit": [
+      "phpunit --coverage-clover=build/logs/clover.xml"
+    ],
     "test": [
       "grumphp run"
     ]
