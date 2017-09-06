@@ -13,10 +13,6 @@
 [![Test Coverage](https://codeclimate.com/github/cknow/laravel-money/badges/coverage.svg)](https://codeclimate.com/github/cknow/laravel-money/coverage)
 [![Issue Count](https://codeclimate.com/github/cknow/laravel-money/badges/issue_count.svg)](https://codeclimate.com/github/cknow/laravel-money)
 
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/cknow/laravel-money/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/cknow/laravel-money/?branch=master)
-[![Build Status](https://scrutinizer-ci.com/g/cknow/laravel-money/badges/build.png?b=master)](https://scrutinizer-ci.com/g/cknow/laravel-money/build-status/master)
-[![Code Coverage](https://scrutinizer-ci.com/g/cknow/laravel-money/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/cknow/laravel-money/?branch=master)
-
 [![Dependency Status](https://dependencyci.com/github/cknow/laravel-money/badge)](https://dependencyci.com/github/cknow/laravel-money)
 [![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/cknow/laravel-money.svg)](http://isitmaintained.com/project/cknow/laravel-money)
 [![Percentage of issues still open](http://isitmaintained.com/badge/open/cknow/laravel-money.svg)](http://isitmaintained.com/project/cknow/laravel-money)
