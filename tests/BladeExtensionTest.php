@@ -6,9 +6,9 @@ use Illuminate\View\Compilers\BladeCompiler;
 use Mockery;
 
 /**
- * @covers \Cknow\Money\BladeExtensions
+ * @covers \Cknow\Money\BladeExtension
  */
-class BladeExtensionsTest extends \PHPUnit_Framework_TestCase
+class BladeExtensionTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var \Illuminate\View\Compilers\BladeCompiler
@@ -21,7 +21,7 @@ class BladeExtensionsTest extends \PHPUnit_Framework_TestCase
 
         $this->compiler = new BladeCompiler(Mockery::mock('Illuminate\Filesystem\Filesystem'), __DIR__);
 
-        BladeExtensions::register($this->compiler);
+        BladeExtension::register($this->compiler);
     }
 
     public function tearDown()

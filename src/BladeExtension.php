@@ -4,7 +4,7 @@ namespace Cknow\Money;
 
 use Illuminate\View\Compilers\BladeCompiler;
 
-class BladeExtensions
+class BladeExtension
 {
     /**
      * Register.
