@@ -44,9 +44,6 @@ script:
 after_script:
   - |
     if [[ "$TRAVIS_PHP_VERSION" == "7.0" && "$setup" == "stable" ]]; then
-      travis_retry composer require --dev scrutinizer/ocular
-      vendor/bin/ocular code-coverage:upload --format=php-clover build/logs/clover.xml
-
       travis_retry composer require --dev satooshi/php-coveralls
       vendor/bin/coveralls -v
 
