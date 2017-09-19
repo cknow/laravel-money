@@ -4,6 +4,7 @@ namespace Cknow\Money;
 
 use Money\Currencies\ISOCurrencies;
 use Money\Currency;
+use Money\Formatter\DecimalMoneyFormatter;
 
 /**
  * @covers \Cknow\Money\Money
@@ -75,5 +76,12 @@ class MoneyTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertEquals('1.00', Money::BRL(100)->formatSimple(Money::getCurrencies()));
         $this->assertEquals('1.00', Money::BRL(100)->formatSimple());
+    }
+
+    public function testFormatByFormatter()
+    {
+        $formatter = new DecimalMoneyFormatter(Money::getCurrencies());
+
+        $this->assertEquals('1.00', Money::BRL(100)->formatByFormatter($formatter));
     }
 }

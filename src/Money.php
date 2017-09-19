@@ -10,6 +10,7 @@ use Money\Currencies;
 use Money\Currency;
 use Money\Formatter\DecimalMoneyFormatter;
 use Money\Formatter\IntlMoneyFormatter;
+use Money\MoneyFormatter;
 use NumberFormatter;
 
 /**
@@ -330,6 +331,18 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     {
         $formatter = new DecimalMoneyFormatter($currencies ?: static::getCurrencies());
 
+        return $formatter->format($this->money);
+    }
+
+    /**
+     * Format by formatter.
+     *
+     * @param \Money\MoneyFormatter $formatter
+     *
+     * @return string
+     */
+    public function formatByFormatter(MoneyFormatter $formatter)
+    {
         return $formatter->format($this->money);
     }
 
