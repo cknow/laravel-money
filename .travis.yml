@@ -1,8 +1,13 @@
+sudo: false
+
 language: php
 
-dist: trusty
+cache:
+  directories:
+    - $HOME/.composer/cache
 
-sudo: false
+notifications:
+  email: false
 
 env:
   global:
@@ -21,10 +26,6 @@ matrix:
     - php: 7.2
       env: setup=lowest
 
-cache:
-  directories:
-    - $HOME/.composer/cache
-
 before_install:
   - travis_retry composer self-update
   - travis_retry composer global require hirak/prestissimo
@@ -41,7 +42,7 @@ install:
 script:
   - composer test
 
-after_script:
+after_success:
   - |
     if [[ "$TRAVIS_PHP_VERSION" == "7.0" && "$setup" == "stable" ]]; then
       travis_retry composer require --dev satooshi/php-coveralls
