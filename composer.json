@@ -22,11 +22,11 @@
     "source": "https://github.com/cknow/laravel-money"
   },
   "require": {
-    "php": ">=7.0",
+    "php": "~7.0",
     "ext-intl": "*",
     "illuminate/support": "~5.5",
     "illuminate/view": "~5.5",
-    "moneyphp/money": "^3.0"
+    "moneyphp/money": "~3.0"
   },
   "require-dev": {
     "graham-campbell/testbench": "~4.0",
@@ -40,7 +40,7 @@
     "povils/phpmnd": "~1.1",
     "sebastian/phpcpd": "~3.0",
     "sensiolabs/security-checker": "~4.1",
-    "squizlabs/php_codesniffer": "~3.0"
+    "squizlabs/php_codesniffer": "~3.1"
   },
   "autoload": {
     "files": [
