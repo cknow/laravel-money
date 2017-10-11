@@ -1,6 +1,7 @@
 parameters:
   process_timeout: 1000
   tasks:
+    phpcsfixer: ~
     phpunit: ~
     composer:
       no_check_lock: true

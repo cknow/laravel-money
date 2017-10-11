@@ -12,6 +12,7 @@ return PhpCsFixer\Config::create()
         '@PHP70Migration' => true,
         'align_multiline_comment' => true,
         'array_syntax' => ['syntax' => 'short'],
+        'combine_consecutive_issets' => true,
         'combine_consecutive_unsets' => true,
         'general_phpdoc_annotation_remove' => ['annotations' => ["author", "package"]],
         'heredoc_to_nowdoc' => true,
@@ -28,7 +29,6 @@ return PhpCsFixer\Config::create()
         'phpdoc_add_missing_param_annotation' => ['only_untyped' => false],
         'phpdoc_order' => true,
         'phpdoc_types_order' => ['null_adjustment'=> 'always_last'],
-        'php_unit_test_class_requires_covers' => true,
         'semicolon_after_instruction' => true,
         'single_line_comment_style' => true
     ])
