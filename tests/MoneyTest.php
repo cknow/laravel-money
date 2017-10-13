@@ -72,6 +72,16 @@ class MoneyTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('$1.00', Money::USD(100)->format('en_US', Money::getCurrencies()));
     }
 
+    public function testFormatByDecimal()
+    {
+        $this->assertEquals('1.00', Money::BRL(100)->formatByDecimal(Money::getCurrencies()));
+        $this->assertEquals('1.00', Money::BRL(100)->formatByDecimal());
+    }
+
+    /**
+     * @expectedException ErrorException
+     * @expectedExceptionMessage Method `formatSimple` is deprecated instead use `formatByDecimal`
+     */
     public function testFormatSimple()
     {
         $this->assertEquals('1.00', Money::BRL(100)->formatSimple(Money::getCurrencies()));

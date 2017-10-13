@@ -219,6 +219,18 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     }
 
     /**
+     * Convert.
+     *
+     * @param \Money\Money $intance
+     *
+     * @return \Cknow\Money\Money
+     */
+    public static function convert(\Money\Money $intance)
+    {
+        return new self($intance->getAmount(), $intance->getCurrency());
+    }
+
+    /**
      * __callStatic.
      *
      * @param string $method
@@ -245,7 +257,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
             return $this;
         }
 
-        return $this->convertResult(call_user_func_array([$this->money, $method], $arguments), $method);
+        return Money::convertResult(call_user_func_array([$this->money, $method], $arguments), $method);
     }
 
     /**
@@ -259,18 +271,6 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     }
 
     /**
-     * Convert.
-     *
-     * @param \Money\Money $intance
-     *
-     * @return \Cknow\Money\Money
-     */
-    public function convert(\Money\Money $intance)
-    {
-        return new self($intance->getAmount(), $intance->getCurrency());
-    }
-
-    /**
      * Add.
      *
      * @param \Cknow\Money\Money $addend
@@ -279,7 +279,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      */
     public function add(Money $addend)
     {
-        return $this->convert($this->money->add($addend->getMoney()));
+        return Money::convert($this->money->add($addend->getMoney()));
     }
 
     /**
@@ -291,7 +291,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      */
     public function subtract(Money $subtrahend)
     {
-        return $this->convert($this->money->subtract($subtrahend->getMoney()));
+        return Money::convert($this->money->subtract($subtrahend->getMoney()));
     }
 
     /**
@@ -317,11 +317,27 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
         $numberFormatter = new NumberFormatter($locale ?: static::getLocale(), NumberFormatter::CURRENCY);
         $formatter = new IntlMoneyFormatter($numberFormatter, $currencies ?: static::getCurrencies());
 
-        return $formatter->format($this->money);
+        return $this->formatByFormatter($formatter);
+    }
+
+    /**
+     * Format by decimal.
+     *
+     * @param \Money\Currencies $currencies
+     *
+     * @return string
+     */
+    public function formatByDecimal(Currencies $currencies = null)
+    {
+        $formatter = new DecimalMoneyFormatter($currencies ?: static::getCurrencies());
+
+        return $this->formatByFormatter($formatter);
     }
 
     /**
      * Format simple.
+     *
+     * @deprecated
      *
      * @param \Money\Currencies $currencies
      *
@@ -329,9 +345,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      */
     public function formatSimple(Currencies $currencies = null)
     {
-        $formatter = new DecimalMoneyFormatter($currencies ?: static::getCurrencies());
-
-        return $formatter->format($this->money);
+        trigger_error('Method `formatSimple` is deprecated instead use `formatByDecimal`', E_USER_DEPRECATED);
     }
 
     /**
@@ -396,20 +410,20 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      *
      * @return \Cknow\Money\Money|\Cknow\Money\Money[]|mixed
      */
-    private function convertResult($result, $method)
+    private static function convertResult($result, $method)
     {
         if (!in_array($method, ['multiply', 'divide', 'allocate', 'allocateTo', 'absolute', 'negative'])) {
             return $result;
         }
 
         if (!is_array($result)) {
-            return $this->convert($result);
+            return Money::convert($result);
         }
 
         $results = [];
 
         foreach ($result as $item) {
-            $results[] = $this->convert($item);
+            $results[] = Money::convert($item);
         }
 
         return $results;

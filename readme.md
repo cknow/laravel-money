@@ -59,7 +59,7 @@ Money::BRL(500)->isZero(); // false
 Money::BRL(500)->isPositive(); // true
 Money::BRL(500)->isNegative(); // false
 Money::BRL(500)->format(); // R$5,00
-Money::BRL(500)->formatSimple(); // 5.00
+Money::BRL(500)->formatByDecimal(); // 5.00
 ```
 
 ## Helpers
