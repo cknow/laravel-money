@@ -386,20 +386,6 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     }
 
     /**
-     * Format simple.
-     *
-     * @deprecated
-     *
-     * @param \Money\Currencies $currencies
-     *
-     * @return string
-     */
-    public function formatSimple(Currencies $currencies = null)
-    {
-        @trigger_error('Method `formatSimple` is deprecated instead use `formatByDecimal`', E_USER_DEPRECATED);
-    }
-
-    /**
      * Format by formatter.
      *
      * @param \Money\MoneyFormatter $formatter
