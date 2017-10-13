@@ -10,10 +10,10 @@ use Money\Currencies;
 use Money\Currency;
 use Money\Formatter\DecimalMoneyFormatter;
 use Money\Formatter\IntlMoneyFormatter;
-use Money\Parser\DecimalMoneyParser;
-use Money\Parser\IntlMoneyParser;
 use Money\MoneyFormatter;
 use Money\MoneyParser;
+use Money\Parser\DecimalMoneyParser;
+use Money\Parser\IntlMoneyParser;
 use NumberFormatter;
 
 /**
@@ -222,66 +222,6 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     }
 
     /**
-     * Convert.
-     *
-     * @param \Money\Money $intance
-     *
-     * @return \Cknow\Money\Money
-     */
-    public static function convert(\Money\Money $intance)
-    {
-        return new self($intance->getAmount(), $intance->getCurrency());
-    }
-
-    /**
-     * Parse.
-     *
-     * @param string            $money
-     * @param string|null       $forceCurrency
-     * @param string|null       $locale
-     * @param \Money\Currencies $currencies
-     *
-     * @return \Cknow\Money\Money
-     */
-    public static function parse($money, $forceCurrency = null, $locale = null, Currencies $currencies = null)
-    {
-        $numberFormatter = new NumberFormatter($locale ?: static::getLocale(), NumberFormatter::CURRENCY);
-        $parser = new IntlMoneyParser($numberFormatter, $currencies ?: static::getCurrencies());
-
-        return Money::parseByParser($parser, $money, $forceCurrency);
-    }
-
-    /**
-     * Parse by decimal.
-     *
-     * @param string            $money
-     * @param string|null       $forceCurrency
-     * @param \Money\Currencies $currencies
-     *
-     * @return \Cknow\Money\Money
-     */
-    public static function parseByDecimal($money, $forceCurrency = null, Currencies $currencies = null)
-    {
-        $parser = new DecimalMoneyParser($currencies ?: static::getCurrencies());
-
-        return Money::parseByParser($parser, $money, $forceCurrency);
-    }
-
-    /**
-     * Parse by parser.
-     *
-     * @param \Money\MoneyParser $parser
-     * @param string             $money
-     * @param string|null        $forceCurrency
-     *
-     * @return \Cknow\Money\Money
-     */
-    public static function parseByParser(MoneyParser $parser, $money, $forceCurrency = null)
-    {
-        return Money::convert($parser->parse($money, $forceCurrency));
-    }
-
-    /**
      * __callStatic.
      *
      * @param string $method
@@ -308,7 +248,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
             return $this;
         }
 
-        return Money::convertResult(call_user_func_array([$this->money, $method], $arguments), $method);
+        return $this->convertResult(call_user_func_array([$this->money, $method], $arguments), $method);
     }
 
     /**
@@ -322,6 +262,66 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     }
 
     /**
+     * Convert.
+     *
+     * @param \Money\Money $intance
+     *
+     * @return \Cknow\Money\Money
+     */
+    public static function convert(\Money\Money $intance)
+    {
+        return new self($intance->getAmount(), $intance->getCurrency());
+    }
+
+    /**
+     * Parse.
+     *
+     * @param string            $money
+     * @param string|null       $forceCurrency
+     * @param string|null       $locale
+     * @param \Money\Currencies $currencies
+     *
+     * @return \Cknow\Money\Money
+     */
+    public static function parse($money, $forceCurrency = null, $locale = null, Currencies $currencies = null)
+    {
+        $numberFormatter = new NumberFormatter($locale ?: static::getLocale(), NumberFormatter::CURRENCY);
+        $parser = new IntlMoneyParser($numberFormatter, $currencies ?: static::getCurrencies());
+
+        return self::parseByParser($parser, $money, $forceCurrency);
+    }
+
+    /**
+     * Parse by decimal.
+     *
+     * @param string            $money
+     * @param string|null       $forceCurrency
+     * @param \Money\Currencies $currencies
+     *
+     * @return \Cknow\Money\Money
+     */
+    public static function parseByDecimal($money, $forceCurrency = null, Currencies $currencies = null)
+    {
+        $parser = new DecimalMoneyParser($currencies ?: static::getCurrencies());
+
+        return self::parseByParser($parser, $money, $forceCurrency);
+    }
+
+    /**
+     * Parse by parser.
+     *
+     * @param \Money\MoneyParser $parser
+     * @param string             $money
+     * @param string|null        $forceCurrency
+     *
+     * @return \Cknow\Money\Money
+     */
+    public static function parseByParser(MoneyParser $parser, $money, $forceCurrency = null)
+    {
+        return self::convert($parser->parse($money, $forceCurrency));
+    }
+
+    /**
      * Add.
      *
      * @param \Cknow\Money\Money $addend
@@ -330,7 +330,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      */
     public function add(Money $addend)
     {
-        return Money::convert($this->money->add($addend->getMoney()));
+        return self::convert($this->money->add($addend->getMoney()));
     }
 
     /**
@@ -342,7 +342,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      */
     public function subtract(Money $subtrahend)
     {
-        return Money::convert($this->money->subtract($subtrahend->getMoney()));
+        return self::convert($this->money->subtract($subtrahend->getMoney()));
     }
 
     /**
@@ -396,7 +396,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      */
     public function formatSimple(Currencies $currencies = null)
     {
-        trigger_error('Method `formatSimple` is deprecated instead use `formatByDecimal`', E_USER_DEPRECATED);
+        @trigger_error('Method `formatSimple` is deprecated instead use `formatByDecimal`', E_USER_DEPRECATED);
     }
 
     /**
@@ -461,20 +461,20 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      *
      * @return \Cknow\Money\Money|\Cknow\Money\Money[]|mixed
      */
-    private static function convertResult($result, $method)
+    private function convertResult($result, $method)
     {
         if (!in_array($method, ['multiply', 'divide', 'allocate', 'allocateTo', 'absolute', 'negative'])) {
             return $result;
         }
 
         if (!is_array($result)) {
-            return Money::convert($result);
+            return self::convert($result);
         }
 
         $results = [];
 
         foreach ($result as $item) {
-            $results[] = Money::convert($item);
+            $results[] = self::convert($item);
         }
 
         return $results;

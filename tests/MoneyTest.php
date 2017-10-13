@@ -84,7 +84,7 @@ class MoneyTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException ErrorException
+     * @expectedException \ErrorException
      * @expectedExceptionMessage Method `formatSimple` is deprecated instead use `formatByDecimal`
      */
     public function testFormatSimple()
