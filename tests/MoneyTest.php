@@ -22,6 +22,11 @@ class MoneyTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(Money::BRL(10), new Money(10, new Currency('BRL')));
     }
 
+    public function testConvert()
+    {
+        $this->assertEquals(Money::BRL(25), Money::convert(new \Money\Money(25, new Currency('BRL'))));
+    }
+
     public function testAdd()
     {
         $this->assertEquals(Money::BRL(25), Money::BRL(10)->add(Money::BRL(15)));
