@@ -5,6 +5,7 @@ namespace Cknow\Money;
 use Money\Currencies\ISOCurrencies;
 use Money\Currency;
 use Money\Formatter\DecimalMoneyFormatter;
+use Money\Parser\DecimalMoneyParser;
 
 /**
  * @covers \Cknow\Money\Money
@@ -20,6 +21,27 @@ class MoneyTest extends \PHPUnit_Framework_TestCase
     public function testFactoryMethods()
     {
         $this->assertEquals(Money::BRL(10), new Money(10, new Currency('BRL')));
+    }
+
+    public function testParser()
+    {
+        $this->assertEquals(Money::parse('R$1,00'), Money::BRL(100));
+        $this->assertEquals(Money::parse('$1.00', 'USD', 'en_US'), Money::USD(100));
+        $this->assertEquals(Money::parse('$1.00', 'USD', 'en_US', Money::getCurrencies()), Money::USD(100));
+    }
+
+    public function testParserDecimal()
+    {
+        $this->assertEquals(Money::parseByDecimal('1.00', 'BRL'), Money::BRL(100));
+        $this->assertEquals(Money::parseByDecimal('1.00', 'USD', Money::getCurrencies()), Money::USD(100));
+    }
+
+    public function testParserByParser()
+    {
+        $parser = new DecimalMoneyParser(Money::getCurrencies());
+
+        $this->assertEquals(Money::parseByParser($parser, '1.00', 'BRL'), Money::BRL(100));
+        $this->assertEquals(Money::parseByParser($parser, '1.00', 'USD'), Money::USD(100));
     }
 
     public function testConvert()
@@ -81,16 +103,6 @@ class MoneyTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertEquals('1.00', Money::BRL(100)->formatByDecimal(Money::getCurrencies()));
         $this->assertEquals('1.00', Money::BRL(100)->formatByDecimal());
-    }
-
-    /**
-     * @expectedException \ErrorException
-     * @expectedExceptionMessage Method `formatSimple` is deprecated instead use `formatByDecimal`
-     */
-    public function testFormatSimple()
-    {
-        $this->assertEquals('1.00', Money::BRL(100)->formatSimple(Money::getCurrencies()));
-        $this->assertEquals('1.00', Money::BRL(100)->formatSimple());
     }
 
     public function testFormatByFormatter()
