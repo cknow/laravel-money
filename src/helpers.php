@@ -1,5 +1,19 @@
 <?php
 
+if (!function_exists('currency')) {
+    /**
+     * currency.
+     *
+     * @param string $currency
+     *
+     * @return \Money\Currency
+     */
+    function currency($currency)
+    {
+        return new Money\Currency($currency);
+    }
+}
+
 if (!function_exists('money')) {
     /**
      * money.
@@ -15,16 +29,19 @@ if (!function_exists('money')) {
     }
 }
 
-if (!function_exists('currency')) {
+if (!function_exists('money_parse')) {
     /**
-     * currency.
+     * money parse.
      *
-     * @param string $currency
+     * @param string            $money
+     * @param string|null       $forceCurrency
+     * @param string|null       $locale
+     * @param \Money\Currencies $currencies
      *
-     * @return \Money\Currency
+     * @return \Cknow\Money\Money
      */
-    function currency($currency)
+    function money_parse($money, $forceCurrency = null, $locale = null, Money\Currencies $currencies = null)
     {
-        return new Money\Currency($currency);
+        return Cknow\Money\Money::parse($money, $forceCurrency, $locale, $currencies);
     }
 }

@@ -23,20 +23,21 @@ class MoneyTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(Money::BRL(10), new Money(10, new Currency('BRL')));
     }
 
-    public function testParser()
+    public function testParse()
     {
         $this->assertEquals(Money::parse('R$1,00'), Money::BRL(100));
+        $this->assertEquals(Money::parse('R$1,00', 'BRL'), Money::BRL(100));
         $this->assertEquals(Money::parse('$1.00', 'USD', 'en_US'), Money::USD(100));
         $this->assertEquals(Money::parse('$1.00', 'USD', 'en_US', Money::getCurrencies()), Money::USD(100));
     }
 
-    public function testParserDecimal()
+    public function testParseByDecimal()
     {
         $this->assertEquals(Money::parseByDecimal('1.00', 'BRL'), Money::BRL(100));
         $this->assertEquals(Money::parseByDecimal('1.00', 'USD', Money::getCurrencies()), Money::USD(100));
     }
 
-    public function testParserByParser()
+    public function testParseByParser()
     {
         $parser = new DecimalMoneyParser(Money::getCurrencies());
 
