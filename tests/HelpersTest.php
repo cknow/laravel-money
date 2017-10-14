@@ -2,10 +2,17 @@
 
 namespace Cknow\Money;
 
+use Money\Currencies\ISOCurrencies;
 use Money\Currency;
 
 class HelpersTest extends \PHPUnit_Framework_TestCase
 {
+    public function setUp()
+    {
+        Money::setCurrencies(new ISOCurrencies());
+        Money::setLocale('pt_BR');
+    }
+
     public function testCurrency()
     {
         $this->assertEquals(money(25, 'BRL'), new Money(25, new Currency('BRL')));
