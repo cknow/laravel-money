@@ -60,18 +60,22 @@ Money::BRL(500)->isPositive(); // true
 Money::BRL(500)->isNegative(); // false
 Money::BRL(500)->format(); // R$5,00
 Money::BRL(500)->formatByDecimal(); // 5.00
+Money::parse('R$1,00'); // R$1,00 -> Money::BRL(100)
+Money::parseByDecimal('1.00', 'BRL'); // R$1,00 -> Money::BRL(100)
 ```
 
 ## Helpers
 
 ```php
-money(500, 'BRL')
 currency('BRL')
+money(500, 'BRL')
+money_parse('R$5,00')
 ```
 
 ## Blade Extensions
 
 ```php
-@money(500, 'BRL')
 @currency('BRL')
+@money(500, 'BRL')
+@money_parse('R$5,00')
 ```
