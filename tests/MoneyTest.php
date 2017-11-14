@@ -6,6 +6,7 @@ use Money\Currencies\ISOCurrencies;
 use Money\Currency;
 use Money\Formatter\DecimalMoneyFormatter;
 use Money\Parser\DecimalMoneyParser;
+use NumberFormatter as N;
 
 /**
  * @covers \Cknow\Money\Money
@@ -97,7 +98,9 @@ class MoneyTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('R$1,00', Money::BRL(100)->format());
         $this->assertEquals('US$1,00', Money::USD(100)->format());
         $this->assertEquals('R$1.00', Money::BRL(100)->format('en_US'));
-        $this->assertEquals('$1.00', Money::USD(100)->format('en_US', Money::getCurrencies()));
+        $this->assertEquals('$1.00', Money::USD(100)->format('en_US', Money::getCurrencies(), N::CURRENCY));
+        $this->assertEquals('1,99', Money::BRL(199)->format('pt_BR', Money::getCurrencies(), N::DECIMAL));
+        $this->assertEquals('1.00', Money::USD(100)->format('en_US', Money::getCurrencies(), N::DECIMAL));
     }
 
     public function testFormatByDecimal()

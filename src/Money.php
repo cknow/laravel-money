@@ -328,7 +328,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      *
      * @return \Cknow\Money\Money
      */
-    public function add(Money $addend)
+    public function add(self $addend)
     {
         return self::convert($this->money->add($addend->getMoney()));
     }
@@ -340,7 +340,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      *
      * @return \Cknow\Money\Money
      */
-    public function subtract(Money $subtrahend)
+    public function subtract(self $subtrahend)
     {
         return self::convert($this->money->subtract($subtrahend->getMoney()));
     }
@@ -360,12 +360,13 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      *
      * @param string|null       $locale
      * @param \Money\Currencies $currencies
+     * @param int               $style
      *
      * @return string
      */
-    public function format($locale = null, Currencies $currencies = null)
+    public function format($locale = null, Currencies $currencies = null, $style = NumberFormatter::CURRENCY)
     {
-        $numberFormatter = new NumberFormatter($locale ?: static::getLocale(), NumberFormatter::CURRENCY);
+        $numberFormatter = new NumberFormatter($locale ?: static::getLocale(), $style);
         $formatter = new IntlMoneyFormatter($numberFormatter, $currencies ?: static::getCurrencies());
 
         return $this->formatByFormatter($formatter);

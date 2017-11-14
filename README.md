@@ -59,9 +59,24 @@ Money::BRL(500)->isZero(); // false
 Money::BRL(500)->isPositive(); // true
 Money::BRL(500)->isNegative(); // false
 Money::BRL(500)->format(); // R$5,00
+Money::BRL(199)->format(null, null, \NumberFormatter::DECIMAL); // 1,99
 Money::BRL(500)->formatByDecimal(); // 5.00
 Money::parse('R$1,00'); // R$1,00 -> Money::BRL(100)
 Money::parseByDecimal('1.00', 'BRL'); // R$1,00 -> Money::BRL(100)
+```
+
+### Create your formatter
+
+```php
+class MyFormatter implements \Money\MoneyFormatter
+{
+    public function format(\Money\Money $money)
+    {
+        return 'My Formatter';
+    }
+}
+
+Money::BRL(500)->formatByFormatter(new MyFormatter());
 ```
 
 ## Helpers
