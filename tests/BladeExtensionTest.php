@@ -8,7 +8,7 @@ use Mockery;
 /**
  * @covers \Cknow\Money\BladeExtension
  */
-class BladeExtensionTest extends \PHPUnit_Framework_TestCase
+class BladeExtensionTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var \Illuminate\View\Compilers\BladeCompiler
