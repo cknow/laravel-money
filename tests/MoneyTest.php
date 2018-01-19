@@ -93,18 +93,6 @@ class MoneyTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals([Money::BRL(5), Money::BRL(5)], Money::BRL(10)->allocateTo(2));
     }
 
-    public function testGetters()
-    {
-        $money = new Money(100, new Currency('BRL'));
-
-        $this->assertInstanceOf(\Money\Money::class, $money->getMoney());
-        $this->assertJson($money->toJson());
-        $this->assertEquals($money->toArray(), ['amount' => '100', 'currency' => 'BRL', 'formatted' => 'R$1,00']);
-        $this->assertEquals($money->jsonSerialize(), ['amount' => '100', 'currency' => 'BRL', 'formatted' => 'R$1,00']);
-        $this->assertEquals('R$1,00', $money->render());
-        $this->assertEquals('R$1,00', $money);
-    }
-
     public function testFormat()
     {
         $this->assertEquals('R$1,00', Money::BRL(100)->format());
@@ -126,5 +114,28 @@ class MoneyTest extends \PHPUnit\Framework\TestCase
         $formatter = new DecimalMoneyFormatter(Money::getCurrencies());
 
         $this->assertEquals('1.00', Money::BRL(100)->formatByFormatter($formatter));
+    }
+
+    public function testGetters()
+    {
+        $money = new Money(100, new Currency('BRL'));
+
+        $this->assertInstanceOf(\Money\Money::class, $money->getMoney());
+        $this->assertJson($money->toJson());
+        $this->assertEquals($money->toArray(), ['amount' => '100', 'currency' => 'BRL', 'formatted' => 'R$1,00']);
+        $this->assertEquals($money->jsonSerialize(), ['amount' => '100', 'currency' => 'BRL', 'formatted' => 'R$1,00']);
+        $this->assertEquals('R$1,00', $money->render());
+        $this->assertEquals('R$1,00', $money);
+    }
+
+    public function testSerializeWithAttributes()
+    {
+        $money = new Money(100, new Currency('BRL'));
+        $money->attributes(['foo' => 'bar']);
+
+        $this->assertEquals(
+            $money->jsonSerialize(),
+            ['amount' => '100', 'currency' => 'BRL', 'formatted' => 'R$1,00', 'foo' => 'bar']
+        );
     }
 }

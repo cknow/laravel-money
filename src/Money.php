@@ -211,6 +211,11 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     private $money;
 
     /**
+     * @var array
+     */
+    private $attributes = [];
+
+    /**
      * Money.
      *
      * @param int|string      $amount
@@ -423,13 +428,27 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     }
 
     /**
+     * Attributes.
+     *
+     * @param array $attributes
+     */
+    public function attributes(array $attributes = [])
+    {
+        $this->attributes = $attributes;
+    }
+
+    /**
      * Json serialize.
      *
      * @return array
      */
     public function jsonSerialize()
     {
-        return array_merge($this->money->jsonSerialize(), ['formatted' => $this->render()]);
+        return array_merge(
+            $this->attributes,
+            $this->money->jsonSerialize(),
+            ['formatted' => $this->render()]
+        );
     }
 
     /**
