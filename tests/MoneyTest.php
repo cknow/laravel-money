@@ -98,9 +98,9 @@ class MoneyTest extends \PHPUnit\Framework\TestCase
         $money = new Money(100, new Currency('BRL'));
 
         $this->assertInstanceOf(\Money\Money::class, $money->getMoney());
-        $this->assertArrayHasKey('amount', $money->toArray());
         $this->assertJson($money->toJson());
-        $this->assertArrayHasKey('amount', $money->jsonSerialize());
+        $this->assertEquals($money->toArray(), ['amount' => '100', 'currency' => 'BRL', 'formatted' => 'R$1,00']);
+        $this->assertEquals($money->jsonSerialize(), ['amount' => '100', 'currency' => 'BRL', 'formatted' => 'R$1,00']);
         $this->assertEquals('R$1,00', $money->render());
         $this->assertEquals('R$1,00', $money);
     }

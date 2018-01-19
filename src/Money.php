@@ -429,7 +429,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      */
     public function jsonSerialize()
     {
-        return $this->money->jsonSerialize();
+        return array_merge($this->money->jsonSerialize(), ['formatted' => $this->render()]);
     }
 
     /**
