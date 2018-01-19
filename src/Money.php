@@ -346,6 +346,30 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     }
 
     /**
+     * Mod.
+     *
+     * @param \Cknow\Money\Money $divisor
+     *
+     * @return \Cknow\Money\Money
+     */
+    public function mod(self $divisor)
+    {
+        return self::convert($this->money->mod($divisor->getMoney()));
+    }
+
+    /**
+     * Ratio of.
+     *
+     * @param \Cknow\Money\Money $money
+     *
+     * @return string
+     */
+    public function ratioOf(self $money)
+    {
+        return $this->money->ratioOf($money->getMoney());
+    }
+
+    /**
      * Get money.
      *
      * @return \Money\Money

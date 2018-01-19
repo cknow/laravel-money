@@ -11,7 +11,7 @@ use NumberFormatter as N;
 /**
  * @covers \Cknow\Money\Money
  */
-class MoneyTest extends \PHPUnit_Framework_TestCase
+class MoneyTest extends \PHPUnit\Framework\TestCase
 {
     public function setUp()
     {
@@ -61,6 +61,18 @@ class MoneyTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertEquals(Money::BRL(15), Money::BRL(20)->subtract(Money::BRL(5)));
         $this->assertEquals(Money::USD(20), Money::USD(25)->subtract(Money::USD(5)));
+    }
+
+    public function testMod()
+    {
+        $this->assertEquals(Money::BRL(230), Money::BRL(830)->mod(Money::BRL(300)));
+        $this->assertEquals(Money::USD(115), Money::USD(415)->mod(Money::USD(150)));
+    }
+
+    public function testRatioOf()
+    {
+        $this->assertEquals('15', Money::BRL(30)->ratioOf(Money::BRL(2)));
+        $this->assertEquals('20', Money::USD(60)->ratioOf(Money::USD(3)));
     }
 
     public function testCallUndefinedMethod()
