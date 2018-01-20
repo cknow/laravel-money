@@ -45,9 +45,8 @@ script:
 after_success:
   - |
     if [[ "$TRAVIS_PHP_VERSION" == "7.0" && "$setup" == "stable" ]]; then
-      travis_retry composer require --dev satooshi/php-coveralls
-      vendor/bin/coveralls -v
-
       travis_retry composer require --dev codeclimate/php-test-reporter
+      
+      vendor/bin/coveralls -v
       CODECLIMATE_REPO_TOKEN="bfe1331818a2cea90bc5dde922a6aba5753c65b63bb46ad63b970eb24fb0cc5e" vendor/bin/test-reporter
     fi
