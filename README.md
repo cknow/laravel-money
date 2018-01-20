@@ -32,7 +32,7 @@ composer require cknow/laravel-money
 or add this to require section in your composer.json file:
 
 ```
-"cknow/laravel-money": "~2.0"
+"cknow/laravel-money": "~2.4"
 ```
 
 then run ```composer update```
@@ -60,6 +60,8 @@ Money::BRL(500)->isNegative(); // false
 Money::BRL(500)->format(); // R$5,00
 Money::BRL(199)->format(null, null, \NumberFormatter::DECIMAL); // 1,99
 Money::BRL(500)->formatByDecimal(); // 5.00
+Money::BRL(830)->mod(Money::BRL(300)); // R$2,30 -> Money::BRL(230)
+Money::BRL(30)->ratioOf(Money::BRL(2)); // 15
 Money::parse('R$1,00'); // R$1,00 -> Money::BRL(100)
 Money::parseByDecimal('1.00', 'BRL'); // R$1,00 -> Money::BRL(100)
 ```
