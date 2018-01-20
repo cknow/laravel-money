@@ -1,17 +1,32 @@
-php: true
+version: "2"
 
-ratings:
-  paths:
-    - src/**/*.php
-    - tests/**/*.php
-
-engines:
-  duplication:
-    enabled: true
+checks:
+  argument-count:
     config:
-      languages:
-      - php: true
-
+      threshold: 5
+  complex-logic:
+    config:
+      threshold: 5
+  file-lines:
+    config:
+      threshold: 300
+  method-complexity:
+    config:
+      threshold: 5
+  method-count:
+    config:
+      threshold: 50
+  method-lines:
+    config:
+      threshold: 150
+  nested-control-flow:
+    config:
+      threshold: 5
+  return-statements:
+    config:
+      threshold: 5
+      
+plugins:
   phpcodesniffer:
     enabled: true
     config:
