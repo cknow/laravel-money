@@ -1,3 +1,7 @@
+env:
+  global:
+    - CC_TEST_REPORTER_ID=bfe1331818a2cea90bc5dde922a6aba5753c65b63bb46ad63b970eb24fb0cc5e
+    
 sudo: false
 
 language: php
@@ -39,14 +43,19 @@ install:
       travis_retry composer update --prefer-dist --no-scripts --no-interaction --prefer-lowest --prefer-stable --no-suggest;
     fi
 
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+  
 script:
   - composer test
 
-after_success:
+after_script:
   - |
     if [[ "$TRAVIS_PHP_VERSION" == "7.0" && "$setup" == "stable" ]]; then
-      travis_retry composer require --dev codeclimate/php-test-reporter
+      travis_retry composer require --dev satooshi/php-coveralls
       
       vendor/bin/coveralls -v
-      CODECLIMATE_REPO_TOKEN="bfe1331818a2cea90bc5dde922a6aba5753c65b63bb46ad63b970eb24fb0cc5e" vendor/bin/test-reporter
+      ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
     fi
