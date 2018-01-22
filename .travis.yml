@@ -1,7 +1,3 @@
-env:
-  global:
-    - CC_TEST_REPORTER_ID=bfe1331818a2cea90bc5dde922a6aba5753c65b63bb46ad63b970eb24fb0cc5e
-    
 sudo: false
 
 language: php
@@ -16,6 +12,7 @@ notifications:
 env:
   global:
     - setup=stable
+    - CC_TEST_REPORTER_ID=bfe1331818a2cea90bc5dde922a6aba5753c65b63bb46ad63b970eb24fb0cc5e
 
 matrix:
   fast_finish: true
@@ -55,7 +52,6 @@ after_script:
   - |
     if [[ "$TRAVIS_PHP_VERSION" == "7.0" && "$setup" == "stable" ]]; then
       travis_retry composer require --dev satooshi/php-coveralls
-      
-      vendor/bin/coveralls -v
+      travis_retry php vendor/bin/coveralls -v
       ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
     fi
