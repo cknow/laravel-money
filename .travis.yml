@@ -46,12 +46,13 @@ before_script:
   - ./cc-test-reporter before-build
   
 script:
+  - mkdir -p build/logs
   - composer test
 
 after_script:
   - |
     if [[ "$TRAVIS_PHP_VERSION" == "7.0" && "$setup" == "stable" ]]; then
-      travis_retry composer require --dev satooshi/php-coveralls
-      travis_retry php vendor/bin/coveralls -v
+      travis_retry composer require --dev php-coveralls/php-coveralls
+      travis_retry php vendor/bin/php-coveralls -v
       ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
     fi
