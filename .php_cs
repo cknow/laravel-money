@@ -23,6 +23,7 @@ return PhpCsFixer\Config::create()
         'heredoc_to_nowdoc' => true,
         'linebreak_after_opening_tag' => true,
         'list_syntax' => ['syntax' => 'short'],
+        'mb_str_functions' => true,
         'method_chaining_indentation' => true,
         'multiline_comment_opening_closing' => true,
         'multiline_whitespace_before_semicolons' => ['strategy' => 'new_line_for_chained_calls'],
