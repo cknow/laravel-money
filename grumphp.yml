@@ -21,6 +21,6 @@ parameters:
           blacklist: [var_dump]
     phpstan: ~
     phpversion:
-      project: '7.0'
+      project: '7.1'
     securitychecker: ~
     git_commit_message: ~
