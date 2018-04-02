@@ -17,9 +17,6 @@ env:
 matrix:
   fast_finish: true
   include:
-    - php: 7.0
-    - php: 7.0
-      env: setup=lowest
     - php: 7.1
     - php: 7.1
       env: setup=lowest
@@ -44,7 +41,7 @@ before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
-  
+
 script:
   - mkdir -p build/logs
   - composer test
