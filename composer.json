@@ -59,6 +59,10 @@
   "minimum-stability": "stable",
   "prefer-stable": true,
   "config": {
+    "platform": {
+      "php": "7.1.0"
+    },
+    "optimize-autoloader": true,
     "sort-packages": true
   },
   "scripts": {
