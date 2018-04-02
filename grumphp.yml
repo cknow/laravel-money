@@ -3,8 +3,8 @@ parameters:
   tasks:
     phpcsfixer: ~
     phpunit: ~
-    composer:
-      no_check_lock: true
+    #composer:
+    #  no_check_lock: true
     phpcpd: ~
     phpcs:
       standard: PSR2
