@@ -300,12 +300,12 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      * Parse by decimal.
      *
      * @param string            $money
-     * @param string|null       $forceCurrency
+     * @param string            $forceCurrency
      * @param \Money\Currencies $currencies
      *
      * @return \Cknow\Money\Money
      */
-    public static function parseByDecimal($money, $forceCurrency = null, Currencies $currencies = null)
+    public static function parseByDecimal($money, $forceCurrency, Currencies $currencies = null)
     {
         $parser = new DecimalMoneyParser($currencies ?: static::getCurrencies());
 
