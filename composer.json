@@ -68,9 +68,9 @@
   },
   "extra": {
     "laravel": {
-        "providers": [
-            "Cknow\\Money\\MoneyServiceProvider"
-        ]
+      "providers": [
+        "Cknow\\Money\\MoneyServiceProvider"
+      ]
     }
   }
 }
