@@ -37,7 +37,7 @@
     "phpmd/phpmd": "~2.6",
     "phpro/grumphp": "~0.14",
     "phpstan/phpstan": "~0.9",
-    "phpunit/phpunit": "~7.0",
+    "phpunit/phpunit": "~6.5 || ~7.0",
     "povils/phpmnd": "~2.0",
     "sebastian/phpcpd": "~4.0",
     "sensiolabs/security-checker": "~4.1",
@@ -59,10 +59,6 @@
   "minimum-stability": "stable",
   "prefer-stable": true,
   "config": {
-    "platform": {
-      "php": "7.1.0"
-    },
-    "optimize-autoloader": true,
     "sort-packages": true
   },
   "scripts": {
