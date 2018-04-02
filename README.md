@@ -31,8 +31,8 @@ composer require cknow/laravel-money
 
 or add this to require section in your composer.json file:
 
-```
-"cknow/laravel-money": "~2.4"
+```bash
+"cknow/laravel-money": "~3.0"
 ```
 
 then run ```composer update```
