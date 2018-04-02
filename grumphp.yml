@@ -3,8 +3,8 @@ parameters:
   tasks:
     phpcsfixer: ~
     phpunit: ~
-    composer:
-      no_check_lock: true
+    #composer:
+    #  no_check_lock: true
     phpcpd: ~
     phpcs:
       standard: PSR2
@@ -21,6 +21,6 @@ parameters:
           blacklist: [var_dump]
     phpstan: ~
     phpversion:
-      project: '7.0'
+      project: '7.1'
     securitychecker: ~
     git_commit_message: ~

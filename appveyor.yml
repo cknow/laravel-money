@@ -10,8 +10,7 @@ clone_folder: c:\projects\laravel-money
 
 environment:
   matrix:
-    - php_ver: 7.0.27
-    - php_ver: 7.1.13
+    - php_ver: 7.1.16
 
 cache:
   - '%APPDATA%\Composer'
@@ -34,12 +33,10 @@ install:
   - echo extension=php_mbstring.dll >> php.ini
   - echo extension=php_openssl.dll >> php.ini
   - IF NOT EXIST C:\tools\composer.phar (cd C:\tools && appveyor DownloadFile https://getcomposer.org/composer.phar)
-  - cd C:\projects\laravel-money
-  - php C:\tools\composer.phar global show -ND 2>1 | findstr "hirak/prestissimo" || php C:\tools\composer.phar global require hirak/prestissimo
 
 before_test:
     - cd C:\projects\laravel-money
-    - php C:\tools\composer.phar update --no-progress --profile --prefer-dist --no-scripts --no-interaction --no-suggest
+    - php C:\tools\composer.phar update --prefer-dist --no-scripts --no-interaction --prefer-stable --no-suggest
 
 test_script:
   - cd c:\projects\laravel-money

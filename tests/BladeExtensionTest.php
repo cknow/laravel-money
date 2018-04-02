@@ -24,7 +24,7 @@ class BladeExtensionTest extends \PHPUnit\Framework\TestCase
         BladeExtension::register($this->compiler);
     }
 
-    public function tearDown()
+    protected function tearDown()
     {
         Mockery::close();
     }

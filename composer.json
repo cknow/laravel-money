@@ -1,7 +1,6 @@
 {
   "name": "cknow/laravel-money",
   "description": "Laravel Money",
-  "type": "library",
   "keywords": [
     "laravel",
     "money",
@@ -22,24 +21,25 @@
     "source": "https://github.com/cknow/laravel-money"
   },
   "require": {
-    "php": "~7.0",
+    "php": "~7.1",
+    "ext-json": "*",
     "ext-intl": "*",
-    "illuminate/support": "~5.5",
-    "illuminate/view": "~5.5",
+    "illuminate/support": "~5.6",
+    "illuminate/view": "~5.6",
     "moneyphp/money": "~3.1"
   },
   "require-dev": {
-    "friendsofphp/php-cs-fixer": "~2.10",
-    "graham-campbell/testbench": "~4.0|~5.0",
-    "jakub-onderka/php-parallel-lint": "~0.9",
+    "friendsofphp/php-cs-fixer": "~2.11",
+    "graham-campbell/testbench": "~5.0",
+    "jakub-onderka/php-parallel-lint": "~1.0",
     "mockery/mockery": "~1.0",
-    "nikic/php-parser": "~3.1",
+    "nikic/php-parser": "~3.1 || ~4.0",
     "phpmd/phpmd": "~2.6",
-    "phpro/grumphp": "~0.13",
+    "phpro/grumphp": "~0.14",
     "phpstan/phpstan": "~0.9",
-    "phpunit/phpunit": "~6.5",
-    "povils/phpmnd": "~1.1",
-    "sebastian/phpcpd": "~3.0",
+    "phpunit/phpunit": "~7.0",
+    "povils/phpmnd": "~2.0",
+    "sebastian/phpcpd": "~4.0",
     "sensiolabs/security-checker": "~4.1",
     "squizlabs/php_codesniffer": "~3.2"
   },
@@ -56,7 +56,7 @@
       "Cknow\\Money\\": "tests/"
     }
   },
-  "minimum-stability": "stable",
+  "minimum-stability": "dev",
   "prefer-stable": true,
   "config": {
     "sort-packages": true
@@ -68,9 +68,9 @@
   },
   "extra": {
     "laravel": {
-        "providers": [
-            "Cknow\\Money\\MoneyServiceProvider"
-        ]
+      "providers": [
+        "Cknow\\Money\\MoneyServiceProvider"
+      ]
     }
   }
 }

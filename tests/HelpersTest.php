@@ -7,7 +7,7 @@ use Money\Currency;
 
 class HelpersTest extends \PHPUnit\Framework\TestCase
 {
-    public function setUp()
+    protected function setUp()
     {
         Money::setCurrencies(new ISOCurrencies());
         Money::setLocale('pt_BR');
