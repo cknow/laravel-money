@@ -66,5 +66,23 @@ class BladeExtensionTest extends \PHPUnit\Framework\TestCase
             '<?php echo money_parse("$5.00", "USD", "en_US"); ?>',
             $this->compiler->compileString('@money_parse("$5.00", "USD", "en_US")')
         );
+
+        $this->assertEquals(
+            '<?php echo money_parse("$5.00", "USD", "en_US", null); ?>',
+            $this->compiler->compileString('@money_parse("$5.00", "USD", "en_US", null)')
+        );
+    }
+
+    public function testMoneyParseByDecimal()
+    {
+        $this->assertEquals(
+            '<?php echo money_parse_by_decimal("5,00", "BRL"); ?>',
+            $this->compiler->compileString('@money_parse_by_decimal("5,00", "BRL")')
+        );
+
+        $this->assertEquals(
+            '<?php echo money_parse_by_decimal("5.00", "USD", null); ?>',
+            $this->compiler->compileString('@money_parse_by_decimal("5.00", "USD", null)')
+        );
     }
 }

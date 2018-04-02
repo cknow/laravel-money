@@ -24,5 +24,9 @@ class BladeExtension
         $compiler->directive('money_parse', function ($expression) {
             return "<?php echo money_parse(${expression}); ?>";
         });
+
+        $compiler->directive('money_parse_by_decimal', function ($expression) {
+            return "<?php echo money_parse_by_decimal(${expression}); ?>";
+        });
     }
 }

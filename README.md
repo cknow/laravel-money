@@ -86,6 +86,7 @@ Money::BRL(500)->formatByFormatter(new MyFormatter());
 currency('BRL')
 money(500, 'BRL')
 money_parse('R$5,00')
+money_parse_by_decimal('1.00', 'BRL')
 ```
 
 ## Blade Extensions
@@ -94,4 +95,5 @@ money_parse('R$5,00')
 @currency('BRL')
 @money(500, 'BRL')
 @money_parse('R$5,00')
+@money_parse_by_decimal('1.00', 'BRL')
 ```

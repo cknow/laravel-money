@@ -32,4 +32,10 @@ class HelpersTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(money_parse('$1.00', 'USD', 'en_US'), Money::USD(100));
         $this->assertEquals(money_parse('$1.00', 'USD', 'en_US', Money::getCurrencies()), Money::USD(100));
     }
+
+    public function testMoneyParseByDecimal()
+    {
+        $this->assertEquals(money_parse_by_decimal('5.00', 'BRL'), Money::BRL(500));
+        $this->assertEquals(money_parse_by_decimal('5.00', 'USD', null), Money::USD(500));
+    }
 }

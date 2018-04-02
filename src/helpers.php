@@ -45,3 +45,19 @@ if (!function_exists('money_parse')) {
         return Cknow\Money\Money::parse($money, $forceCurrency, $locale, $currencies);
     }
 }
+
+if (!function_exists('money_parse_by_decimal')) {
+    /**
+     * money parse by decimal.
+     *
+     * @param string            $money
+     * @param string|null       $forceCurrency
+     * @param \Money\Currencies $currencies
+     *
+     * @return \Cknow\Money\Money
+     */
+    function money_parse_by_decimal($money, $forceCurrency = null, Money\Currencies $currencies = null)
+    {
+        return Cknow\Money\Money::parseByDecimal($money, $forceCurrency, $currencies);
+    }
+}
