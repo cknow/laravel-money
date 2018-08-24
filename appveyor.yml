@@ -10,7 +10,8 @@ clone_folder: c:\projects\laravel-money
 
 environment:
   matrix:
-    - php_ver: 7.1.16
+    - php_ver: 7.1.21
+    - php_ver: 7.2.9
 
 cache:
   - '%APPDATA%\Composer'
