@@ -64,6 +64,8 @@ Money::BRL(830)->mod(Money::BRL(300)); // R$2,30 -> Money::BRL(230)
 Money::BRL(30)->ratioOf(Money::BRL(2)); // 15
 Money::parse('R$1,00'); // R$1,00 -> Money::BRL(100)
 Money::parseByDecimal('1.00', 'BRL'); // R$1,00 -> Money::BRL(100)
+
+Money::BRL(500)->getMoney(); // Instance of \Money\Money
 ```
 
 ### Create your formatter
