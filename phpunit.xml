@@ -12,7 +12,6 @@
          stopOnFailure="false"
          stopOnIncomplete="false"
          stopOnSkipped="false"
-         syntaxCheck="true"
          verbose="true"
 >
     <testsuites>
