@@ -31,7 +31,7 @@ class BladeExtensionTest extends \PHPUnit\Framework\TestCase
 
     public function testCurrency()
     {
-        $this->assertEquals(
+        static::assertEquals(
             '<?php echo currency("BRL"); ?>',
             $this->compiler->compileString('@currency("BRL")')
         );
@@ -39,12 +39,12 @@ class BladeExtensionTest extends \PHPUnit\Framework\TestCase
 
     public function testMoney()
     {
-        $this->assertEquals(
+        static::assertEquals(
             '<?php echo money(500); ?>',
             $this->compiler->compileString('@money(500)')
         );
 
-        $this->assertEquals(
+        static::assertEquals(
             '<?php echo money(500, "USD"); ?>',
             $this->compiler->compileString('@money(500, "USD")')
         );
@@ -52,22 +52,22 @@ class BladeExtensionTest extends \PHPUnit\Framework\TestCase
 
     public function testMoneyParse()
     {
-        $this->assertEquals(
+        static::assertEquals(
             '<?php echo money_parse("R$5,00"); ?>',
             $this->compiler->compileString('@money_parse("R$5,00")')
         );
 
-        $this->assertEquals(
+        static::assertEquals(
             '<?php echo money_parse("R$5,00", "BRL"); ?>',
             $this->compiler->compileString('@money_parse("R$5,00", "BRL")')
         );
 
-        $this->assertEquals(
+        static::assertEquals(
             '<?php echo money_parse("$5.00", "USD", "en_US"); ?>',
             $this->compiler->compileString('@money_parse("$5.00", "USD", "en_US")')
         );
 
-        $this->assertEquals(
+        static::assertEquals(
             '<?php echo money_parse("$5.00", "USD", "en_US", null); ?>',
             $this->compiler->compileString('@money_parse("$5.00", "USD", "en_US", null)')
         );
@@ -75,12 +75,12 @@ class BladeExtensionTest extends \PHPUnit\Framework\TestCase
 
     public function testMoneyParseByDecimal()
     {
-        $this->assertEquals(
+        static::assertEquals(
             '<?php echo money_parse_by_decimal("5,00", "BRL"); ?>',
             $this->compiler->compileString('@money_parse_by_decimal("5,00", "BRL")')
         );
 
-        $this->assertEquals(
+        static::assertEquals(
             '<?php echo money_parse_by_decimal("5.00", "USD", null); ?>',
             $this->compiler->compileString('@money_parse_by_decimal("5.00", "USD", null)')
         );

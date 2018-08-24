@@ -5,6 +5,9 @@ namespace Cknow\Money;
 use Money\Currencies\ISOCurrencies;
 use Money\Currency;
 
+/**
+ * @coversNothing
+ */
 class HelpersTest extends \PHPUnit\Framework\TestCase
 {
     protected function setUp()
@@ -15,27 +18,27 @@ class HelpersTest extends \PHPUnit\Framework\TestCase
 
     public function testCurrency()
     {
-        $this->assertEquals(money(25, 'BRL'), new Money(25, new Currency('BRL')));
-        $this->assertEquals(money(25, 'USD'), new Money(25, new Currency('USD')));
+        static::assertEquals(money(25, 'BRL'), new Money(25, new Currency('BRL')));
+        static::assertEquals(money(25, 'USD'), new Money(25, new Currency('USD')));
     }
 
     public function testMoney()
     {
-        $this->assertEquals(currency('BRL'), new Currency('BRL'));
-        $this->assertEquals(currency('USD'), new Currency('USD'));
+        static::assertEquals(currency('BRL'), new Currency('BRL'));
+        static::assertEquals(currency('USD'), new Currency('USD'));
     }
 
     public function testMoneyParse()
     {
-        $this->assertEquals(money_parse('R$1,00'), Money::BRL(100));
-        $this->assertEquals(money_parse('R$1,00', 'BRL'), Money::BRL(100));
-        $this->assertEquals(money_parse('$1.00', 'USD', 'en_US'), Money::USD(100));
-        $this->assertEquals(money_parse('$1.00', 'USD', 'en_US', Money::getCurrencies()), Money::USD(100));
+        static::assertEquals(money_parse('R$1,00'), Money::BRL(100));
+        static::assertEquals(money_parse('R$1,00', 'BRL'), Money::BRL(100));
+        static::assertEquals(money_parse('$1.00', 'USD', 'en_US'), Money::USD(100));
+        static::assertEquals(money_parse('$1.00', 'USD', 'en_US', Money::getCurrencies()), Money::USD(100));
     }
 
     public function testMoneyParseByDecimal()
     {
-        $this->assertEquals(money_parse_by_decimal('5.00', 'BRL'), Money::BRL(500));
-        $this->assertEquals(money_parse_by_decimal('5.00', 'USD', null), Money::USD(500));
+        static::assertEquals(money_parse_by_decimal('5.00', 'BRL'), Money::BRL(500));
+        static::assertEquals(money_parse_by_decimal('5.00', 'USD', null), Money::USD(500));
     }
 }

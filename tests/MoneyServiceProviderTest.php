@@ -11,15 +11,15 @@ class MoneyServiceProviderTest extends AbstractPackageTestCase
 {
     public function testLocale()
     {
-        $this->assertEquals('en', Money::getLocale());
+        static::assertEquals('en', Money::getLocale());
     }
 
     public function testBladeDirectives()
     {
         $customDirectives = $this->app->make('blade.compiler')->getCustomDirectives();
 
-        $this->assertArrayHasKey('money', $customDirectives);
-        $this->assertArrayHasKey('currency', $customDirectives);
+        static::assertArrayHasKey('money', $customDirectives);
+        static::assertArrayHasKey('currency', $customDirectives);
     }
 
     protected function getServiceProviderClass($app)
