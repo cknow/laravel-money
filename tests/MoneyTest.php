@@ -71,8 +71,8 @@ class MoneyTest extends \PHPUnit\Framework\TestCase
 
     public function testRatioOf()
     {
-        static::assertEquals('15', Money::BRL(30)->ratioOf(Money::BRL(2)));
-        static::assertEquals('20', Money::USD(60)->ratioOf(Money::USD(3)));
+        static::assertEquals('15', (float) Money::BRL(30)->ratioOf(Money::BRL(2)));
+        static::assertEquals('20', (float) Money::USD(60)->ratioOf(Money::USD(3)));
     }
 
     public function testCallUndefinedMethod()
