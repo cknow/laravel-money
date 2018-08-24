@@ -12,20 +12,20 @@ checks:
       threshold: 300
   method-complexity:
     config:
-      threshold: 5
+      threshold: 10
   method-count:
     config:
       threshold: 50
   method-lines:
     config:
-      threshold: 150
+      threshold: 50
   nested-control-flow:
     config:
       threshold: 5
   return-statements:
     config:
       threshold: 5
-      
+
 plugins:
   phpcodesniffer:
     enabled: true
