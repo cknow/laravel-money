@@ -5,9 +5,6 @@ namespace Cknow\Money;
 use Money\Currencies\ISOCurrencies;
 use Money\Currency;
 
-/**
- * @coversNothing
- */
 class HelpersTest extends \PHPUnit\Framework\TestCase
 {
     protected function setUp()

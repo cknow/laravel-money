@@ -56,7 +56,7 @@ return PhpCsFixer\Config::create()
         'php_unit_strict' => false,
         'php_unit_test_annotation' => ['case' => 'camel', 'style' => 'prefix'],
         'php_unit_test_case_static_method_calls' => ['call_type' => 'static', 'methods' => []],
-        'php_unit_test_class_requires_covers' => true,
+        'php_unit_test_class_requires_covers' => false,
         'phpdoc_add_missing_param_annotation' => ['only_untyped' => false],
         'phpdoc_order' => true,
         'phpdoc_to_return_type' => false,
