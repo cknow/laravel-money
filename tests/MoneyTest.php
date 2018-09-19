@@ -16,7 +16,7 @@ class MoneyTest extends \PHPUnit\Framework\TestCase
     protected function setUp()
     {
         Money::setCurrencies(new ISOCurrencies());
-        Money::setLocale('pt_BR');
+        Money::setLocale('en_US');
     }
 
     public function testFactoryMethods()
@@ -26,8 +26,8 @@ class MoneyTest extends \PHPUnit\Framework\TestCase
 
     public function testParse()
     {
-        static::assertEquals(Money::parse('R$1,00'), Money::BRL(100));
-        static::assertEquals(Money::parse('R$1,00', 'BRL'), Money::BRL(100));
+        static::assertEquals(Money::parse('$1.00'), Money::USD(100));
+        static::assertEquals(Money::parse('$1.00', 'BRL'), Money::BRL(100));
         static::assertEquals(Money::parse('$1.00', 'USD', 'en_US'), Money::USD(100));
         static::assertEquals(Money::parse('$1.00', 'USD', 'en_US', Money::getCurrencies()), Money::USD(100));
     }
@@ -95,8 +95,8 @@ class MoneyTest extends \PHPUnit\Framework\TestCase
 
     public function testFormat()
     {
-        static::assertEquals('R$1,00', Money::BRL(100)->format());
-        static::assertEquals('US$1,00', Money::USD(100)->format());
+        static::assertEquals('R$1.00', Money::BRL(100)->format());
+        static::assertEquals('$1.00', Money::USD(100)->format());
         static::assertEquals('R$1.00', Money::BRL(100)->format('en_US'));
         static::assertEquals('$1.00', Money::USD(100)->format('en_US', Money::getCurrencies(), N::CURRENCY));
         static::assertEquals('1,99', Money::BRL(199)->format('pt_BR', Money::getCurrencies(), N::DECIMAL));
@@ -119,14 +119,14 @@ class MoneyTest extends \PHPUnit\Framework\TestCase
     public function testGetters()
     {
         $money = new Money(100, new Currency('BRL'));
-        $actual = ['amount' => '100', 'currency' => 'BRL', 'formatted' => 'R$1,00'];
+        $actual = ['amount' => '100', 'currency' => 'BRL', 'formatted' => 'R$1.00'];
 
         static::assertInstanceOf(\Money\Money::class, $money->getMoney());
         static::assertJson($money->toJson());
         static::assertEquals($money->toArray(), $actual);
         static::assertEquals($money->jsonSerialize(), $actual);
-        static::assertEquals('R$1,00', $money->render());
-        static::assertEquals('R$1,00', $money);
+        static::assertEquals('R$1.00', $money->render());
+        static::assertEquals('R$1.00', $money);
     }
 
     public function testSerializeWithAttributes()
@@ -136,7 +136,7 @@ class MoneyTest extends \PHPUnit\Framework\TestCase
 
         static::assertEquals(
             $money->jsonSerialize(),
-            ['amount' => '100', 'currency' => 'BRL', 'formatted' => 'R$1,00', 'foo' => 'bar']
+            ['amount' => '100', 'currency' => 'BRL', 'formatted' => 'R$1.00', 'foo' => 'bar']
         );
     }
 }
