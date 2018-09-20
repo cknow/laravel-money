@@ -23,9 +23,9 @@ if (!function_exists('money')) {
      *
      * @return \Cknow\Money\Money
      */
-    function money($amount, $currency = 'BRL')
+    function money($amount, $currency = null)
     {
-        return new Cknow\Money\Money($amount, new Money\Currency($currency));
+        return new Cknow\Money\Money($amount, new Money\Currency($currency ?: Cknow\Money\Money::getCurrency()));
     }
 }
 
