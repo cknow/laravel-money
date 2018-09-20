@@ -11,7 +11,13 @@ class MoneyServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $path = realpath(__DIR__.'/../config/config.php');
+
+        $this->publishes([$path => config_path('money.php')], 'config');
+        $this->mergeConfigFrom($path, 'money');
+
         BladeExtension::register($this->app->make('blade.compiler'));
-        Money::setLocale($this->app->make('translator')->getLocale());
+        Money::setLocale($this->app->make('config')->get('money.locale'));
+        Money::setCurrency($this->app->make('config')->get('money.currency'));
     }
 }
