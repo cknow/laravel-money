@@ -17,7 +17,7 @@ trait LocaleTrait
     public static function getLocale()
     {
         if (!isset(static::$locale)) {
-            static::setLocale('pt_BR');
+            static::setLocale('en_US');
         }
 
         return static::$locale;

@@ -9,13 +9,13 @@ class LocaleTraitTest extends \PHPUnit\Framework\TestCase
 {
     public function testGetLocale()
     {
-        static::assertEquals('pt_BR', LocaleTrait::getLocale());
+        static::assertEquals('en_US', LocaleTrait::getLocale());
     }
 
     public function testSetLocale()
     {
-        LocaleTrait::setLocale('en_US');
+        LocaleTrait::setLocale('fr_FR');
 
-        static::assertEquals('en_US', LocaleTrait::getLocale());
+        static::assertEquals('fr_FR', LocaleTrait::getLocale());
     }
 }

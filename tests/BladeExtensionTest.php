@@ -32,8 +32,8 @@ class BladeExtensionTest extends \PHPUnit\Framework\TestCase
     public function testCurrency()
     {
         static::assertEquals(
-            '<?php echo currency("BRL"); ?>',
-            $this->compiler->compileString('@currency("BRL")')
+            '<?php echo currency("USD"); ?>',
+            $this->compiler->compileString('@currency("USD")')
         );
     }
 
@@ -58,8 +58,8 @@ class BladeExtensionTest extends \PHPUnit\Framework\TestCase
         );
 
         static::assertEquals(
-            '<?php echo money_parse("R$5,00", "BRL"); ?>',
-            $this->compiler->compileString('@money_parse("R$5,00", "BRL")')
+            '<?php echo money_parse("$5.00", "USD"); ?>',
+            $this->compiler->compileString('@money_parse("$5.00", "USD")')
         );
 
         static::assertEquals(
@@ -76,8 +76,8 @@ class BladeExtensionTest extends \PHPUnit\Framework\TestCase
     public function testMoneyParseByDecimal()
     {
         static::assertEquals(
-            '<?php echo money_parse_by_decimal("5,00", "BRL"); ?>',
-            $this->compiler->compileString('@money_parse_by_decimal("5,00", "BRL")')
+            '<?php echo money_parse_by_decimal("5.00", "USD"); ?>',
+            $this->compiler->compileString('@money_parse_by_decimal("5.00", "USD")')
         );
 
         static::assertEquals(
