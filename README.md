@@ -32,7 +32,7 @@ composer require cknow/laravel-money
 or add this to require section in your composer.json file:
 
 ```bash
-"cknow/laravel-money": "~3.1"
+"cknow/laravel-money": "~3.2"
 ```
 
 then run ```composer update```
@@ -42,9 +42,31 @@ then run ```composer update```
 ```php
 use Cknow\Money\Money;
 
-echo Money::BRL(500); // R$5,00
+echo Money::USD(500); // $5.00
 ```
 
+## Configuration
+
+The defaults are set in `config/money.php`. Copy this file to your own config directory to modify the values. You can publish the config using this command:
+
+```bash
+php artisan vendor:publish --provider="Cknow\Money\MoneyServiceProvider"
+```
+
+This is the contents of the published file:
+
+```php
+return [
+    /*
+     |--------------------------------------------------------------------------
+     | Laravel money
+     |--------------------------------------------------------------------------
+     */
+    'locale' => config('app.locale', 'en_US'),
+    'currency' => config('app.currency', 'USD'),
+];
+
+```
 ## Advanced Usage
 
 > See [MoneyPHP](http://moneyphp.org/) for more information
@@ -52,20 +74,19 @@ echo Money::BRL(500); // R$5,00
 ```php
 use Cknow\Money\Money;
 
-Money::BRL(500)->add(Money::BRL(500)); // 10,00
-Money::BRL(500)->subtract(Money::BRL(400)); // 1,00
-Money::BRL(500)->isZero(); // false
-Money::BRL(500)->isPositive(); // true
-Money::BRL(500)->isNegative(); // false
-Money::BRL(500)->format(); // R$5,00
-Money::BRL(199)->format(null, null, \NumberFormatter::DECIMAL); // 1,99
-Money::BRL(500)->formatByDecimal(); // 5.00
-Money::BRL(830)->mod(Money::BRL(300)); // R$2,30 -> Money::BRL(230)
-Money::BRL(30)->ratioOf(Money::BRL(2)); // 15
-Money::parse('R$1,00'); // R$1,00 -> Money::BRL(100)
-Money::parseByDecimal('1.00', 'BRL'); // R$1,00 -> Money::BRL(100)
-
-Money::BRL(500)->getMoney(); // Instance of \Money\Money
+Money::USD(500)->add(Money::USD(500)); // $10.00
+Money::USD(500)->subtract(Money::USD(400)); // $1.00
+Money::USD(500)->isZero(); // false
+Money::USD(500)->isPositive(); // true
+Money::USD(500)->isNegative(); // false
+Money::USD(500)->format(); // $5.00
+Money::USD(199)->format(null, null, \NumberFormatter::DECIMAL); // 1,99
+Money::USD(500)->formatByDecimal(); // 5.00
+Money::USD(830)->mod(Money::USD(300)); // $2.30 -> Money::USD(230)
+Money::USD(30)->ratioOf(Money::USD(2)); // 15
+Money::parse('$1.00'); // $1.00 -> Money::USD(100)
+Money::parseByDecimal('1.00', 'USD'); // $1.00 -> Money::USD(100)
+Money::USD(500)->getMoney(); // Instance of \Money\Money
 ```
 
 ### Create your formatter
@@ -79,23 +100,24 @@ class MyFormatter implements \Money\MoneyFormatter
     }
 }
 
-Money::BRL(500)->formatByFormatter(new MyFormatter());
+Money::USD(500)->formatByFormatter(new MyFormatter()); // My Formatter
 ```
 
 ## Helpers
 
 ```php
-currency('BRL')
-money(500, 'BRL')
-money_parse('R$5,00')
-money_parse_by_decimal('1.00', 'BRL')
+currency('USD')
+money(500) // To use default currency present in `config/money.php`
+money(500, 'USD')
+money_parse('$5.00')
+money_parse_by_decimal('1.00', 'USD')
 ```
 
 ## Blade Extensions
 
 ```php
-@currency('BRL')
-@money(500, 'BRL')
-@money_parse('R$5,00')
-@money_parse_by_decimal('1.00', 'BRL')
+@currency('USD')
+@money(500) // To use default currency present in `config/money.php`
+@money_parse('$5.00')
+@money_parse_by_decimal('1.00', 'USD')
 ```
