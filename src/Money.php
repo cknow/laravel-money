@@ -6,21 +6,15 @@ use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Contracts\Support\Renderable;
 use JsonSerializable;
-use Money\Currencies;
 use Money\Currency;
-use Money\Formatter\DecimalMoneyFormatter;
-use Money\Formatter\IntlMoneyFormatter;
-use Money\MoneyFormatter;
-use Money\MoneyParser;
-use Money\Parser\DecimalMoneyParser;
-use Money\Parser\IntlMoneyParser;
-use NumberFormatter;
 
 class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
 {
-    use MoneyFactory;
     use CurrenciesTrait;
     use LocaleTrait;
+    use MoneyFactory;
+    use MoneyFormatterTrait;
+    use MoneyParserTrait;
 
     /**
      * @var \Money\Money
@@ -83,54 +77,6 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     }
 
     /**
-     * Parse.
-     *
-     * @param string            $money
-     * @param string|null       $forceCurrency
-     * @param string|null       $locale
-     * @param \Money\Currencies $currencies
-     *
-     * @return \Cknow\Money\Money
-     */
-    public static function parse($money, $forceCurrency = null, $locale = null, Currencies $currencies = null)
-    {
-        $numberFormatter = new NumberFormatter($locale ?: static::getLocale(), NumberFormatter::CURRENCY);
-        $parser = new IntlMoneyParser($numberFormatter, $currencies ?: static::getCurrencies());
-
-        return self::parseByParser($parser, $money, $forceCurrency);
-    }
-
-    /**
-     * Parse by decimal.
-     *
-     * @param string            $money
-     * @param string            $forceCurrency
-     * @param \Money\Currencies $currencies
-     *
-     * @return \Cknow\Money\Money
-     */
-    public static function parseByDecimal($money, $forceCurrency, Currencies $currencies = null)
-    {
-        $parser = new DecimalMoneyParser($currencies ?: static::getCurrencies());
-
-        return self::parseByParser($parser, $money, $forceCurrency);
-    }
-
-    /**
-     * Parse by parser.
-     *
-     * @param \Money\MoneyParser $parser
-     * @param string             $money
-     * @param string|null        $forceCurrency
-     *
-     * @return \Cknow\Money\Money
-     */
-    public static function parseByParser(MoneyParser $parser, $money, $forceCurrency = null)
-    {
-        return self::convert($parser->parse($money, $forceCurrency));
-    }
-
-    /**
      * Add.
      *
      * @param \Cknow\Money\Money $addend
@@ -186,49 +132,6 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     public function getMoney()
     {
         return $this->money;
-    }
-
-    /**
-     * Format.
-     *
-     * @param string|null       $locale
-     * @param \Money\Currencies $currencies
-     * @param int               $style
-     *
-     * @return string
-     */
-    public function format($locale = null, Currencies $currencies = null, $style = NumberFormatter::CURRENCY)
-    {
-        $numberFormatter = new NumberFormatter($locale ?: static::getLocale(), $style);
-        $formatter = new IntlMoneyFormatter($numberFormatter, $currencies ?: static::getCurrencies());
-
-        return $this->formatByFormatter($formatter);
-    }
-
-    /**
-     * Format by decimal.
-     *
-     * @param \Money\Currencies $currencies
-     *
-     * @return string
-     */
-    public function formatByDecimal(Currencies $currencies = null)
-    {
-        $formatter = new DecimalMoneyFormatter($currencies ?: static::getCurrencies());
-
-        return $this->formatByFormatter($formatter);
-    }
-
-    /**
-     * Format by formatter.
-     *
-     * @param \Money\MoneyFormatter $formatter
-     *
-     * @return string
-     */
-    public function formatByFormatter(MoneyFormatter $formatter)
-    {
-        return $formatter->format($this->money);
     }
 
     /**

@@ -4,9 +4,6 @@ namespace Cknow\Money;
 
 use Money\Currencies\ISOCurrencies;
 use Money\Currency;
-use Money\Formatter\DecimalMoneyFormatter;
-use Money\Parser\DecimalMoneyParser;
-use NumberFormatter as N;
 
 /**
  * @covers \Cknow\Money\Money
@@ -17,28 +14,6 @@ class MoneyTest extends \PHPUnit\Framework\TestCase
     {
         Money::setCurrencies(new ISOCurrencies());
         Money::setLocale('en_US');
-    }
-
-    public function testParse()
-    {
-        static::assertEquals(Money::parse('$1.00'), Money::USD(100));
-        static::assertEquals(Money::parse('$1.00', 'EUR'), Money::EUR(100));
-        static::assertEquals(Money::parse('$1.00', 'USD', 'en_US'), Money::USD(100));
-        static::assertEquals(Money::parse('$1.00', 'USD', 'en_US', Money::getCurrencies()), Money::USD(100));
-    }
-
-    public function testParseByDecimal()
-    {
-        static::assertEquals(Money::parseByDecimal('1.00', 'EUR'), Money::EUR(100));
-        static::assertEquals(Money::parseByDecimal('1.00', 'USD', Money::getCurrencies()), Money::USD(100));
-    }
-
-    public function testParseByParser()
-    {
-        $parser = new DecimalMoneyParser(Money::getCurrencies());
-
-        static::assertEquals(Money::parseByParser($parser, '1.00', 'USD'), Money::USD(100));
-        static::assertEquals(Money::parseByParser($parser, '1.00', 'EUR'), Money::EUR(100));
     }
 
     public function testConvert()
@@ -86,29 +61,6 @@ class MoneyTest extends \PHPUnit\Framework\TestCase
         static::assertEquals(Money::USD(10), Money::USD(5)->multiply(2));
         static::assertEquals(Money::USD(10), Money::USD(20)->divide(2));
         static::assertEquals([Money::USD(5), Money::USD(5)], Money::USD(10)->allocateTo(2));
-    }
-
-    public function testFormat()
-    {
-        static::assertEquals('$1.00', Money::USD(100)->format());
-        static::assertEquals('€1.00', Money::EUR(100)->format());
-        static::assertEquals('€1.00', Money::EUR(100)->format('en_US'));
-        static::assertEquals('$1.00', Money::USD(100)->format('en_US', Money::getCurrencies(), N::CURRENCY));
-        static::assertEquals('1,99', Money::EUR(199)->format('fr_FR', Money::getCurrencies(), N::DECIMAL));
-        static::assertEquals('1', Money::USD(100)->format('en_US', Money::getCurrencies(), N::DECIMAL));
-    }
-
-    public function testFormatByDecimal()
-    {
-        static::assertEquals('1.00', Money::USD(100)->formatByDecimal(Money::getCurrencies()));
-        static::assertEquals('1.00', Money::USD(100)->formatByDecimal());
-    }
-
-    public function testFormatByFormatter()
-    {
-        $formatter = new DecimalMoneyFormatter(Money::getCurrencies());
-
-        static::assertEquals('1.00', Money::USD(100)->formatByFormatter($formatter));
     }
 
     public function testGetters()
