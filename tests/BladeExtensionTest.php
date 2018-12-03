@@ -73,6 +73,19 @@ class BladeExtensionTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    public function testMoneyParseByBitcoin()
+    {
+        static::assertEquals(
+            '<?php echo money_parse_by_bitcoin("\xC9\x831000.00"); ?>',
+            $this->compiler->compileString('@money_parse_by_bitcoin("\xC9\x831000.00")')
+        );
+
+        static::assertEquals(
+            '<?php echo money_parse_by_bitcoin("\xC9\x831000.00", null, 4); ?>',
+            $this->compiler->compileString('@money_parse_by_bitcoin("\xC9\x831000.00", null, 4)')
+        );
+    }
+
     public function testMoneyParseByDecimal()
     {
         static::assertEquals(
@@ -83,6 +96,52 @@ class BladeExtensionTest extends \PHPUnit\Framework\TestCase
         static::assertEquals(
             '<?php echo money_parse_by_decimal("5.00", "USD", null); ?>',
             $this->compiler->compileString('@money_parse_by_decimal("5.00", "USD", null)')
+        );
+    }
+
+    public function testMoneyParseByIntl()
+    {
+        static::assertEquals(
+            '<?php echo money_parse_by_intl("R$5,00"); ?>',
+            $this->compiler->compileString('@money_parse_by_intl("R$5,00")')
+        );
+
+        static::assertEquals(
+            '<?php echo money_parse_by_intl("$5.00", "USD"); ?>',
+            $this->compiler->compileString('@money_parse_by_intl("$5.00", "USD")')
+        );
+
+        static::assertEquals(
+            '<?php echo money_parse_by_intl("$5.00", "USD", "en_US"); ?>',
+            $this->compiler->compileString('@money_parse_by_intl("$5.00", "USD", "en_US")')
+        );
+
+        static::assertEquals(
+            '<?php echo money_parse_by_intl("$5.00", "USD", "en_US", null); ?>',
+            $this->compiler->compileString('@money_parse_by_intl("$5.00", "USD", "en_US", null)')
+        );
+    }
+
+    public function testMoneyParseByIntlLocalizedDecimal()
+    {
+        static::assertEquals(
+            '<?php echo money_parse_by_intl_localized_decimal("1.00", "USD"); ?>',
+            $this->compiler->compileString('@money_parse_by_intl_localized_decimal("1.00", "USD")')
+        );
+
+        static::assertEquals(
+            '<?php echo money_parse_by_intl_localized_decimal("5.00", "USD"); ?>',
+            $this->compiler->compileString('@money_parse_by_intl_localized_decimal("5.00", "USD")')
+        );
+
+        static::assertEquals(
+            '<?php echo money_parse_by_intl_localized_decimal("5.00", "USD", "en_US"); ?>',
+            $this->compiler->compileString('@money_parse_by_intl_localized_decimal("5.00", "USD", "en_US")')
+        );
+
+        static::assertEquals(
+            '<?php echo money_parse_by_intl_localized_decimal("5.00", "USD", "en_US", null); ?>',
+            $this->compiler->compileString('@money_parse_by_intl_localized_decimal("5.00", "USD", "en_US", null)')
         );
     }
 }

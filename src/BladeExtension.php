@@ -25,8 +25,20 @@ class BladeExtension
             return "<?php echo money_parse(${expression}); ?>";
         });
 
+        $compiler->directive('money_parse_by_bitcoin', function ($expression) {
+            return "<?php echo money_parse_by_bitcoin(${expression}); ?>";
+        });
+
         $compiler->directive('money_parse_by_decimal', function ($expression) {
             return "<?php echo money_parse_by_decimal(${expression}); ?>";
+        });
+
+        $compiler->directive('money_parse_by_intl', function ($expression) {
+            return "<?php echo money_parse_by_intl(${expression}); ?>";
+        });
+
+        $compiler->directive('money_parse_by_intl_localized_decimal', function ($expression) {
+            return "<?php echo money_parse_by_intl_localized_decimal(${expression}); ?>";
         });
     }
 }
