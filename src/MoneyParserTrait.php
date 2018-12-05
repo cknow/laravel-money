@@ -104,7 +104,7 @@ trait MoneyParserTrait
      * Parse by intl localized decimal.
      *
      * @param string            $money
-     * @param string|null       $forceCurrency
+     * @param string            $forceCurrency
      * @param string|null       $locale
      * @param \Money\Currencies $currencies
      * @param int               $style
@@ -113,7 +113,7 @@ trait MoneyParserTrait
      */
     public static function parseByIntlLocalizedDecimal(
         $money,
-        $forceCurrency = null,
+        $forceCurrency,
         $locale = null,
         Currencies $currencies = null,
         $style = NumberFormatter::DECIMAL

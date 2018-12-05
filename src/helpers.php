@@ -100,7 +100,7 @@ if (!function_exists('money_parse_by_intl_localized_decimal')) {
      * money parse by intl localized decimal.
      *
      * @param string            $money
-     * @param string|null       $forceCurrency
+     * @param string            $forceCurrency
      * @param string|null       $locale
      * @param \Money\Currencies $currencies
      *
@@ -108,7 +108,7 @@ if (!function_exists('money_parse_by_intl_localized_decimal')) {
      */
     function money_parse_by_intl_localized_decimal(
         $money,
-        $forceCurrency = null,
+        $forceCurrency,
         $locale = null,
         Money\Currencies $currencies = null
     ) {
