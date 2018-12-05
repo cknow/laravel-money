@@ -3,6 +3,7 @@
 namespace Cknow\Money;
 
 use Money\Currencies;
+use Money\Currencies\BitcoinCurrencies;
 use Money\Formatter\AggregateMoneyFormatter;
 use Money\Formatter\BitcoinMoneyFormatter;
 use Money\Formatter\DecimalMoneyFormatter;
@@ -51,7 +52,7 @@ trait MoneyFormatterTrait
      */
     public function formatByBitcoin($fractionDigits = 2, Currencies $currencies = null)
     {
-        $formatter = new BitcoinMoneyFormatter($fractionDigits, $currencies ?: static::getCurrencies());
+        $formatter = new BitcoinMoneyFormatter($fractionDigits, $currencies ?: new BitcoinCurrencies());
 
         return $this->formatByFormatter($formatter);
     }
