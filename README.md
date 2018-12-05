@@ -79,14 +79,26 @@ Money::USD(500)->subtract(Money::USD(400)); // $1.00
 Money::USD(500)->isZero(); // false
 Money::USD(500)->isPositive(); // true
 Money::USD(500)->isNegative(); // false
-Money::USD(500)->format(); // $5.00
-Money::USD(199)->format(null, null, \NumberFormatter::DECIMAL); // 1,99
-Money::USD(500)->formatByDecimal(); // 5.00
 Money::USD(830)->mod(Money::USD(300)); // $2.30 -> Money::USD(230)
 Money::USD(30)->ratioOf(Money::USD(2)); // 15
-Money::parse('$1.00'); // $1.00 -> Money::USD(100)
-Money::parseByDecimal('1.00', 'USD'); // $1.00 -> Money::USD(100)
 Money::USD(500)->getMoney(); // Instance of \Money\Money
+
+// Formatters
+Money::USD(500)->format(); // $5.00
+Money::USD(199)->format(null, null, \NumberFormatter::DECIMAL); // 1,99
+Money::XBT(41000000)->formatByBitcoin(); // \xC9\x830.41
+Money::USD(500)->formatByDecimal(); // 5.00
+Money::USD(500)->formatByIntl(); // $5.00
+Money::USD(199)->formatByIntl(null, null, \NumberFormatter::DECIMAL); // 1,99
+Money::USD(500)->formatByIntlLocalizedDecimal(); // $5.00
+Money::USD(199)->formatByIntlLocalizedDecimal(null, null, \NumberFormatter::DECIMAL) // 1.99
+
+// Parsers
+Money::parse('$1.00'); // Money::USD(100)
+Money::parseByBitcoin("\xC9\x830.41"); // Money::XBT(41000000)
+Money::parseByDecimal('1.00', 'USD'); // Money::USD(100)
+Money::parseByIntl('$1.00'); // Money::USD(100)
+Money::parseByIntlLocalizedDecimal('1.00', 'USD'); // Money::USD(100)
 ```
 
 ### Create your formatter
@@ -106,11 +118,14 @@ Money::USD(500)->formatByFormatter(new MyFormatter()); // My Formatter
 ## Helpers
 
 ```php
-currency('USD')
-money(500) // To use default currency present in `config/money.php`
-money(500, 'USD')
-money_parse('$5.00')
-money_parse_by_decimal('1.00', 'USD')
+currency('USD');
+money(500); // To use default currency present in `config/money.php`
+money(500, 'USD');
+money_parse('$5.00'); // Money::USD(100)
+money_parse_by_bitcoin("\xC9\x830.41"); // Money::XBT(41000000)
+money_parse_by_decimal('1.00', 'USD'); // Money::USD(100)
+money_parse_by_intl('$1.00'); // Money::USD(100)
+money_parse_by_intl_localized_decimal('1.00', 'USD'); // Money::USD(100)
 ```
 
 ## Blade Extensions
@@ -118,6 +133,9 @@ money_parse_by_decimal('1.00', 'USD')
 ```php
 @currency('USD')
 @money(500) // To use default currency present in `config/money.php`
-@money_parse('$5.00')
-@money_parse_by_decimal('1.00', 'USD')
+@money_parse('$5.00') // Money::USD(100)
+@money_parse_by_bitcoin("\xC9\x830.41") // Money::XBT(41000000)
+@money_parse_by_decimal('1.00', 'USD') // Money::USD(100)
+@money_parse_by_intl('$1.00') // Money::USD(100)
+@money_parse_by_intl_localized_decimal('1.00', 'USD') // Money::USD(100)
 ```
