@@ -29,7 +29,7 @@ trait MoneyParserTrait
     }
 
     /**
-     * Parse by bitcoin.
+     * Parse by aggregate.
      *
      * @param string        $money
      * @param string|null   $forceCurrency
