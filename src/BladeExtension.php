@@ -21,6 +21,16 @@ class BladeExtension
             return "<?php echo money(${expression}); ?>";
         });
 
+        self::registerParsers($compiler);
+    }
+
+    /**
+     * Register parsers.
+     *
+     * @param \Illuminate\View\Compilers\BladeCompiler $compiler
+     */
+    private static function registerParsers(BladeCompiler $compiler)
+    {
         $compiler->directive('money_parse', function ($expression) {
             return "<?php echo money_parse(${expression}); ?>";
         });
