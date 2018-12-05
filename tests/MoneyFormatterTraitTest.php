@@ -49,8 +49,8 @@ class MoneyFormatterTraitTest extends \PHPUnit\Framework\TestCase
 
     public function testFormatByBitcoin()
     {
-        static::assertEquals("\xC9\x835", Money::XBT(500000000)->formatByBitcoin(0, new BitcoinCurrencies()));
-        static::assertEquals("\xC9\x830.41", Money::XBT(41000000)->formatByBitcoin(2, new BitcoinCurrencies()));
+        static::assertEquals("\xC9\x835", Money::XBT(500000000)->formatByBitcoin(0));
+        static::assertEquals("\xC9\x830.41", Money::XBT(41000000)->formatByBitcoin(2));
         static::assertEquals("\xC9\x8310.0000", Money::XBT(1000000000)->formatByBitcoin(4, new BitcoinCurrencies()));
     }
 
