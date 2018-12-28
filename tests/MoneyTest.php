@@ -24,13 +24,17 @@ class MoneyTest extends \PHPUnit\Framework\TestCase
     public function testAdd()
     {
         static::assertEquals(Money::USD(25), Money::USD(10)->add(Money::USD(15)));
+        static::assertEquals(Money::USD(40), Money::USD(10)->add(Money::USD(15), Money::USD(15)));
         static::assertEquals(Money::EUR(25), Money::EUR(10)->add(Money::EUR(15)));
+        static::assertEquals(Money::EUR(40), Money::EUR(10)->add(Money::EUR(15), Money::EUR(15)));
     }
 
     public function testSubtract()
     {
         static::assertEquals(Money::USD(20), Money::USD(25)->subtract(Money::USD(5)));
+        static::assertEquals(Money::USD(15), Money::USD(25)->subtract(Money::USD(5), Money::USD(5)));
         static::assertEquals(Money::EUR(15), Money::EUR(20)->subtract(Money::EUR(5)));
+        static::assertEquals(Money::EUR(10), Money::EUR(20)->subtract(Money::EUR(5), Money::EUR(5)));
     }
 
     public function testMod()
