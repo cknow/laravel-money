@@ -21,27 +21,27 @@
     "source": "https://github.com/cknow/laravel-money"
   },
   "require": {
-    "php": "~7.1",
+    "php": "^7.1",
     "ext-json": "*",
     "ext-intl": "*",
-    "illuminate/support": "~5.6|~5.7",
-    "illuminate/view": "~5.6|~5.7",
-    "moneyphp/money": "~3.1"
+    "illuminate/support": "5.6.*|5.7.*",
+    "illuminate/view": "5.6.*|5.7.*",
+    "moneyphp/money": "^3.2"
   },
   "require-dev": {
-    "friendsofphp/php-cs-fixer": "~2.13",
-    "graham-campbell/testbench": "~5.1",
-    "jakub-onderka/php-parallel-lint": "~1.0",
-    "mockery/mockery": "~1.2",
-    "nikic/php-parser": "~4.1",
-    "phpmd/phpmd": "~2.6",
-    "phpro/grumphp": "~0.14",
-    "phpstan/phpstan": "~0.10",
-    "phpunit/phpunit": "~7.3",
-    "povils/phpmnd": "~2.0",
-    "sebastian/phpcpd": "~4.1",
-    "sensiolabs/security-checker": "~5.0",
-    "squizlabs/php_codesniffer": "~3.3"
+    "friendsofphp/php-cs-fixer": "^2.13",
+    "graham-campbell/testbench": "^5.1",
+    "jakub-onderka/php-parallel-lint": "^1.0",
+    "mockery/mockery": "^1.2",
+    "nikic/php-parser": "^4.1",
+    "phpmd/phpmd": "^2.6",
+    "phpro/grumphp": "^0.14",
+    "phpstan/phpstan": "^0.10",
+    "phpunit/phpunit": "^7.5",
+    "povils/phpmnd": "^2.0",
+    "sebastian/phpcpd": "^4.1",
+    "sensiolabs/security-checker": "^5.0",
+    "squizlabs/php_codesniffer": "^3.4"
   },
   "autoload": {
     "files": [
