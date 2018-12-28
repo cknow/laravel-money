@@ -75,7 +75,9 @@ return [
 use Cknow\Money\Money;
 
 Money::USD(500)->add(Money::USD(500)); // $10.00
+Money::USD(500)->add(Money::USD(500), Money::USD(500)); // $15.00
 Money::USD(500)->subtract(Money::USD(400)); // $1.00
+Money::USD(500)->subtract(Money::USD(200), Money::USD(100)); // $2.00
 Money::USD(500)->isZero(); // false
 Money::USD(500)->isPositive(); // true
 Money::USD(500)->isNegative(); // false
