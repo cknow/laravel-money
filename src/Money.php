@@ -79,25 +79,29 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     /**
      * Add.
      *
-     * @param \Cknow\Money\Money $addend
+     * @param \Cknow\Money\Money[] $addends
      *
      * @return \Cknow\Money\Money
      */
-    public function add(self $addend)
+    public function add(self ...$addends)
     {
-        return self::convert($this->money->add($addend->getMoney()));
+        $moneys = $this->getMoneys(...$addends);
+
+        return self::convert($this->money->add(...$moneys));
     }
 
     /**
      * Subtract.
      *
-     * @param \Cknow\Money\Money $subtrahend
+     * @param \Cknow\Money\Money[] $subtrahends
      *
      * @return \Cknow\Money\Money
      */
-    public function subtract(self $subtrahend)
+    public function subtract(self ...$subtrahends)
     {
-        return self::convert($this->money->subtract($subtrahend->getMoney()));
+        $moneys = $this->getMoneys(...$subtrahends);
+
+        return self::convert($this->money->subtract(...$moneys));
     }
 
     /**
@@ -212,6 +216,24 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
 
         foreach ($result as $item) {
             $results[] = self::convert($item);
+        }
+
+        return $results;
+    }
+
+    /**
+     * Get moneys.
+     *
+     * @param \Cknow\Money\Money[] $moneys
+     *
+     * @return \Money\Money[]
+     */
+    private static function getMoneys(self ...$moneys)
+    {
+        $results = [];
+
+        foreach ($moneys as $money) {
+            $results[] = $money->getMoney();
         }
 
         return $results;
