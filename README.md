@@ -32,7 +32,7 @@ composer require cknow/laravel-money
 or add this to require section in your composer.json file:
 
 ```bash
-"cknow/laravel-money": "~3.2"
+"cknow/laravel-money": "~3.4"
 ```
 
 then run ```composer update```
@@ -78,11 +78,21 @@ Money::USD(500)->add(Money::USD(500)); // $10.00
 Money::USD(500)->add(Money::USD(500), Money::USD(500)); // $15.00
 Money::USD(500)->subtract(Money::USD(400)); // $1.00
 Money::USD(500)->subtract(Money::USD(200), Money::USD(100)); // $2.00
+Money::USD(500)->multiply(2); // $10.00
+Money::USD(1000)->divide(2); // $5.00
+Money::USD(830)->mod(Money::USD(300)); // $2.30 -> Money::USD(230)
+Money::USD(-500)->absolute(); // $5.00
+Money::USD(500)->negative(); // $-5.00
+Money::USD(30)->ratioOf(Money::USD(2)); // 15
+Money::USD(500)->isSameCurrency(Money::USD(100)); // true
+Money::USD(500)->equals(Money::USD(500)); // true
+Money::USD(500)->greaterThan(Money::USD(100)); // true
+Money::USD(500)->greaterThanOrEqual(Money::USD(500)); // true
+Money::USD(500)->lessThan(Money::USD(1000)); // true
+Money::USD(500)->lessThanOrEqual(Money::USD(500)); // true
 Money::USD(500)->isZero(); // false
 Money::USD(500)->isPositive(); // true
 Money::USD(500)->isNegative(); // false
-Money::USD(830)->mod(Money::USD(300)); // $2.30 -> Money::USD(230)
-Money::USD(30)->ratioOf(Money::USD(2)); // 15
 Money::USD(500)->getMoney(); // Instance of \Money\Money
 
 // Aggregation
