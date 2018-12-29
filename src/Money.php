@@ -98,7 +98,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     /**
      * Add.
      *
-     * @param \Cknow\Money\Money[] $addends
+     * @param \Cknow\Money\Money ...$addends
      *
      * @return \Cknow\Money\Money
      */
@@ -112,7 +112,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     /**
      * Subtract.
      *
-     * @param \Cknow\Money\Money[] $subtrahends
+     * @param \Cknow\Money\Money ...$subtrahends
      *
      * @return \Cknow\Money\Money
      */
@@ -243,7 +243,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     /**
      * Get moneys.
      *
-     * @param \Cknow\Money\Money[] $moneys
+     * @param \Cknow\Money\Money ...$moneys
      *
      * @return \Money\Money[]
      */
