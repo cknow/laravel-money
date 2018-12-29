@@ -85,6 +85,12 @@ Money::USD(830)->mod(Money::USD(300)); // $2.30 -> Money::USD(230)
 Money::USD(30)->ratioOf(Money::USD(2)); // 15
 Money::USD(500)->getMoney(); // Instance of \Money\Money
 
+// Aggregation
+Money::min(Money::USD(100), Money::USD(200), Money::USD(300)); // Money::USD(100)
+Money::max(Money::USD(100), Money::USD(200), Money::USD(300)); // Money::USD(300)
+Money::avg(Money::USD(100), Money::USD(200), Money::USD(300)); // Money::USD(200)
+Money::sum(Money::USD(100), Money::USD(200), Money::USD(300)); // Money::USD(700)
+
 // Formatters
 Money::USD(500)->format(); // $5.00
 Money::USD(199)->format(null, null, \NumberFormatter::DECIMAL); // 1,99
@@ -123,6 +129,14 @@ Money::USD(500)->formatByFormatter(new MyFormatter()); // My Formatter
 currency('USD');
 money(500); // To use default currency present in `config/money.php`
 money(500, 'USD');
+
+// Aggregation
+money_min(money(100, 'USD'), money(200, 'USD'), money(300, 'USD')); // Money::USD(100)
+money_max(money(100, 'USD'), money(200, 'USD'), money(300, 'USD')); // Money::USD(300)
+money_avg(money(100, 'USD'), money(200, 'USD'), money(300, 'USD')); // Money::USD(200)
+money_sum(money(100, 'USD'), money(200, 'USD'), money(300, 'USD')); // Money::USD(700)
+
+// Parsers
 money_parse('$5.00'); // Money::USD(100)
 money_parse_by_bitcoin("\xC9\x830.41"); // Money::XBT(41000000)
 money_parse_by_decimal('1.00', 'USD'); // Money::USD(100)
@@ -135,6 +149,15 @@ money_parse_by_intl_localized_decimal('1.00', 'USD'); // Money::USD(100)
 ```php
 @currency('USD')
 @money(500) // To use default currency present in `config/money.php`
+@money(500, 'USD')
+
+// Aggregation
+@money_min(@money(100, 'USD'), @money(200, 'USD'), @money(300, 'USD')) // Money::USD(100)
+@money_max(@money(100, 'USD'), @money(200, 'USD'), @money(300, 'USD')) // Money::USD(300)
+@money_avg(@money(100, 'USD'), @money(200, 'USD'), @money(300, 'USD')) // Money::USD(200)
+@money_sum(@money(100, 'USD'), @money(200, 'USD'), @money(300, 'USD')) // Money::USD(700)
+
+// Parsers
 @money_parse('$5.00') // Money::USD(100)
 @money_parse_by_bitcoin("\xC9\x830.41") // Money::XBT(41000000)
 @money_parse_by_decimal('1.00', 'USD') // Money::USD(100)

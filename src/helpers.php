@@ -29,6 +29,66 @@ if (!function_exists('money')) {
     }
 }
 
+if (!function_exists('money_min')) {
+    /**
+     * money min.
+     *
+     * @param \Cknow\Money\Money $first
+     * @param \Cknow\Money\Money ...$collection
+     *
+     * @return \Cknow\Money\Money
+     */
+    function money_min(Cknow\Money\Money $first, Cknow\Money\Money ...$collection)
+    {
+        return Cknow\Money\Money::min($first, ...$collection);
+    }
+}
+
+if (!function_exists('money_max')) {
+    /**
+     * money max.
+     *
+     * @param \Cknow\Money\Money $first
+     * @param \Cknow\Money\Money ...$collection
+     *
+     * @return \Cknow\Money\Money
+     */
+    function money_max(Cknow\Money\Money $first, Cknow\Money\Money ...$collection)
+    {
+        return Cknow\Money\Money::max($first, ...$collection);
+    }
+}
+
+if (!function_exists('money_avg')) {
+    /**
+     * money avg.
+     *
+     * @param \Cknow\Money\Money $first
+     * @param \Cknow\Money\Money ...$collection
+     *
+     * @return \Cknow\Money\Money
+     */
+    function money_avg(Cknow\Money\Money $first, Cknow\Money\Money ...$collection)
+    {
+        return Cknow\Money\Money::avg($first, ...$collection);
+    }
+}
+
+if (!function_exists('money_sum')) {
+    /**
+     * money sum.
+     *
+     * @param \Cknow\Money\Money $first
+     * @param \Cknow\Money\Money ...$collection
+     *
+     * @return \Cknow\Money\Money
+     */
+    function money_sum(Cknow\Money\Money $first, Cknow\Money\Money ...$collection)
+    {
+        return Cknow\Money\Money::sum($first, ...$collection);
+    }
+}
+
 if (!function_exists('money_parse')) {
     /**
      * money parse.

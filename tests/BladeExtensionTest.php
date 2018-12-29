@@ -50,6 +50,58 @@ class BladeExtensionTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    public function testMoneyMin()
+    {
+        static::assertEquals(
+            '<?php echo money_min(money(100), money(200), money(300)); ?>',
+            $this->compiler->compileString('@money_min(money(100), money(200), money(300))')
+        );
+
+        static::assertEquals(
+            '<?php echo money_min(money(100, "USD"), money(200, "USD"), money(300, "USD")); ?>',
+            $this->compiler->compileString('@money_min(money(100, "USD"), money(200, "USD"), money(300, "USD"))')
+        );
+    }
+
+    public function testMoneyMax()
+    {
+        static::assertEquals(
+            '<?php echo money_max(money(100), money(200), money(300)); ?>',
+            $this->compiler->compileString('@money_max(money(100), money(200), money(300))')
+        );
+
+        static::assertEquals(
+            '<?php echo money_max(money(100, "USD"), money(200, "USD"), money(300, "USD")); ?>',
+            $this->compiler->compileString('@money_max(money(100, "USD"), money(200, "USD"), money(300, "USD"))')
+        );
+    }
+
+    public function testMoneyAvg()
+    {
+        static::assertEquals(
+            '<?php echo money_avg(money(100), money(200), money(300)); ?>',
+            $this->compiler->compileString('@money_avg(money(100), money(200), money(300))')
+        );
+
+        static::assertEquals(
+            '<?php echo money_avg(money(100, "USD"), money(200, "USD"), money(300, "USD")); ?>',
+            $this->compiler->compileString('@money_avg(money(100, "USD"), money(200, "USD"), money(300, "USD"))')
+        );
+    }
+
+    public function testMoneySum()
+    {
+        static::assertEquals(
+            '<?php echo money_sum(money(100), money(200), money(300)); ?>',
+            $this->compiler->compileString('@money_sum(money(100), money(200), money(300))')
+        );
+
+        static::assertEquals(
+            '<?php echo money_sum(money(100, "USD"), money(200, "USD"), money(300, "USD")); ?>',
+            $this->compiler->compileString('@money_sum(money(100, "USD"), money(200, "USD"), money(300, "USD"))')
+        );
+    }
+
     public function testMoneyParse()
     {
         static::assertEquals(

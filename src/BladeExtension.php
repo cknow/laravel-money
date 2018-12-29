@@ -21,7 +21,32 @@ class BladeExtension
             return "<?php echo money(${expression}); ?>";
         });
 
+        self::registerAggregations($compiler);
         self::registerParsers($compiler);
+    }
+
+    /**
+     * Register aggregations.
+     *
+     * @param \Illuminate\View\Compilers\BladeCompiler $compiler
+     */
+    private static function registerAggregations(BladeCompiler $compiler)
+    {
+        $compiler->directive('money_min', function ($expression) {
+            return "<?php echo money_min(${expression}); ?>";
+        });
+
+        $compiler->directive('money_max', function ($expression) {
+            return "<?php echo money_max(${expression}); ?>";
+        });
+
+        $compiler->directive('money_avg', function ($expression) {
+            return "<?php echo money_avg(${expression}); ?>";
+        });
+
+        $compiler->directive('money_sum', function ($expression) {
+            return "<?php echo money_sum(${expression}); ?>";
+        });
     }
 
     /**
