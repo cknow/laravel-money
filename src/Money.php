@@ -51,7 +51,20 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
             return $this;
         }
 
-        return $this->convertResult(call_user_func_array([$this->money, $method], $arguments), $method);
+        $result = call_user_func_array([$this->money, $method], self::getArguments($arguments));
+
+        $methods = [
+            'add', 'subtract',
+            'multiply', 'divide', 'mod',
+            'absolute', 'negative',
+            'allocate', 'allocateTo',
+        ];
+
+        if (!in_array($method, $methods)) {
+            return $result;
+        }
+
+        return self::convertResult($result);
     }
 
     /**
@@ -75,9 +88,9 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     public static function __callStatic($method, array $arguments)
     {
         if (in_array($method, ['min', 'max', 'avg', 'sum'])) {
-            $moneys = self::getMoneys(...$arguments);
+            $result = call_user_func_array([\Money\Money::class, $method], self::getArguments($arguments));
 
-            return self::convert(call_user_func_array([\Money\Money::class, $method], $moneys));
+            return self::convert($result);
         }
 
         return MoneyFactory::__callStatic($method, $arguments);
@@ -93,58 +106,6 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     public static function convert(\Money\Money $intance)
     {
         return new self($intance->getAmount(), $intance->getCurrency());
-    }
-
-    /**
-     * Add.
-     *
-     * @param \Cknow\Money\Money ...$addends
-     *
-     * @return \Cknow\Money\Money
-     */
-    public function add(self ...$addends)
-    {
-        $moneys = $this->getMoneys(...$addends);
-
-        return self::convert($this->money->add(...$moneys));
-    }
-
-    /**
-     * Subtract.
-     *
-     * @param \Cknow\Money\Money ...$subtrahends
-     *
-     * @return \Cknow\Money\Money
-     */
-    public function subtract(self ...$subtrahends)
-    {
-        $moneys = $this->getMoneys(...$subtrahends);
-
-        return self::convert($this->money->subtract(...$moneys));
-    }
-
-    /**
-     * Mod.
-     *
-     * @param \Cknow\Money\Money $divisor
-     *
-     * @return \Cknow\Money\Money
-     */
-    public function mod(self $divisor)
-    {
-        return self::convert($this->money->mod($divisor->getMoney()));
-    }
-
-    /**
-     * Ratio of.
-     *
-     * @param \Cknow\Money\Money $money
-     *
-     * @return string
-     */
-    public function ratioOf(self $money)
-    {
-        return $this->money->ratioOf($money->getMoney());
     }
 
     /**
@@ -214,19 +175,32 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     }
 
     /**
-     * Convert result.
+     * Get arguments.
      *
-     * @param mixed|\Money\Money|\Money\Money[] $result
-     * @param string                            $method
+     * @param array $arguments
      *
-     * @return \Cknow\Money\Money|\Cknow\Money\Money[]|mixed
+     * @return array
      */
-    private function convertResult($result, $method)
+    private static function getArguments(array $arguments = [])
     {
-        if (!in_array($method, ['multiply', 'divide', 'allocate', 'allocateTo', 'absolute', 'negative'])) {
-            return $result;
+        $args = [];
+
+        foreach ($arguments as $argument) {
+            $args[] = $argument instanceof self ? $argument->getMoney() : $argument;
         }
 
+        return $args;
+    }
+
+    /**
+     * Convert result.
+     *
+     * @param mixed $result
+     *
+     * @return \Cknow\Money\Money|\Cknow\Money\Money[]
+     */
+    private static function convertResult($result)
+    {
         if (!is_array($result)) {
             return self::convert($result);
         }
@@ -235,24 +209,6 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
 
         foreach ($result as $item) {
             $results[] = self::convert($item);
-        }
-
-        return $results;
-    }
-
-    /**
-     * Get moneys.
-     *
-     * @param \Cknow\Money\Money ...$moneys
-     *
-     * @return \Money\Money[]
-     */
-    private static function getMoneys(self ...$moneys)
-    {
-        $results = [];
-
-        foreach ($moneys as $money) {
-            $results[] = $money->getMoney();
         }
 
         return $results;
