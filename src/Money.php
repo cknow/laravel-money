@@ -65,6 +65,25 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     }
 
     /**
+     * __callStatic.
+     *
+     * @param string $method
+     * @param array  $arguments
+     *
+     * @return \Cknow\Money\Money
+     */
+    public static function __callStatic($method, array $arguments)
+    {
+        if (in_array($method, ['min', 'max', 'avg', 'sum'])) {
+            $moneys = self::getMoneys(...$arguments);
+
+            return self::convert(call_user_func_array([\Money\Money::class, $method], $moneys));
+        }
+
+        return MoneyFactory::__callStatic($method, $arguments);
+    }
+
+    /**
      * Convert.
      *
      * @param \Money\Money $intance

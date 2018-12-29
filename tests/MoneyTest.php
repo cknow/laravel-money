@@ -21,6 +21,14 @@ class MoneyTest extends \PHPUnit\Framework\TestCase
         static::assertEquals(Money::USD(25), Money::convert(new \Money\Money(25, new Currency('USD'))));
     }
 
+    public function testStaticMethods()
+    {
+        static::assertEquals(Money::USD(10), Money::min(Money::USD(10), Money::USD(20), Money::USD(30)));
+        static::assertEquals(Money::USD(30), Money::max(Money::USD(10), Money::USD(20), Money::USD(30)));
+        static::assertEquals(Money::USD(20), Money::avg(Money::USD(10), Money::USD(20), Money::USD(30)));
+        static::assertEquals(Money::USD(60), Money::sum(Money::USD(10), Money::USD(20), Money::USD(30)));
+    }
+
     public function testAdd()
     {
         static::assertEquals(Money::USD(25), Money::USD(10)->add(Money::USD(15)));
