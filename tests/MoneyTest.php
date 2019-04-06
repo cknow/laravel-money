@@ -180,4 +180,18 @@ class MoneyTest extends \PHPUnit\Framework\TestCase
             ['amount' => '100', 'currency' => 'USD', 'formatted' => '$1.00', 'foo' => 'bar']
         );
     }
+
+    public function testMacroable()
+    {
+        Money::macro('someMacro', function () {
+            return 'some-return-value';
+        });
+
+        $money = new Money(100, new Currency('USD'));
+
+        static::assertEquals(
+            'some-return-value',
+            $money->someMacro()
+        );
+    }
 }

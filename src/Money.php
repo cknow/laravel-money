@@ -5,6 +5,7 @@ namespace Cknow\Money;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Support\Traits\Macroable;
 use JsonSerializable;
 use Money\Currency;
 
@@ -15,6 +16,9 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     use MoneyFactory;
     use MoneyFormatterTrait;
     use MoneyParserTrait;
+    use Macroable {
+        __call as macroCall;
+    }
 
     /**
      * @var \Money\Money
@@ -47,6 +51,10 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      */
     public function __call($method, array $arguments)
     {
+        if (static::hasMacro($method)) {
+            return $this->macroCall($method, $arguments);
+        }
+
         if (!method_exists($this->money, $method)) {
             return $this;
         }
