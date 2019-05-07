@@ -107,7 +107,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     /**
      * Convert.
      *
-     * @param \Money\Money $intance
+     * @param \Money\Money $instance
      *
      * @return \Cknow\Money\Money
      */
