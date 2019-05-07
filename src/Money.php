@@ -23,12 +23,12 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     /**
      * @var \Money\Money
      */
-    private $money;
+    protected $money;
 
     /**
      * @var array
      */
-    private $attributes = [];
+    protected $attributes = [];
 
     /**
      * Money.
