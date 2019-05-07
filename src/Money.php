@@ -59,7 +59,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
             return $this;
         }
 
-        $result = call_user_func_array([$this->money, $method], self::getArguments($arguments));
+        $result = call_user_func_array([$this->money, $method], static::getArguments($arguments));
 
         $methods = [
             'add', 'subtract',
@@ -72,7 +72,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
             return $result;
         }
 
-        return self::convertResult($result);
+        return static::convertResult($result);
     }
 
     /**
@@ -96,9 +96,9 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     public static function __callStatic($method, array $arguments)
     {
         if (in_array($method, ['min', 'max', 'avg', 'sum'])) {
-            $result = call_user_func_array([\Money\Money::class, $method], self::getArguments($arguments));
+            $result = call_user_func_array([\Money\Money::class, $method], static::getArguments($arguments));
 
-            return self::convert($result);
+            return static::convert($result);
         }
 
         return MoneyFactory::__callStatic($method, $arguments);
@@ -111,9 +111,9 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      *
      * @return \Cknow\Money\Money
      */
-    public static function convert(\Money\Money $intance)
+    public static function convert(\Money\Money $instance)
     {
-        return new self($intance->getAmount(), $intance->getCurrency());
+        return new static($instance->getAmount(), $instance->getCurrency());
     }
 
     /**
@@ -194,7 +194,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
         $args = [];
 
         foreach ($arguments as $argument) {
-            $args[] = $argument instanceof self ? $argument->getMoney() : $argument;
+            $args[] = $argument instanceof static ? $argument->getMoney() : $argument;
         }
 
         return $args;
@@ -210,13 +210,13 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     private static function convertResult($result)
     {
         if (!is_array($result)) {
-            return self::convert($result);
+            return static::convert($result);
         }
 
         $results = [];
 
         foreach ($result as $item) {
-            $results[] = self::convert($item);
+            $results[] = static::convert($item);
         }
 
         return $results;
