@@ -25,7 +25,7 @@ trait MoneyParserTrait
      */
     public static function parse($money, $forceCurrency = null, $locale = null, Currencies $currencies = null)
     {
-        return self::parseByIntl($money, $forceCurrency, $locale, $currencies);
+        return static::parseByIntl($money, $forceCurrency, $locale, $currencies);
     }
 
     /**
@@ -41,7 +41,7 @@ trait MoneyParserTrait
     {
         $parser = new AggregateMoneyParser($parsers);
 
-        return self::parseByParser($parser, $money, $forceCurrency);
+        return static::parseByParser($parser, $money, $forceCurrency);
     }
 
     /**
@@ -57,7 +57,7 @@ trait MoneyParserTrait
     {
         $parser = new BitcoinMoneyParser($fractionDigits);
 
-        return self::parseByParser($parser, $money, $forceCurrency);
+        return static::parseByParser($parser, $money, $forceCurrency);
     }
 
     /**
@@ -73,7 +73,7 @@ trait MoneyParserTrait
     {
         $parser = new DecimalMoneyParser($currencies ?: static::getCurrencies());
 
-        return self::parseByParser($parser, $money, $forceCurrency);
+        return static::parseByParser($parser, $money, $forceCurrency);
     }
 
     /**
@@ -97,7 +97,7 @@ trait MoneyParserTrait
         $numberFormatter = new NumberFormatter($locale ?: static::getLocale(), $style);
         $parser = new IntlMoneyParser($numberFormatter, $currencies ?: static::getCurrencies());
 
-        return self::parseByParser($parser, $money, $forceCurrency);
+        return static::parseByParser($parser, $money, $forceCurrency);
     }
 
     /**
@@ -121,7 +121,7 @@ trait MoneyParserTrait
         $numberFormatter = new NumberFormatter($locale ?: static::getLocale(), $style);
         $parser = new IntlLocalizedDecimalParser($numberFormatter, $currencies ?: static::getCurrencies());
 
-        return self::parseByParser($parser, $money, $forceCurrency);
+        return static::parseByParser($parser, $money, $forceCurrency);
     }
 
     /**
