@@ -6,7 +6,7 @@
 
 [![StyleCI](https://styleci.io/repos/40018123/shield?style=flat)](https://styleci.io/repos/40018123)
 [![Build Status](https://travis-ci.org/cknow/laravel-money.svg?branch=master)](https://travis-ci.org/cknow/laravel-money)
-[![Build status](https://ci.appveyor.com/api/projects/status/7c0elm504qk99dsh/branch/master?svg=true)](https://ci.appveyor.com/project/cknow/laravel-money/branch/master)
+[![Build status](https://ci.appveyor.com/api/projects/status/7c0elm504qk99dsh/branch/master?svg=true)](https://ci.appveyor.com/project/ricardogobbosouza/laravel-money/branch/master)
 [![Coverage Status](https://coveralls.io/repos/github/cknow/laravel-money/badge.svg?branch=master)](https://coveralls.io/github/cknow/laravel-money?branch=master)
 
 [![Code Climate](https://codeclimate.com/github/cknow/laravel-money/badges/gpa.svg)](https://codeclimate.com/github/cknow/laravel-money)
@@ -32,7 +32,7 @@ composer require cknow/laravel-money
 or add this to require section in your composer.json file:
 
 ```bash
-"cknow/laravel-money": "~3.4"
+"cknow/laravel-money": "~3.8"
 ```
 
 then run ```composer update```
