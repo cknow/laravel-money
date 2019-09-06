@@ -4,7 +4,6 @@ namespace Cknow\Money;
 
 use Money\Currencies\BitcoinCurrencies;
 use Money\Currencies\ISOCurrencies;
-use Money\Currency;
 use Money\Formatter\BitcoinMoneyFormatter;
 use Money\Formatter\DecimalMoneyFormatter;
 use Money\Formatter\IntlLocalizedDecimalFormatter;
