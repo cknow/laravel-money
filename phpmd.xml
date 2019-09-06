@@ -9,6 +9,7 @@
 
     <rule ref="rulesets/cleancode.xml">
         <exclude name="BooleanArgumentFlag"/>
+        <exclude name="MissingImport"/>
         <exclude name="StaticAccess"/>
     </rule>
 
