@@ -12,7 +12,7 @@ notifications:
 env:
   global:
     - setup=stable
-    - CC_TEST_REPORTER_ID=bfe1331818a2cea90bc5dde922a6aba5753c65b63bb46ad63b970eb24fb0cc5e
+    - CC_TEST_REPORTER_ID=605de681587e09b4c68c829c04048e9302642c5aa5b1e55e4a45089bbc59108d
 
 matrix:
   fast_finish: true
