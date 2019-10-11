@@ -99,7 +99,7 @@ Money::USD(500)->getMoney(); // Instance of \Money\Money
 Money::min(Money::USD(100), Money::USD(200), Money::USD(300)); // Money::USD(100)
 Money::max(Money::USD(100), Money::USD(200), Money::USD(300)); // Money::USD(300)
 Money::avg(Money::USD(100), Money::USD(200), Money::USD(300)); // Money::USD(200)
-Money::sum(Money::USD(100), Money::USD(200), Money::USD(300)); // Money::USD(700)
+Money::sum(Money::USD(100), Money::USD(200), Money::USD(300)); // Money::USD(600)
 
 // Formatters
 Money::USD(500)->format(); // $5.00
