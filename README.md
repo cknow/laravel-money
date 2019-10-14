@@ -144,7 +144,7 @@ money(500, 'USD');
 money_min(money(100, 'USD'), money(200, 'USD'), money(300, 'USD')); // Money::USD(100)
 money_max(money(100, 'USD'), money(200, 'USD'), money(300, 'USD')); // Money::USD(300)
 money_avg(money(100, 'USD'), money(200, 'USD'), money(300, 'USD')); // Money::USD(200)
-money_sum(money(100, 'USD'), money(200, 'USD'), money(300, 'USD')); // Money::USD(700)
+money_sum(money(100, 'USD'), money(200, 'USD'), money(300, 'USD')); // Money::USD(600)
 
 // Parsers
 money_parse('$5.00'); // Money::USD(100)
@@ -165,7 +165,7 @@ money_parse_by_intl_localized_decimal('1.00', 'USD'); // Money::USD(100)
 @money_min(@money(100, 'USD'), @money(200, 'USD'), @money(300, 'USD')) // Money::USD(100)
 @money_max(@money(100, 'USD'), @money(200, 'USD'), @money(300, 'USD')) // Money::USD(300)
 @money_avg(@money(100, 'USD'), @money(200, 'USD'), @money(300, 'USD')) // Money::USD(200)
-@money_sum(@money(100, 'USD'), @money(200, 'USD'), @money(300, 'USD')) // Money::USD(700)
+@money_sum(@money(100, 'USD'), @money(200, 'USD'), @money(300, 'USD')) // Money::USD(600)
 
 // Parsers
 @money_parse('$5.00') // Money::USD(100)
