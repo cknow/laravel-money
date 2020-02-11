@@ -31,7 +31,7 @@ class MoneyFormatterTraitTest extends \PHPUnit\Framework\TestCase
         static::assertEquals('1', Money::USD(100)->format('en_US', Money::getCurrencies(), N::DECIMAL));
     }
 
-    public function testFormatByAggrate()
+    public function testFormatByAggregate()
     {
         $formatters = [
             'XBT' => new BitcoinMoneyFormatter(2, new BitcoinCurrencies()),
