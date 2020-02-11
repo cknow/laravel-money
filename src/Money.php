@@ -9,6 +9,9 @@ use Illuminate\Support\Traits\Macroable;
 use JsonSerializable;
 use Money\Currency;
 
+/**
+ * @mixin \Money\Money
+ */
 class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
 {
     use CurrenciesTrait;
