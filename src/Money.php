@@ -108,6 +108,21 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     }
 
     /**
+     * Create a new instance from the base money instance.
+     *
+     * @param \Money\Money $money
+     *
+     * @return Money
+     */
+    public static function fromMoney(\Money\Money $money): self
+    {
+        $instance = new self(0, new Currency('USD'));
+        $instance->money = $money;
+
+        return $instance;
+    }
+
+    /**
      * Convert.
      *
      * @param \Money\Money $instance

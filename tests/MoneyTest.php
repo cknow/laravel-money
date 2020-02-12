@@ -194,4 +194,14 @@ class MoneyTest extends \PHPUnit\Framework\TestCase
             $money->someMacro()
         );
     }
+
+    public function testCreateFromBaseMoney()
+    {
+        $baseMoney = new \Money\Money(100, new Currency('USD'));
+
+        $packageMoney = Money::fromMoney($baseMoney);
+
+        static::assertInstanceOf(Money::class, $packageMoney);
+        static::assertSame($baseMoney, $packageMoney->getMoney());
+    }
 }
