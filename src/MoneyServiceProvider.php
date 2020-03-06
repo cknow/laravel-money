@@ -15,11 +15,11 @@ class MoneyServiceProvider extends ServiceProvider
 
         $this->publishes([$path => config_path('money.php')], 'config');
         $this->mergeConfigFrom($path, 'money');
-        
-        if (get_class($this->app) == 'Illuminate\Foundation\Application') {
+
+        if ('Illuminate\Foundation\Application' === get_class($this->app)) {
             BladeExtension::register($this->app->make('blade.compiler'));
         }
-        
+
         Money::setLocale($this->app->make('config')->get('money.locale'));
         Money::setCurrency($this->app->make('config')->get('money.currency'));
     }
