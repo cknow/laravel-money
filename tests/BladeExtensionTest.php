@@ -15,7 +15,7 @@ class BladeExtensionTest extends \PHPUnit\Framework\TestCase
      */
     protected $compiler;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -24,7 +24,7 @@ class BladeExtensionTest extends \PHPUnit\Framework\TestCase
         BladeExtension::register($this->compiler);
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         Mockery::close();
     }

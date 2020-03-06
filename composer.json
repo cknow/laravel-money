@@ -38,7 +38,7 @@
     "phpmd/phpmd": "^2.7",
     "phpro/grumphp": "^0.15.2",
     "phpstan/phpstan": "^0.11",
-    "phpunit/phpunit": "^7.0",
+    "phpunit/phpunit": "^8.5",
     "povils/phpmnd": "^2.1",
     "sebastian/phpcpd": "^4.1",
     "sensiolabs/security-checker": "^6.0",

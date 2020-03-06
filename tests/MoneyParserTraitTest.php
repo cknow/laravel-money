@@ -13,7 +13,7 @@ use NumberFormatter;
  */
 class MoneyParserTraitTest extends \PHPUnit\Framework\TestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         Money::setCurrencies(new ISOCurrencies());
         Money::setLocale('en_US');
