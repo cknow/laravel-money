@@ -200,4 +200,16 @@ trait MoneyFactory
     {
         return new Money($arguments[0], new Currency($method));
     }
+
+    /**
+     * Create a new instance from the base money instance.
+     *
+     * @param \Money\Money $instance
+     *
+     * @return \Cknow\Money\Money
+     */
+    public static function fromMoney(\Money\Money $instance)
+    {
+        return new Money($instance->getAmount(), $instance->getCurrency());
+    }
 }

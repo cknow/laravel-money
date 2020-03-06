@@ -116,7 +116,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      */
     public static function convert(\Money\Money $instance)
     {
-        return new static($instance->getAmount(), $instance->getCurrency());
+        return MoneyFactory::fromMoney($instance);
     }
 
     /**
