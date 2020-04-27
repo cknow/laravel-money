@@ -10,12 +10,14 @@ use Money\Currencies\BitcoinCurrencies;
 use Money\Currencies\ISOCurrencies;
 use Money\Currency;
 use Money\Exception\ParserException;
+use Money\Formatter\DecimalMoneyFormatter;
 use Money\Money as BaseMoney;
 use Money\Parser\AggregateMoneyParser;
 use Money\Parser\BitcoinMoneyParser;
 use Money\Parser\IntlLocalizedDecimalParser;
 use Money\Parser\IntlMoneyParser;
 use NumberFormatter;
+use Throwable;
 
 /**
  * Cast model attributes into Money.
@@ -62,7 +64,12 @@ class MoneyCast implements CastsAttributes
             return null;
         }
 
-        return new Money($value, $this->getCurrency($attributes));
+        try {
+            return Money::parseByDecimal($value, $this->getCurrency($attributes));
+        } catch (Throwable $e) {
+            $error = sprintf('Error during %s::%s cast: %s', get_class($model), $key, $e->getMessage());
+            throw new InvalidArgumentException($error);
+        }
     }
 
     /**
@@ -136,11 +143,13 @@ class MoneyCast implements CastsAttributes
             throw new InvalidArgumentException(sprintf('Invalid data provided for %s::$%s', get_class($model), $key));
         }
 
+        $amount = (new DecimalMoneyFormatter($this->getAllCurrencies()))->format($money);
+
         if (array_key_exists($this->currency, $attributes)) {
-            return [$key => $money->getAmount(), $this->currency => $money->getCurrency()->getCode()];
+            return [$key => $amount, $this->currency => $money->getCurrency()->getCode()];
         }
 
-        return [$key => $money->getAmount()];
+        return [$key => $amount];
     }
 
     /**
