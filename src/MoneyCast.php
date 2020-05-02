@@ -14,10 +14,10 @@ use Money\Formatter\DecimalMoneyFormatter;
 use Money\Money as BaseMoney;
 use Money\Parser\AggregateMoneyParser;
 use Money\Parser\BitcoinMoneyParser;
+use Money\Parser\DecimalMoneyParser;
 use Money\Parser\IntlLocalizedDecimalParser;
 use Money\Parser\IntlMoneyParser;
 use NumberFormatter;
-use Throwable;
 
 /**
  * Cast model attributes into Money.
@@ -61,15 +61,33 @@ class MoneyCast implements CastsAttributes
     public function get($model, string $key, $value, array $attributes)
     {
         if ($value === null) {
-            return null;
+            return $value;
         }
 
-        try {
-            return Money::parseByDecimal($value, $this->getCurrency($attributes));
-        } catch (Throwable $e) {
-            $error = sprintf('Error during %s::%s cast: %s', get_class($model), $key, $e->getMessage());
-            throw new InvalidArgumentException($error);
+        $parser = new DecimalMoneyParser($this->getAllCurrencies());
+        $currency = $this->getCurrency($attributes);
+        $money = $parser->parse($value, $currency);
+
+        return new Money($money->getAmount(), $currency);
+    }
+
+    /**
+     * Retrieve all available currencies
+     *
+     * @return \Money\Currencies\AggregateCurrencies
+     */
+    protected function getAllCurrencies(): AggregateCurrencies
+    {
+        static $currencies;
+
+        if ($currencies) {
+            return $currencies;
         }
+
+        return $currencies = new AggregateCurrencies([
+            new ISOCurrencies,
+            new BitcoinCurrencies,
+        ]);
     }
 
     /**
@@ -98,25 +116,6 @@ class MoneyCast implements CastsAttributes
     }
 
     /**
-     * Retrieve all available currencies
-     *
-     * @return \Money\Currencies\AggregateCurrencies
-     */
-    protected function getAllCurrencies(): AggregateCurrencies
-    {
-        static $currencies;
-
-        if ($currencies) {
-            return $currencies;
-        }
-
-        return $currencies = new AggregateCurrencies([
-            new ISOCurrencies,
-            new BitcoinCurrencies,
-        ]);
-    }
-
-    /**
      * Transform the attribute to its underlying model values.
      *
      * @param  \Illuminate\Database\Eloquent\Model  $model
@@ -127,19 +126,13 @@ class MoneyCast implements CastsAttributes
      */
     public function set($model, string $key, $value, array $attributes)
     {
-        if ($this->shouldBeParsed($value)) {
-            $value = $this->parse($value, $this->getCurrency($attributes));
+        if ($value === null) {
+            return [$key => $value];
         }
 
-        if (is_string($value)) {
-            $value = new Money($value, $this->getCurrency($attributes));
-        }
+        $currency = $this->getCurrency($attributes);
 
-        if ($this->isRaw($value)) {
-            $value = Money::parseByDecimal((string) $value, $this->getCurrency($attributes));
-        }
-
-        if (!$money = $this->toBaseMoney($value)) {
+        if (!$money = $this->toBaseMoney($value, $currency)) {
             throw new InvalidArgumentException(sprintf('Invalid data provided for %s::$%s', get_class($model), $key));
         }
 
@@ -153,6 +146,34 @@ class MoneyCast implements CastsAttributes
     }
 
     /**
+     * Convert the given value into an instance of Money
+     *
+     * @param mixed $value
+     * @param \Money\Currency $currency
+     * @return \Money\Money|null
+     */
+    protected function toBaseMoney($value, Currency $currency): ?BaseMoney
+    {
+        if ($value instanceof BaseMoney) {
+            return $value;
+        }
+
+        if ($this->shouldBeParsed($value)) {
+            return $this->parse($value, $currency);
+        }
+
+        if (is_string($value)) {
+            return new BaseMoney($value, $currency);
+        }
+
+        if ($this->isRaw($value)) {
+            $value = Money::parseByDecimal((string) $value, $currency);
+        }
+
+        return $value instanceof Money ? $value->getMoney() : null;
+    }
+
+    /**
      * Determine whether the given value should be parsed
      *
      * @param mixed $value
@@ -161,17 +182,6 @@ class MoneyCast implements CastsAttributes
     protected function shouldBeParsed($value): bool
     {
         return is_string($value) && filter_var($value, FILTER_VALIDATE_FLOAT) === false;
-    }
-
-    /**
-     * Determine whether the given value is raw
-     *
-     * @param mixed $value
-     * @return bool
-     */
-    protected function isRaw($value): bool
-    {
-        return is_int($value) || is_float($value);
     }
 
     /**
@@ -206,21 +216,13 @@ class MoneyCast implements CastsAttributes
     }
 
     /**
-     * Convert the given value into an instance of Money
+     * Determine whether the given value is raw
      *
      * @param mixed $value
-     * @return \Money\Money|null
+     * @return bool
      */
-    protected function toBaseMoney($value): ?BaseMoney
+    protected function isRaw($value): bool
     {
-        if ($value instanceof BaseMoney) {
-            return $value;
-        }
-
-        if ($value instanceof Money) {
-            return $value->getMoney();
-        }
-
-        return null;
+        return is_int($value) || is_float($value);
     }
 }
