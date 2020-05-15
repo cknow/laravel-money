@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * The testing user model.
- *
  */
 class User extends Model
 {
@@ -30,7 +29,7 @@ class User extends Model
      */
     protected $casts = [
         'money' => MoneyCast::class,
-        'wage' => MoneyCast::class . ':EUR',
-        'debits' => MoneyCast::class . ':currency',
+        'wage' => MoneyCast::class.':EUR',
+        'debits' => MoneyCast::class.':currency',
     ];
 }

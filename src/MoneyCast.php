@@ -21,7 +21,6 @@ use NumberFormatter;
 
 /**
  * Cast model attributes into Money.
- *
  */
 class MoneyCast implements CastsAttributes
 {
@@ -52,15 +51,16 @@ class MoneyCast implements CastsAttributes
     /**
      * Transform the attribute from the underlying model values.
      *
-     * @param  \Illuminate\Database\Eloquent\Model  $model
-     * @param  string  $key
-     * @param  mixed  $value
-     * @param  array  $attributes
+     * @param \Illuminate\Database\Eloquent\Model $model
+     * @param string                              $key
+     * @param mixed                               $value
+     * @param array                               $attributes
+     *
      * @return mixed
      */
     public function get($model, string $key, $value, array $attributes)
     {
-        if ($value === null) {
+        if (null === $value) {
             return $value;
         }
 
@@ -72,7 +72,39 @@ class MoneyCast implements CastsAttributes
     }
 
     /**
-     * Retrieve all available currencies
+     * Transform the attribute to its underlying model values.
+     *
+     * @param \Illuminate\Database\Eloquent\Model $model
+     * @param string                              $key
+     * @param mixed                               $value
+     * @param array                               $attributes
+     *
+     * @return array
+     */
+    public function set($model, string $key, $value, array $attributes)
+    {
+        if (null === $value) {
+            return [$key => $value];
+        }
+
+        $currency = $this->getCurrency($attributes);
+        $money = $this->toBaseMoney($value, $currency);
+
+        if (!$money) {
+            throw new InvalidArgumentException(sprintf('Invalid data provided for %s::$%s', get_class($model), $key));
+        }
+
+        $amount = (new DecimalMoneyFormatter($this->getAllCurrencies()))->format($money);
+
+        if (array_key_exists($this->currency, $attributes)) {
+            return [$key => $amount, $this->currency => $money->getCurrency()->getCode()];
+        }
+
+        return [$key => $amount];
+    }
+
+    /**
+     * Retrieve all available currencies.
      *
      * @return \Money\Currencies\AggregateCurrencies
      */
@@ -85,22 +117,23 @@ class MoneyCast implements CastsAttributes
         }
 
         return $currencies = new AggregateCurrencies([
-            new ISOCurrencies,
-            new BitcoinCurrencies,
+            new ISOCurrencies(),
+            new BitcoinCurrencies(),
         ]);
     }
 
     /**
-     * Retrieve the money
+     * Retrieve the money.
      *
      * @param array $attributes
+     *
      * @return \Money\Currency
      */
     protected function getCurrency(array $attributes): Currency
     {
         $defaultCode = Config::get('money.currency');
 
-        if ($this->currency === null) {
+        if (null === $this->currency) {
             return new Currency($defaultCode);
         }
 
@@ -116,40 +149,11 @@ class MoneyCast implements CastsAttributes
     }
 
     /**
-     * Transform the attribute to its underlying model values.
+     * Convert the given value into an instance of Money.
      *
-     * @param  \Illuminate\Database\Eloquent\Model  $model
-     * @param  string  $key
-     * @param  mixed  $value
-     * @param  array  $attributes
-     * @return array
-     */
-    public function set($model, string $key, $value, array $attributes)
-    {
-        if ($value === null) {
-            return [$key => $value];
-        }
-
-        $currency = $this->getCurrency($attributes);
-
-        if (!$money = $this->toBaseMoney($value, $currency)) {
-            throw new InvalidArgumentException(sprintf('Invalid data provided for %s::$%s', get_class($model), $key));
-        }
-
-        $amount = (new DecimalMoneyFormatter($this->getAllCurrencies()))->format($money);
-
-        if (array_key_exists($this->currency, $attributes)) {
-            return [$key => $amount, $this->currency => $money->getCurrency()->getCode()];
-        }
-
-        return [$key => $amount];
-    }
-
-    /**
-     * Convert the given value into an instance of Money
-     *
-     * @param mixed $value
+     * @param mixed           $value
      * @param \Money\Currency $currency
+     *
      * @return \Money\Money|null
      */
     protected function toBaseMoney($value, Currency $currency): ?BaseMoney
@@ -174,23 +178,26 @@ class MoneyCast implements CastsAttributes
     }
 
     /**
-     * Determine whether the given value should be parsed
+     * Determine whether the given value should be parsed.
      *
      * @param mixed $value
+     *
      * @return bool
      */
     protected function shouldBeParsed($value): bool
     {
-        return is_string($value) && filter_var($value, FILTER_VALIDATE_FLOAT) === false;
+        return is_string($value) && false === filter_var($value, FILTER_VALIDATE_FLOAT);
     }
 
     /**
-     * Retrieve an instance of Money by parsing the given value
+     * Retrieve an instance of Money by parsing the given value.
      *
-     * @param string $value
+     * @param string          $value
      * @param \Money\Currency $currency
-     * @return \Money\Money
+     *
      * @throws \Money\Exception\ParserException
+     *
+     * @return \Money\Money
      */
     protected function parse(string $value, Currency $currency): BaseMoney
     {
@@ -216,9 +223,10 @@ class MoneyCast implements CastsAttributes
     }
 
     /**
-     * Determine whether the given value is raw
+     * Determine whether the given value is raw.
      *
      * @param mixed $value
+     *
      * @return bool
      */
     protected function isRaw($value): bool
