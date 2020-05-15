@@ -5,7 +5,7 @@ parameters:
     phpunit: ~
     #composer:
     #  no_check_lock: true
-    phpcpd: ~
+    #phpcpd: ~
     phpcs:
       standard: PSR2
       encoding: utf-8
