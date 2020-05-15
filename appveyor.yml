@@ -33,6 +33,8 @@ install:
   - echo extension=php_intl.dll >> php.ini
   - echo extension=php_mbstring.dll >> php.ini
   - echo extension=php_openssl.dll >> php.ini
+  - echo extension=php_pdo_sqlite.dll >> php.ini
+  - echo extension=php_sqlite3.dll >> php.ini
   - IF NOT EXIST C:\tools\composer.phar (cd C:\tools && appveyor DownloadFile https://getcomposer.org/composer.phar)
 
 before_test:
