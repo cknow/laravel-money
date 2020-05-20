@@ -7,6 +7,7 @@ use GrahamCampbell\TestBench\AbstractPackageTestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use InvalidArgumentException;
 use Money\Exception\ParserException;
+use Money\Money as BaseMoney;
 use stdClass;
 
 /**
@@ -81,6 +82,10 @@ class MoneyCastTest extends AbstractPackageTestCase
         static::assertSame('EUR', $user->wage->getMoney()->getCurrency()->getCode());
 
         static::assertNull($user->debits);
+
+        $user->money = new BaseMoney(10000, $user->money->getMoney()->getCurrency());
+
+        static::assertSame('10000', $user->money->getAmount());
 
         $user->money = 100;
         $user->wage = 70500.19;
