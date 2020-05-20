@@ -2,9 +2,9 @@
 
 [![Latest Stable Version](https://poser.pugx.org/cknow/laravel-money/version)](https://packagist.org/packages/cknow/laravel-money)
 [![Total Downloads](https://poser.pugx.org/cknow/laravel-money/downloads)](https://packagist.org/packages/cknow/laravel-money)
-[![Tests](https://github.com/cknow/laravel-money/workflows/tests/badge.svg)](https://github.com/cknow/laravel-money/actions)
+[![tests](https://github.com/cknow/laravel-money/workflows/tests/badge.svg)](https://github.com/cknow/laravel-money/actions)
 [![StyleCI](https://styleci.io/repos/40018123/shield?style=flat)](https://styleci.io/repos/40018123)
-[![Coverage Status](https://coveralls.io/repos/github/cknow/laravel-money/badge.svg?branch=master)](https://coveralls.io/github/cknow/laravel-money?branch=master)
+[![codecov](https://codecov.io/gh/cknow/laravel-money/branch/master/graph/badge.svg)](https://codecov.io/gh/cknow/laravel-money)
 [![License](https://poser.pugx.org/cknow/laravel-money/license)](https://packagist.org/packages/cknow/laravel-money)
 
 > **Note:** This project abstracts [MoneyPHP](http://moneyphp.org/)

@@ -44,7 +44,5 @@ jobs:
       - name: Execute tests
         run: vendor/bin/phpunit --verbose
 
-      - name: Coveralls
-        uses: coverallsapp/github-action@master
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Coverage
+        uses: codecov/codecov-action@master
