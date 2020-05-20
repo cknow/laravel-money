@@ -2,9 +2,6 @@
 
 namespace Cknow\Money;
 
-/**
- * @covers \Cknow\Money\LocaleTrait
- */
 class LocaleTraitTest extends \PHPUnit\Framework\TestCase
 {
     public function testGetLocale()
