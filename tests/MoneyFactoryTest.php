@@ -5,9 +5,6 @@ namespace Cknow\Money;
 use Money\Currencies\ISOCurrencies;
 use Money\Currency;
 
-/**
- * @covers \Cknow\Money\MoneyFactory
- */
 class MoneyFactoryTest extends \PHPUnit\Framework\TestCase
 {
     protected function setUp(): void

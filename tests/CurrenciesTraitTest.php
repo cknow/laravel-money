@@ -2,9 +2,6 @@
 
 namespace Cknow\Money;
 
-/**
- * @covers \Cknow\Money\CurrenciesTrait
- */
 class CurrenciesTraitTest extends \PHPUnit\Framework\TestCase
 {
     public function testGetCurrencies()

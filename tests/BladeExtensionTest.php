@@ -5,9 +5,6 @@ namespace Cknow\Money;
 use Illuminate\View\Compilers\BladeCompiler;
 use Mockery;
 
-/**
- * @covers \Cknow\Money\BladeExtension
- */
 class BladeExtensionTest extends \PHPUnit\Framework\TestCase
 {
     /**

@@ -2,22 +2,10 @@
 
 [![Latest Stable Version](https://poser.pugx.org/cknow/laravel-money/version)](https://packagist.org/packages/cknow/laravel-money)
 [![Total Downloads](https://poser.pugx.org/cknow/laravel-money/downloads)](https://packagist.org/packages/cknow/laravel-money)
-[![License](https://poser.pugx.org/cknow/laravel-money/license)](https://packagist.org/packages/cknow/laravel-money)
-
+[![tests](https://github.com/cknow/laravel-money/workflows/tests/badge.svg)](https://github.com/cknow/laravel-money/actions)
 [![StyleCI](https://styleci.io/repos/40018123/shield?style=flat)](https://styleci.io/repos/40018123)
-[![Build Status](https://travis-ci.org/cknow/laravel-money.svg?branch=master)](https://travis-ci.org/cknow/laravel-money)
-[![Build status](https://ci.appveyor.com/api/projects/status/7c0elm504qk99dsh/branch/master?svg=true)](https://ci.appveyor.com/project/ricardogobbosouza/laravel-money/branch/master)
-[![Coverage Status](https://coveralls.io/repos/github/cknow/laravel-money/badge.svg?branch=master)](https://coveralls.io/github/cknow/laravel-money?branch=master)
-
-[![Code Climate](https://codeclimate.com/github/cknow/laravel-money/badges/gpa.svg)](https://codeclimate.com/github/cknow/laravel-money)
-[![Test Coverage](https://codeclimate.com/github/cknow/laravel-money/badges/coverage.svg)](https://codeclimate.com/github/cknow/laravel-money/coverage)
-[![Issue Count](https://codeclimate.com/github/cknow/laravel-money/badges/issue_count.svg)](https://codeclimate.com/github/cknow/laravel-money)
-
-[![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/cknow/laravel-money.svg)](http://isitmaintained.com/project/cknow/laravel-money)
-[![Percentage of issues still open](http://isitmaintained.com/badge/open/cknow/laravel-money.svg)](http://isitmaintained.com/project/cknow/laravel-money)
-[![Gitter](https://badges.gitter.im/cknow/laravel-money.svg)](https://gitter.im/cknow/laravel-money?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
-
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/a56211b8-224f-4345-bca7-4de0ddd40727/big.png)](https://insight.sensiolabs.com/projects/a56211b8-224f-4345-bca7-4de0ddd40727)
+[![codecov](https://codecov.io/gh/cknow/laravel-money/branch/master/graph/badge.svg)](https://codecov.io/gh/cknow/laravel-money)
+[![License](https://poser.pugx.org/cknow/laravel-money/license)](https://packagist.org/packages/cknow/laravel-money)
 
 > **Note:** This project abstracts [MoneyPHP](http://moneyphp.org/)
 
@@ -65,8 +53,8 @@ return [
     'locale' => config('app.locale', 'en_US'),
     'currency' => config('app.currency', 'USD'),
 ];
-
 ```
+
 ## Advanced Usage
 
 > See [MoneyPHP](http://moneyphp.org/) for more information

@@ -8,9 +8,6 @@ use Money\Parser\DecimalMoneyParser;
 use Money\Parser\IntlMoneyParser;
 use NumberFormatter;
 
-/**
- * @covers \Cknow\Money\MoneyParserTrait
- */
 class MoneyParserTraitTest extends \PHPUnit\Framework\TestCase
 {
     protected function setUp(): void

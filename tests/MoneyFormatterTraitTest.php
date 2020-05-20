@@ -10,9 +10,6 @@ use Money\Formatter\IntlLocalizedDecimalFormatter;
 use Money\Formatter\IntlMoneyFormatter;
 use NumberFormatter as N;
 
-/**
- * @covers \Cknow\Money\MoneyFormatterTrait
- */
 class MoneyFormatterTraitTest extends \PHPUnit\Framework\TestCase
 {
     protected function setUp(): void

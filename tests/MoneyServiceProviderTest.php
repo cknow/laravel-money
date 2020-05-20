@@ -4,9 +4,6 @@ namespace Cknow\Money;
 
 use GrahamCampbell\TestBench\AbstractPackageTestCase;
 
-/**
- * @covers \Cknow\Money\MoneyServiceProvider
- */
 class MoneyServiceProviderTest extends AbstractPackageTestCase
 {
     public function testLocale()
