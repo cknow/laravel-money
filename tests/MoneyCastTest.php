@@ -43,15 +43,15 @@ class MoneyCastTest extends AbstractPackageTestCase
         static::assertNull($user->debits);
 
         static::assertSame('123456', $user->money->getAmount());
-        static::assertSame('USD', $user->money->getMoney()->getCurrency()->getCode());
+        static::assertSame('USD', $user->money->getCurrency()->getCode());
 
         static::assertSame('5000000', $user->wage->getAmount());
-        static::assertSame('EUR', $user->wage->getMoney()->getCurrency()->getCode());
+        static::assertSame('EUR', $user->wage->getCurrency()->getCode());
 
         $user->debits = 100.99;
 
         static::assertSame('10099', $user->debits->getAmount());
-        static::assertSame('AUD', $user->debits->getMoney()->getCurrency()->getCode());
+        static::assertSame('AUD', $user->debits->getCurrency()->getCode());
 
         $user->save();
 
@@ -76,14 +76,14 @@ class MoneyCastTest extends AbstractPackageTestCase
         ]);
 
         static::assertSame('0', $user->money->getAmount());
-        static::assertSame('USD', $user->money->getMoney()->getCurrency()->getCode());
+        static::assertSame('USD', $user->money->getCurrency()->getCode());
 
         static::assertSame('6500000', $user->wage->getAmount());
-        static::assertSame('EUR', $user->wage->getMoney()->getCurrency()->getCode());
+        static::assertSame('EUR', $user->wage->getCurrency()->getCode());
 
         static::assertNull($user->debits);
 
-        $user->money = new BaseMoney(10000, $user->money->getMoney()->getCurrency());
+        $user->money = new BaseMoney(10000, $user->money->getCurrency());
 
         static::assertSame('10000', $user->money->getAmount());
 
@@ -92,23 +92,23 @@ class MoneyCastTest extends AbstractPackageTestCase
         $user->debits = '¥213860';
 
         static::assertSame('10000', $user->money->getAmount());
-        static::assertSame('USD', $user->money->getMoney()->getCurrency()->getCode());
+        static::assertSame('USD', $user->money->getCurrency()->getCode());
 
         static::assertSame('7050019', $user->wage->getAmount());
-        static::assertSame('EUR', $user->wage->getMoney()->getCurrency()->getCode());
+        static::assertSame('EUR', $user->wage->getCurrency()->getCode());
 
         static::assertSame('213860', $user->debits->getAmount());
-        static::assertSame('JPY', $user->debits->getMoney()->getCurrency()->getCode());
+        static::assertSame('JPY', $user->debits->getCurrency()->getCode());
         static::assertSame('JPY', $user->currency);
 
         $user->money = '100,000.22';
         $user->debits = 'Ƀ0.00012345';
 
         static::assertSame('10000022', $user->money->getAmount());
-        static::assertSame('USD', $user->money->getMoney()->getCurrency()->getCode());
+        static::assertSame('USD', $user->money->getCurrency()->getCode());
 
         static::assertSame('12345', $user->debits->getAmount());
-        static::assertSame('XBT', $user->debits->getMoney()->getCurrency()->getCode());
+        static::assertSame('XBT', $user->debits->getCurrency()->getCode());
         static::assertSame('XBT', $user->currency);
 
         $user->save();

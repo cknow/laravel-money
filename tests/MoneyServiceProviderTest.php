@@ -9,7 +9,7 @@ class MoneyServiceProviderTest extends AbstractPackageTestCase
     public function testLocale()
     {
         static::assertEquals('en', Money::getLocale());
-        static::assertEquals('USD', Money::getCurrency());
+        static::assertEquals('USD', Money::getDefaultCurrency());
     }
 
     public function testBladeDirectives()
