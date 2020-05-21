@@ -16,7 +16,9 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
 {
     use CurrenciesTrait;
     use LocaleTrait;
-    use MoneyFactory;
+    use MoneyFactory {
+        __callStatic as factoryCallStatic;
+    }
     use MoneyFormatterTrait;
     use MoneyParserTrait;
     use Macroable {
@@ -104,7 +106,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
             return static::convert($result);
         }
 
-        return MoneyFactory::__callStatic($method, $arguments);
+        return static::factoryCallStatic($method, $arguments);
     }
 
     /**
@@ -116,7 +118,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      */
     public static function convert(\Money\Money $instance)
     {
-        return MoneyFactory::fromMoney($instance);
+        return static::fromMoney($instance);
     }
 
     /**
