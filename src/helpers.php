@@ -25,7 +25,10 @@ if (!function_exists('money')) {
      */
     function money($amount, $currency = null)
     {
-        return new Cknow\Money\Money($amount, new Money\Currency($currency ?: Cknow\Money\Money::getCurrency()));
+        return new Cknow\Money\Money(
+            $amount,
+            new Money\Currency($currency ?: Cknow\Money\Money::getDefaultCurrency())
+        );
     }
 }
 

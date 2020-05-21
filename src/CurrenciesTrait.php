@@ -42,25 +42,25 @@ trait CurrenciesTrait
     }
 
     /**
-     * Get currency.
+     * Get default currency.
      *
      * @return string
      */
-    public static function getCurrency()
+    public static function getDefaultCurrency()
     {
         if (!isset(static::$currency)) {
-            static::setCurrency('USD');
+            static::setDefaultCurrency('USD');
         }
 
         return static::$currency;
     }
 
     /**
-     * Set currency.
+     * Set default currency.
      *
      * @param string $currency
      */
-    public static function setCurrency($currency)
+    public static function setDefaultCurrency($currency)
     {
         static::$currency = $currency;
     }
