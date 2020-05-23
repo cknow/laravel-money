@@ -24,7 +24,7 @@ class MoneyCast implements CastsAttributes
      *
      * @var int
      */
-    protected const BITCOINT_FRACTION_DIGITS = 2;
+    protected const BITCOIN_FRACTION_DIGITS = 2;
 
     /**
      * The currency code or the model attribute holding the currency code.
@@ -202,7 +202,7 @@ class MoneyCast implements CastsAttributes
         $currencies = $this->getAllCurrencies();
         $parsers = [
             new IntlMoneyParser(new NumberFormatter($locale, NumberFormatter::CURRENCY), $currencies),
-            new BitcoinMoneyParser(static::BITCOINT_FRACTION_DIGITS),
+            new BitcoinMoneyParser(static::BITCOIN_FRACTION_DIGITS),
         ];
 
         try {
