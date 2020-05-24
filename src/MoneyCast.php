@@ -4,9 +4,6 @@ namespace Cknow\Money;
 
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use InvalidArgumentException;
-use Money\Currencies\AggregateCurrencies;
-use Money\Currencies\BitcoinCurrencies;
-use Money\Currencies\ISOCurrencies;
 use Money\Currency;
 use Money\Exception\ParserException;
 use Money\Money as BaseMoney;
@@ -62,7 +59,7 @@ class MoneyCast implements CastsAttributes
         return Money::parseByDecimal(
             $value,
             $this->getCurrency($attributes),
-            $this->getAllCurrencies()
+            Money::getCurrencies()
         );
     }
 
@@ -89,32 +86,13 @@ class MoneyCast implements CastsAttributes
             throw new InvalidArgumentException(sprintf('Invalid data provided for %s::$%s', get_class($model), $key));
         }
 
-        $amount = $money->formatByDecimal($this->getAllCurrencies());
+        $amount = $money->formatByDecimal(Money::getCurrencies());
 
         if (array_key_exists($this->currency, $attributes)) {
             return [$key => $amount, $this->currency => $money->getCurrency()->getCode()];
         }
 
         return [$key => $amount];
-    }
-
-    /**
-     * Retrieve all available currencies.
-     *
-     * @return \Money\Currencies\AggregateCurrencies
-     */
-    protected function getAllCurrencies()
-    {
-        static $currencies;
-
-        if ($currencies) {
-            return $currencies;
-        }
-
-        return $currencies = new AggregateCurrencies([
-            new ISOCurrencies(),
-            new BitcoinCurrencies(),
-        ]);
     }
 
     /**
@@ -134,7 +112,7 @@ class MoneyCast implements CastsAttributes
 
         $currency = new Currency($this->currency);
 
-        if ($this->getAllCurrencies()->contains($currency)) {
+        if (Money::getCurrencies()->contains($currency)) {
             return $currency;
         }
 
@@ -199,7 +177,7 @@ class MoneyCast implements CastsAttributes
     protected function parse(string $value, Currency $currency)
     {
         $locale = Money::getLocale();
-        $currencies = $this->getAllCurrencies();
+        $currencies = Money::getCurrencies();
         $parsers = [
             new IntlMoneyParser(new NumberFormatter($locale, NumberFormatter::CURRENCY), $currencies),
             new BitcoinMoneyParser(static::BITCOIN_FRACTION_DIGITS),

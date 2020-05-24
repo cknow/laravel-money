@@ -51,7 +51,15 @@ return [
      |--------------------------------------------------------------------------
      */
     'locale' => config('app.locale', 'en_US'),
-    'currency' => config('app.currency', 'USD'),
+    'defaultCurrency' => config('app.currency', 'USD'),
+    'currencies' => [
+        'iso' => ['RUB', 'USD', 'EUR'],  // 'all' to choose all ISOCurrencies
+        'bitcoin' => ['XBT'], // 'all' to choose all BitcoinCurrencies
+        'custom' => [
+            'MY1' => 2,
+            'MY2' => 3
+        ]
+    ]
 ];
 ```
 
