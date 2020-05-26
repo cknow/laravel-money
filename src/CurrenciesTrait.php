@@ -120,18 +120,28 @@ trait CurrenciesTrait
             return new ISOCurrencies();
         }
 
-        return new AggregateCurrencies([
-            static::makeCurrenciesForSource(
-                $currenciesConfig['iso'] ?? [],
-                new ISOCurrencies(),
+        $currenciesList = [];
+
+        if ($currenciesConfig['iso'] ?? false) {
+            $currenciesList[] = static::makeCurrenciesForSource(
+                $currenciesConfig['iso'],
+                new ISOCurrencies(), 
                 'ISO'
-            ),
-            static::makeCurrenciesForSource(
+            );
+        }
+
+        if ($currenciesConfig['bitcoin'] ?? false) {
+            $currenciesList[] = static::makeCurrenciesForSource(
                 $currenciesConfig['bitcoin'] ?? [],
                 new BitcoinCurrencies(),
                 'Bitcoin'
-            ),
-            new CurrencyList($currenciesConfig['custom'] ?? []),
-        ]);
+            );
+        }
+
+        if ($currenciesConfig['custom'] ?? false) {
+            $currenciesList[] = new CurrencyList($currenciesConfig['custom']);
+        }
+
+        return new AggregateCurrencies([$currenciesList]);
     }
 }

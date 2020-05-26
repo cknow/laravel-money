@@ -4,7 +4,7 @@ namespace Cknow\Money;
 
 class CurrenciesTraitTest extends \PHPUnit\Framework\TestCase
 {
-    private static function currencyListSize(\Money\Currencies\CurrencyList $currencies)
+    private static function currencyListSize(\Money\Currencies $currencies)
     {
         $size = 0;
         foreach ($currencies as $currency) {
@@ -34,8 +34,8 @@ class CurrenciesTraitTest extends \PHPUnit\Framework\TestCase
     {
         $mock = $this->getMockForTrait(CurrenciesTrait::class);
         $mock->setCurrencies([
-            'iso' => 'USD',
-            'bitcoin' => 'XBT',
+            'iso' => ['USD'],
+            'bitcoin' => ['XBT'],
             'custom' => [
                 'MY1' => 2,
                 'MY2' => 3
@@ -58,8 +58,8 @@ class CurrenciesTraitTest extends \PHPUnit\Framework\TestCase
         $this->expectException(\InvalidArgumentException::class);
         $mock = $this->getMockForTrait(CurrenciesTrait::class);
         $mock->setCurrencies([
-            'iso' => 'UNKNOWN',
-            'bitcoin' => 'XBT',
+            'iso' => ['UNKNOWN'],
+            'bitcoin' => ['XBT'],
             'custom' => [
                 'MY1' => 2,
                 'MY2' => 3
@@ -72,8 +72,8 @@ class CurrenciesTraitTest extends \PHPUnit\Framework\TestCase
         $this->expectException(\InvalidArgumentException::class);
         $mock = $this->getMockForTrait(CurrenciesTrait::class);
         $mock->setCurrencies([
-            'iso' => 'USD',
-            'bitcoin' => 'UNKNOWN',
+            'iso' => ['USD'],
+            'bitcoin' => ['UNKNOWN'],
             'custom' => [
                 'MY1' => 2,
                 'MY2' => 3
@@ -86,8 +86,8 @@ class CurrenciesTraitTest extends \PHPUnit\Framework\TestCase
         $this->expectException(\InvalidArgumentException::class);
         $mock = $this->getMockForTrait(CurrenciesTrait::class);
         $mock->setCurrencies([
-            'iso' => 'USD',
-            'bitcoin' => 'XBT',
+            'iso' => ['USD'],
+            'bitcoin' => ['XBT'],
             'custom' => [
                 'MY1' => ['some' => 'value'],
                 'MY2' => -5
