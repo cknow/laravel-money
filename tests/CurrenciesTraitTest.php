@@ -2,6 +2,8 @@
 
 namespace Cknow\Money;
 
+use Money\Currency;
+
 class CurrenciesTraitTest extends \PHPUnit\Framework\TestCase
 {
     private static function currencyListSize(\Money\Currencies $currencies)
@@ -43,14 +45,14 @@ class CurrenciesTraitTest extends \PHPUnit\Framework\TestCase
         ]);
 
         static::assertInstanceOf(\Money\Currencies\AggregateCurrencies::class, $mock->getCurrencies());
-        static::assertContainsOnlyInstancesOf(\Money\Currency::class, $mock->getCurrencies());
+        static::assertContainsOnlyInstancesOf(Currency::class, $mock->getCurrencies());
         static::assertEquals(4, static::currencyListSize($mock->getCurrencies()));
-        static::assertTrue($mock->getCurrencies()->contains(new \Money\Currency('USD')));
-        static::assertTrue($mock->getCurrencies()->contains(new \Money\Currency('XBT')));
-        static::assertTrue($mock->getCurrencies()->contains(new \Money\Currency('MY1')));
-        static::assertTrue($mock->getCurrencies()->contains(new \Money\Currency('MY2')));
-        static::assertEquals(2, $mock->getCurrencies()->subunitFor(new \Money\Currency('MY1')));
-        static::assertTrue(3, $mock->getCurrencies()->subunitFor(new \Money\Currency('MY2')));
+        static::assertTrue($mock->getCurrencies()->contains(new Currency('USD')));
+        static::assertTrue($mock->getCurrencies()->contains(new Currency('XBT')));
+        static::assertTrue($mock->getCurrencies()->contains(new Currency('MY1')));
+        static::assertTrue($mock->getCurrencies()->contains(new Currency('MY2')));
+        static::assertEquals(2, $mock->getCurrencies()->subunitFor(new Currency('MY1')));
+        static::assertTrue(3, $mock->getCurrencies()->subunitFor(new Currency('MY2')));
     }
 
     public function testSetCurrenciesWrongISOCurrencyCode()
@@ -104,7 +106,6 @@ class CurrenciesTraitTest extends \PHPUnit\Framework\TestCase
 
     public function testSetCurrenciesEmptyCurrenciesConfig()
     {
-        $this->expectException(\InvalidArgumentException::class);
         $mock = $this->getMockForTrait(CurrenciesTrait::class);
         $mock->setCurrencies([
             'iso' => [],
@@ -118,7 +119,6 @@ class CurrenciesTraitTest extends \PHPUnit\Framework\TestCase
 
     public function testSetCurrenciesDefaultCurrenciesConfig()
     {
-        $this->expectException(\InvalidArgumentException::class);
         $mock = $this->getMockForTrait(CurrenciesTrait::class);
         $mock->setCurrencies([]);
 
@@ -127,7 +127,6 @@ class CurrenciesTraitTest extends \PHPUnit\Framework\TestCase
 
     public function testSetCurrenciesAllISOCurrencies()
     {
-        $this->expectException(\InvalidArgumentException::class);
         $mock = $this->getMockForTrait(CurrenciesTrait::class);
         $mock->setCurrencies([
             'iso' => 'all',
@@ -141,7 +140,6 @@ class CurrenciesTraitTest extends \PHPUnit\Framework\TestCase
 
     public function testSetCurrenciesAllBitcoinCurrencies()
     {
-        $this->expectException(\InvalidArgumentException::class);
         $mock = $this->getMockForTrait(CurrenciesTrait::class);
         $mock->setCurrencies([
             'bitcoin' => 'all',
