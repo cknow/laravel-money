@@ -96,7 +96,7 @@ trait CurrenciesTrait
             foreach ($config as $index => $currencyCode) {
                 $currency = new Currency($currencyCode);
                 if ($allCurrencies->contains($currency)) {
-                    $currencies[] = $currency;
+                    $currencies[$currency->getCode()] = $allCurrencies->subunitFor($currency);
                 } else {
                     throw new \InvalidArgumentException(
                         "Unknown $sourceName currency code: $currencyCode");
