@@ -29,7 +29,7 @@ trait CurrenciesTrait
     public static function getCurrencies()
     {
         if (!isset(static::$currencies)) {
-            static::setCurrencies(config('money.currencies', []));
+            static::setCurrencies([]);
         }
 
         return static::$currencies;
@@ -60,7 +60,7 @@ trait CurrenciesTrait
     public static function getDefaultCurrency()
     {
         if (!isset(static::$currency)) {
-            static::setDefaultCurrency(config('money.defaultCurrency', 'USD'));
+            static::setDefaultCurrency('USD');
         }
 
         return static::$currency;
