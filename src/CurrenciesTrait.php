@@ -3,6 +3,7 @@
 namespace Cknow\Money;
 
 use Money\Currencies;
+use Money\Currency;
 use Money\Currencies\ISOCurrencies;
 use Money\Currencies\BitcoinCurrencies;
 use Money\Currencies\AggregateCurrencies;
@@ -84,7 +85,7 @@ trait CurrenciesTrait
      * @param string $sourceName
      * @return \Money\Currencies
      */
-    private static function makeCurrenciesForSource($config, $allCurrencies, $sourceName)
+    private static function makeCurrenciesForSource($config, $allCurrencies, $sourceName) : \Money\Currencies
     {
         if ('all' === $config) {
             return $allCurrencies;
