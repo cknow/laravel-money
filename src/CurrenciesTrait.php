@@ -81,11 +81,11 @@ trait CurrenciesTrait
      * Make currencies list according to array for specified source.
      *
      * @param array|string $config
-     * @param Currencies $allCurrencies
+     * @param \Money\Currencies $allCurrencies
      * @param string $sourceName
      * @return \Money\Currencies
      */
-    private static function makeCurrenciesForSource($config, $allCurrencies, $sourceName) : \Money\Currencies
+    private static function makeCurrenciesForSource($config, Currencies $allCurrencies, $sourceName) : Currencies
     {
         if ('all' === $config) {
             return $allCurrencies;
@@ -133,7 +133,7 @@ trait CurrenciesTrait
 
         if ($currenciesConfig['bitcoin'] ?? false) {
             $currenciesList[] = static::makeCurrenciesForSource(
-                $currenciesConfig['bitcoin'] ?? [],
+                $currenciesConfig['bitcoin'],
                 new BitcoinCurrencies(),
                 'Bitcoin'
             );
@@ -142,6 +142,8 @@ trait CurrenciesTrait
         if ($currenciesConfig['custom'] ?? false) {
             $currenciesList[] = new CurrencyList($currenciesConfig['custom']);
         }
+
+        print_r($currenciesList);
 
         return new AggregateCurrencies([$currenciesList]);
     }
