@@ -3,6 +3,7 @@
 namespace Cknow\Money;
 
 use Money\Currency;
+use stdClass;
 
 class CurrenciesTraitTest extends \PHPUnit\Framework\TestCase
 {
@@ -102,6 +103,16 @@ class CurrenciesTraitTest extends \PHPUnit\Framework\TestCase
         $this->expectException(\InvalidArgumentException::class);
         $mock = $this->getMockForTrait(CurrenciesTrait::class);
         $mock->setCurrencies(5);
+    }
+
+    public function testSetCurrenciesWrongStandardCurrenciesConfig()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $mock = $this->getMockForTrait(CurrenciesTrait::class);
+        $mock->setCurrencies([
+            'iso' => new stdClass(),
+            'bitcoin' => 'all',
+        ]);
     }
 
     public function testSetCurrenciesEmptyCurrenciesConfig()
