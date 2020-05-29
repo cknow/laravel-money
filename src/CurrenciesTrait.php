@@ -143,8 +143,6 @@ trait CurrenciesTrait
             $currenciesList[] = new CurrencyList($currenciesConfig['custom']);
         }
 
-        print_r($currenciesList);
-
-        return new AggregateCurrencies([$currenciesList]);
+        return new AggregateCurrencies($currenciesList);
     }
 }
