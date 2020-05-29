@@ -52,7 +52,7 @@ class CurrenciesTraitTest extends \PHPUnit\Framework\TestCase
         static::assertTrue($mock->getCurrencies()->contains(new Currency('MY1')));
         static::assertTrue($mock->getCurrencies()->contains(new Currency('MY2')));
         static::assertEquals(2, $mock->getCurrencies()->subunitFor(new Currency('MY1')));
-        static::assertTrue(3, $mock->getCurrencies()->subunitFor(new Currency('MY2')));
+        static::assertEquals(3, $mock->getCurrencies()->subunitFor(new Currency('MY2')));
     }
 
     public function testSetCurrenciesWrongISOCurrencyCode()
