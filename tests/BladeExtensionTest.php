@@ -110,16 +110,6 @@ class BladeExtensionTest extends \PHPUnit\Framework\TestCase
             '<?php echo money_parse("$5.00", "USD"); ?>',
             $this->compiler->compileString('@money_parse("$5.00", "USD")')
         );
-
-        static::assertEquals(
-            '<?php echo money_parse("$5.00", "USD", "en_US"); ?>',
-            $this->compiler->compileString('@money_parse("$5.00", "USD", "en_US")')
-        );
-
-        static::assertEquals(
-            '<?php echo money_parse("$5.00", "USD", "en_US", null); ?>',
-            $this->compiler->compileString('@money_parse("$5.00", "USD", "en_US", null)')
-        );
     }
 
     public function testMoneyParseByBitcoin()

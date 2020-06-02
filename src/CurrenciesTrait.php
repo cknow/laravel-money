@@ -3,19 +3,50 @@
 namespace Cknow\Money;
 
 use Money\Currencies;
+use Money\Currencies\AggregateCurrencies;
+use Money\Currencies\BitcoinCurrencies;
 use Money\Currencies\ISOCurrencies;
 
 trait CurrenciesTrait
 {
+    /**
+     * @var string
+     */
+    protected static $currency;
+
     /**
      * @var \Money\Currencies
      */
     protected static $currencies;
 
     /**
-     * @var string
+     * @var \Money\Currencies\AggregateCurrencies
      */
-    protected static $currency;
+    protected static $allCurrencies;
+
+    /**
+     * Get default currency.
+     *
+     * @return string
+     */
+    public static function getDefaultCurrency()
+    {
+        if (!isset(static::$currency)) {
+            static::setDefaultCurrency('USD');
+        }
+
+        return static::$currency;
+    }
+
+    /**
+     * Set default currency.
+     *
+     * @param string $currency
+     */
+    public static function setDefaultCurrency($currency)
+    {
+        static::$currency = $currency;
+    }
 
     /**
      * Get currencies.
@@ -42,26 +73,29 @@ trait CurrenciesTrait
     }
 
     /**
-     * Get default currency.
+     * Get all currencies.
      *
-     * @return string
+     * @return \Money\Currencies\AggregateCurrencies
      */
-    public static function getDefaultCurrency()
+    public static function getAllCurrencies()
     {
-        if (!isset(static::$currency)) {
-            static::setDefaultCurrency('USD');
+        if (!isset(static::$allCurrencies)) {
+            static::setAllCurrencies(new AggregateCurrencies([
+                new ISOCurrencies(),
+                new BitcoinCurrencies()
+            ]));
         }
 
-        return static::$currency;
+        return static::$allCurrencies;
     }
 
     /**
-     * Set default currency.
+     * Set all currencies.
      *
-     * @param string $currency
+     * @param \Money\Currencies\AggregateCurrencies $allCurrencies
      */
-    public static function setDefaultCurrency($currency)
+    public static function setAllCurrencies(AggregateCurrencies $allCurrencies)
     {
-        static::$currency = $currency;
+        static::$allCurrencies = $allCurrencies;
     }
 }

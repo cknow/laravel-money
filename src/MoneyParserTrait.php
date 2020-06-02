@@ -2,7 +2,10 @@
 
 namespace Cknow\Money;
 
+use InvalidArgumentException;
+use Money\Currency;
 use Money\Currencies;
+use Money\Exception\ParserException;
 use Money\MoneyParser;
 use Money\Parser\AggregateMoneyParser;
 use Money\Parser\BitcoinMoneyParser;
@@ -14,18 +17,55 @@ use NumberFormatter;
 trait MoneyParserTrait
 {
     /**
-     * Parse.
+     * Convert the given value into an instance of Money.
      *
-     * @param string            $money
-     * @param string|null       $forceCurrency
-     * @param string|null       $locale
-     * @param \Money\Currencies $currencies
+     * @param mixed                       $value
+     * @param \Money\Currency|string|null $currency
+     * @param iny                         $bitCointDigits
      *
-     * @return \Cknow\Money\Money
+     * @return \Cknow\Money\Money|null
      */
-    public static function parse($money, $forceCurrency = null, $locale = null, Currencies $currencies = null)
+    public static function parse($value, $currency = null, $bitCointDigits = 2)
     {
-        return static::parseByIntl($money, $forceCurrency, $locale, $currencies);
+        if ($value instanceof Money) {
+            return $value;
+        }
+
+        if ($value instanceof \Money\Money) {
+            return static::fromMoney($value);
+        }
+
+        if (is_string($currency)) {
+            $currency = new Currency($currency);
+        }
+
+        if (is_string($value) && false === filter_var($value, FILTER_VALIDATE_FLOAT)) {
+            $locale = static::getLocale();
+            $currencies = static::getAllCurrencies();
+
+            try {
+                return static::parseByAggregate($value, null, [
+                    new IntlMoneyParser(new NumberFormatter($locale, NumberFormatter::CURRENCY), $currencies),
+                    new BitcoinMoneyParser($bitCointDigits),
+                ]);
+            } catch (ParserException $e) {
+                try {
+                    return static::parseByIntlLocalizedDecimal($value, $currency, $locale, $currencies);
+                } catch (ParserException $e) {
+                    throw new ParserException("Unable to parse {$value}");
+                }
+            }
+        }
+
+        if (is_string($value)) {
+            return new Money($value, $currency);
+        }
+
+        if (is_int($value) || is_float($value)) {
+            return static::parseByDecimal((string) $value, $currency);
+        }
+
+        throw new InvalidArgumentException(sprintf('Invalid value: %s', json_encode($value)));
     }
 
     /**

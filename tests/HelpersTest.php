@@ -53,9 +53,7 @@ class HelpersTest extends \PHPUnit\Framework\TestCase
     public function testMoneyParse()
     {
         static::assertEquals(money_parse('$1.00'), Money::USD(100));
-        static::assertEquals(money_parse('$1.00', 'EUR'), Money::EUR(100));
-        static::assertEquals(money_parse('$1.00', 'USD', 'en_US'), Money::USD(100));
-        static::assertEquals(money_parse('$1.00', 'USD', 'en_US', Money::getCurrencies()), Money::USD(100));
+        static::assertEquals(money_parse('$1.00', 'USD'), Money::USD(100));
     }
 
     public function testMoneyParseByBitcoin()

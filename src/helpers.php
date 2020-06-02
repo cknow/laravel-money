@@ -96,16 +96,14 @@ if (!function_exists('money_parse')) {
     /**
      * money parse.
      *
-     * @param string            $money
-     * @param string|null       $forceCurrency
-     * @param string|null       $locale
-     * @param \Money\Currencies $currencies
+     * @param mixed                       $value
+     * @param \Money\Currency|string|null $currency
      *
-     * @return \Cknow\Money\Money
+     * @return \Cknow\Money\Money|null
      */
-    function money_parse($money, $forceCurrency = null, $locale = null, Money\Currencies $currencies = null)
+    function money_parse($value, $currency = null)
     {
-        return Cknow\Money\Money::parse($money, $forceCurrency, $locale, $currencies);
+        return Cknow\Money\Money::parse($value, $currency);
     }
 }
 

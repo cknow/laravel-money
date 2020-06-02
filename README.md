@@ -121,6 +121,45 @@ class MyFormatter implements \Money\MoneyFormatter
 Money::USD(500)->formatByFormatter(new MyFormatter()); // My Formatter
 ```
 
+## Casts
+
+At this stage the cast can be defined in the following ways:
+
+```php
+protected $casts = [
+    // cast money using the currency defined in the package config
+    'money' => MoneyCast::class,
+    // cast money using the defined currency
+    'money' => MoneyCast::class . ':AUD',
+    // cast money using the currency defined in the model attribute 'currency'
+    'money' => MoneyCast::class . ':currency',
+];
+```
+
+In the example above, if the model attribute `currency` is `null`,
+the currency defined in the package configuration is used instead.
+
+Setting money can be done in several ways:
+
+```php
+$model->money = 10; // 10.00 USD or any other currency defined
+$model->money = 10.23; // 10.23 USD or any other currency defined
+$model->money = 'A$10'; // 10.00 AUD
+$model->money = '1,000.23'; // 1000.23 USD or any other currency defined
+$model->money = '10'; // 0.10 USD or any other currency defined
+$model->money = Money::EUR(10); // 10 EUR
+```
+
+When we pass the model attribute holding the currency,
+such attribute is updated as well when setting money:
+
+```php
+$model->currency; // null
+$model->money = '€13';
+$model->currency; // 'EUR'
+$model->money->getAmount(); // '1300'
+```
+
 ## Helpers
 
 ```php

@@ -19,9 +19,7 @@ class MoneyParserTraitTest extends \PHPUnit\Framework\TestCase
     public function testParse()
     {
         static::assertEquals(Money::parse('$1.00'), Money::USD(100));
-        static::assertEquals(Money::parse('$1.00', 'EUR'), Money::EUR(100));
-        static::assertEquals(Money::parse('$1.00', 'USD', 'en_US'), Money::USD(100));
-        static::assertEquals(Money::parse('$1.00', 'USD', 'en_US', Money::getCurrencies()), Money::USD(100));
+        static::assertEquals(Money::parse('$1.00', 'USD'), Money::USD(100));
     }
 
     public function testParseByAggregate()
