@@ -21,6 +21,7 @@ class MoneyServiceProvider extends ServiceProvider
         }
 
         Money::setLocale($this->app->make('config')->get('money.locale'));
-        Money::setDefaultCurrency($this->app->make('config')->get('money.currency'));
+        Money::setDefaultCurrency($this->app->make('config')->get('money.defaultCurrency'));
+        Money::setCurrencies($this->app->make('config')->get('money.currencies'));
     }
 }

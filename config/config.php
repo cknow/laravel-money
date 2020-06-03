@@ -7,5 +7,13 @@ return [
      |--------------------------------------------------------------------------
      */
     'locale' => config('app.locale', 'en_US'),
-    'currency' => config('app.currency', 'USD'),
+    'defaultCurrency' => config('app.currency', 'USD'),
+    'currencies' => [
+        'iso' => 'all',
+        'bitcoin' => 'all',
+        'custom' => [
+            // 'MY1' => 2,
+            // 'MY2' => 3
+        ]
+    ]
 ];

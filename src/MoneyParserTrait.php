@@ -41,7 +41,7 @@ trait MoneyParserTrait
 
         if (is_string($value) && false === filter_var($value, FILTER_VALIDATE_FLOAT)) {
             $locale = static::getLocale();
-            $currencies = static::getAllCurrencies();
+            $currencies = static::getCurrencies();
 
             try {
                 return static::parseByAggregate($value, null, [
@@ -52,7 +52,7 @@ trait MoneyParserTrait
                 try {
                     return static::parseByIntlLocalizedDecimal($value, $currency, $locale, $currencies);
                 } catch (ParserException $e) {
-                    throw new ParserException("Unable to parse {$value}");
+                    throw new ParserException(sprintf('Unable to parse: %s', $value));
                 }
             }
         }

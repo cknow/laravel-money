@@ -135,7 +135,7 @@ class MoneyCastTest extends AbstractPackageTestCase
     public function testFailsToParseInvalidMoney()
     {
         $this->expectException(ParserException::class);
-        $this->expectExceptionMessage('Unable to parse abc');
+        $this->expectExceptionMessage('Unable to parse: abc');
 
         new User(['money' => 'abc']);
     }

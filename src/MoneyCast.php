@@ -44,7 +44,7 @@ class MoneyCast implements CastsAttributes
         return Money::parseByDecimal(
             $value,
             $this->getCurrency($attributes),
-            Money::getAllCurrencies()
+            Money::getCurrencies()
         );
     }
 
@@ -75,7 +75,7 @@ class MoneyCast implements CastsAttributes
             );
         }
 
-        $amount = $money->formatByDecimal(Money::getAllCurrencies());
+        $amount = $money->formatByDecimal(Money::getCurrencies());
 
         if (array_key_exists($this->currency, $attributes)) {
             return [$key => $amount, $this->currency => $money->getCurrency()->getCode()];
@@ -100,7 +100,7 @@ class MoneyCast implements CastsAttributes
         }
 
         $currency = new Currency($this->currency);
-        $currencies = Money::getAllCurrencies();
+        $currencies = Money::getCurrencies();
 
         if ($currencies->contains($currency)) {
             return $currency;
