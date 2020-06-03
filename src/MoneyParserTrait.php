@@ -39,7 +39,7 @@ trait MoneyParserTrait
             $currency = new Currency($currency);
         }
 
-        if (is_string($value) && false === filter_var($value, FILTER_VALIDATE_FLOAT)) {
+        if (is_string($value) && filter_var($value, FILTER_VALIDATE_FLOAT) === false) {
             $locale = static::getLocale();
             $currencies = static::getCurrencies();
 

@@ -37,7 +37,7 @@ class MoneyCast implements CastsAttributes
      */
     public function get($model, string $key, $value, array $attributes)
     {
-        if (null === $value) {
+        if ($value === null) {
             return $value;
         }
 
@@ -62,7 +62,7 @@ class MoneyCast implements CastsAttributes
      */
     public function set($model, string $key, $value, array $attributes)
     {
-        if (null === $value) {
+        if ($value === null) {
             return [$key => $value];
         }
 
@@ -95,7 +95,7 @@ class MoneyCast implements CastsAttributes
     {
         $defaultCode = Money::getDefaultCurrency();
 
-        if (null === $this->currency) {
+        if ($this->currency === null) {
             return new Currency($defaultCode);
         }
 

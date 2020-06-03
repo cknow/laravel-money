@@ -16,7 +16,7 @@ class MoneyServiceProvider extends ServiceProvider
         $this->publishes([$path => config_path('money.php')], 'config');
         $this->mergeConfigFrom($path, 'money');
 
-        if ('Illuminate\Foundation\Application' === get_class($this->app)) {
+        if (get_class($this->app) === 'Illuminate\Foundation\Application') {
             BladeExtension::register($this->app->make('blade.compiler'));
         }
 
