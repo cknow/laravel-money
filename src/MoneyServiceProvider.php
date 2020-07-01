@@ -20,8 +20,10 @@ class MoneyServiceProvider extends ServiceProvider
             BladeExtension::register($this->app->make('blade.compiler'));
         }
 
-        Money::setLocale($this->app->make('config')->get('money.locale'));
-        Money::setDefaultCurrency($this->app->make('config')->get('money.defaultCurrency'));
-        Money::setCurrencies($this->app->make('config')->get('money.currencies'));
+        $config =$this->app->make('config');
+
+        Money::setLocale($config->get('money.locale'));
+        Money::setDefaultCurrency($config->get('money.defaultCurrency', $config->get('money.currency')));
+        Money::setCurrencies($config->get('money.currencies', []));
     }
 }

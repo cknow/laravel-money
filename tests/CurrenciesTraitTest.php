@@ -98,13 +98,6 @@ class CurrenciesTraitTest extends \PHPUnit\Framework\TestCase
         ]);
     }
 
-    public function testSetCurrenciesWrongCurrenciesConfig()
-    {
-        $this->expectException(\InvalidArgumentException::class);
-        $mock = $this->getMockForTrait(CurrenciesTrait::class);
-        $mock->setCurrencies(5);
-    }
-
     public function testSetCurrenciesWrongStandardCurrenciesConfig()
     {
         $this->expectException(\InvalidArgumentException::class);

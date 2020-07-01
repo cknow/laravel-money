@@ -63,25 +63,52 @@ trait CurrenciesTrait
     /**
      * Set currencies.
      *
-     * @param \Money\Currencies|array $currencies
+     * @param \Money\Currencies|array|null $currencies
      */
     public static function setCurrencies($currencies)
     {
-        if ($currencies instanceof Currencies) {
-            static::$currencies = $currencies;
+        static::$currencies = ($currencies instanceof Currencies)
+            ? $currencies
+            : static::makeCurrencies($currencies);
+    }
 
-            return;
+    /**
+     * Make currencies according to array derived from config or anywhere else.
+     *
+     * @param array|null $currenciesConfig
+     *
+     * @return \Money\Currencies
+     */
+    private static function makeCurrencies($currenciesConfig)
+    {
+        if (!$currenciesConfig || !is_array($currenciesConfig)) {
+            // for backward compatibility
+            return new ISOCurrencies();
         }
 
-        if (is_array($currencies)) {
-            static::$currencies = static::makeCurrencies($currencies);
+        $currenciesList = [];
 
-            return;
+        if ($currenciesConfig['iso'] ?? false) {
+            $currenciesList[] = static::makeCurrenciesForSource(
+                $currenciesConfig['iso'],
+                new ISOCurrencies(),
+                'ISO'
+            );
         }
 
-        throw new InvalidArgumentException(
-            '$currencies must be an array or a \Money\Currencies object'
-        );
+        if ($currenciesConfig['bitcoin'] ?? false) {
+            $currenciesList[] = static::makeCurrenciesForSource(
+                $currenciesConfig['bitcoin'],
+                new BitcoinCurrencies(),
+                'Bitcoin'
+            );
+        }
+
+        if ($currenciesConfig['custom'] ?? false) {
+            $currenciesList[] = new CurrencyList($currenciesConfig['custom']);
+        }
+
+        return new AggregateCurrencies($currenciesList);
     }
 
     /**
@@ -122,44 +149,5 @@ trait CurrenciesTrait
         throw new InvalidArgumentException(
             sprintf('%s config must be an array or \'all\'', $sourceName)
         );
-    }
-
-    /**
-     * Make currencies according to array derived from config or anywhere else.
-     *
-     * @param array $currenciesConfig
-     *
-     * @return \Money\Currencies
-     */
-    private static function makeCurrencies(array $currenciesConfig)
-    {
-        if (!$currenciesConfig) {
-            // for backward compatibility
-            return new ISOCurrencies();
-        }
-
-        $currenciesList = [];
-
-        if ($currenciesConfig['iso'] ?? false) {
-            $currenciesList[] = static::makeCurrenciesForSource(
-                $currenciesConfig['iso'],
-                new ISOCurrencies(),
-                'ISO'
-            );
-        }
-
-        if ($currenciesConfig['bitcoin'] ?? false) {
-            $currenciesList[] = static::makeCurrenciesForSource(
-                $currenciesConfig['bitcoin'],
-                new BitcoinCurrencies(),
-                'Bitcoin'
-            );
-        }
-
-        if ($currenciesConfig['custom'] ?? false) {
-            $currenciesList[] = new CurrencyList($currenciesConfig['custom']);
-        }
-
-        return new AggregateCurrencies($currenciesList);
     }
 }
