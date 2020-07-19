@@ -182,7 +182,7 @@ money_avg(money(100, 'USD'), money(200, 'USD'), money(300, 'USD')); // Money::US
 money_sum(money(100, 'USD'), money(200, 'USD'), money(300, 'USD')); // Money::USD(600)
 
 // Parsers
-money_parse('$5.00'); // Money::USD(100)
+money_parse('$5.00'); // Money::USD(500)
 money_parse_by_bitcoin("\xC9\x830.41"); // Money::XBT(41000000)
 money_parse_by_decimal('1.00', 'USD'); // Money::USD(100)
 money_parse_by_intl('$1.00'); // Money::USD(100)
@@ -203,7 +203,7 @@ money_parse_by_intl_localized_decimal('1.00', 'USD'); // Money::USD(100)
 @money_sum(@money(100, 'USD'), @money(200, 'USD'), @money(300, 'USD')) // Money::USD(600)
 
 // Parsers
-@money_parse('$5.00') // Money::USD(100)
+@money_parse('$5.00') // Money::USD(500)
 @money_parse_by_bitcoin("\xC9\x830.41") // Money::XBT(41000000)
 @money_parse_by_decimal('1.00', 'USD') // Money::USD(100)
 @money_parse_by_intl('$1.00') // Money::USD(100)
