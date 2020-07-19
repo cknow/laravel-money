@@ -41,11 +41,29 @@ class MoneyCast implements CastsAttributes
             return $value;
         }
 
-        return Money::parseByDecimal(
-            $value,
-            $this->getCurrency($attributes),
-            Money::getCurrencies()
-        );
+        $preferred_casts = config('money.perferred_caster_parser', 'parseByDecimal');
+
+        switch ($preferred_casts) {
+            case 'parse':
+                return Money::parse(
+                    $value,
+                    $this->getCurrency($attributes)
+                );
+            break;
+            case 'parseByDecimal':
+                return Money::parseByDecimal(
+                    $value,
+                    $this->getCurrency($attributes),
+                    Money::getCurrencies()
+                );
+            break;
+            default:
+                return Money::parseByDecimal(
+                    $value,
+                    $this->getCurrency($attributes),
+                    Money::getCurrencies()
+                );
+        }
     }
 
     /**
