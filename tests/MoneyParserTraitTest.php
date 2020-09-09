@@ -1,21 +1,16 @@
 <?php
 
-namespace Cknow\Money;
+namespace Cknow\Money\Tests;
 
-use Money\Currencies\ISOCurrencies;
+use Cknow\Money\Money;
 use Money\Parser\BitcoinMoneyParser;
 use Money\Parser\DecimalMoneyParser;
 use Money\Parser\IntlMoneyParser;
 use NumberFormatter;
+use PHPUnit\Framework\TestCase;
 
-class MoneyParserTraitTest extends \PHPUnit\Framework\TestCase
+class MoneyParserTraitTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        Money::setCurrencies(new ISOCurrencies());
-        Money::setLocale('en_US');
-    }
-
     public function testParse()
     {
         static::assertEquals(Money::parse('$1.00'), Money::USD(100));

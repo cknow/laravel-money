@@ -1,8 +1,10 @@
 <?php
 
-namespace Cknow\Money;
+namespace Cknow\Money\Tests;
 
-use Cknow\Money\Database\Models\User;
+use Cknow\Money\Money;
+use Cknow\Money\MoneyServiceProvider;
+use Cknow\Money\Tests\Database\Models\User;
 use GrahamCampbell\TestBench\AbstractPackageTestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use InvalidArgumentException;
@@ -27,6 +29,8 @@ class MoneyCastTest extends AbstractPackageTestCase
         parent::setUp();
 
         $this->loadMigrationsFrom(__DIR__.'/Database/Migrations');
+
+        Money::setCurrencies(config('money.currencies'));
     }
 
     public function testCastsMoneyWhenRetrievingCastedValues()
@@ -127,7 +131,7 @@ class MoneyCastTest extends AbstractPackageTestCase
     public function testFailsToSetInvalidMoney()
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Invalid data provided for Cknow\Money\Database\Models\User::$money');
+        $this->expectExceptionMessage('Invalid data provided for Cknow\Money\Tests\Database\Models\User::$money');
 
         new User(['money' => new stdClass()]);
     }

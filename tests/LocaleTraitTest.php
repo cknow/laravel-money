@@ -1,8 +1,11 @@
 <?php
 
-namespace Cknow\Money;
+namespace Cknow\Money\Tests;
 
-class LocaleTraitTest extends \PHPUnit\Framework\TestCase
+use Cknow\Money\LocaleTrait;
+use GrahamCampbell\TestBench\AbstractPackageTestCase;
+
+class LocaleTraitTest extends AbstractPackageTestCase
 {
     public function testGetLocale()
     {

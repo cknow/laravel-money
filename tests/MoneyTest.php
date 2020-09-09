@@ -1,18 +1,13 @@
 <?php
 
-namespace Cknow\Money;
+namespace Cknow\Money\Tests;
 
-use Money\Currencies\ISOCurrencies;
+use Cknow\Money\Money;
 use Money\Currency;
+use PHPUnit\Framework\TestCase;
 
-class MoneyTest extends \PHPUnit\Framework\TestCase
+class MoneyTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        Money::setCurrencies(new ISOCurrencies());
-        Money::setLocale('en_US');
-    }
-
     public function testConvert()
     {
         static::assertEquals(Money::USD(25), Money::convert(new \Money\Money(25, new Currency('USD'))));

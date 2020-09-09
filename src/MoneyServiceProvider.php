@@ -3,27 +3,33 @@
 namespace Cknow\Money;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\View\Compilers\BladeCompiler;
 
 class MoneyServiceProvider extends ServiceProvider
 {
     /**
-     * Bootstrap the application events.
+     * Register any application services.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'money');
+    }
+
+    /**
+     * Bootstrap any application services.
+     *
+     * @return void
      */
     public function boot()
     {
-        $path = realpath(__DIR__.'/../config/config.php');
-
-        $this->publishes([$path => config_path('money.php')], 'config');
-        $this->mergeConfigFrom($path, 'money');
-
-        if (get_class($this->app) === 'Illuminate\Foundation\Application') {
-            BladeExtension::register($this->app->make('blade.compiler'));
+        if ($this->app->runningInConsole()) {
+            $this->publishes([__DIR__.'/../config/config.php' => config_path('money.php')], 'config');
         }
 
-        $config =$this->app->make('config');
-
-        Money::setLocale($config->get('money.locale'));
-        Money::setDefaultCurrency($config->get('money.defaultCurrency', $config->get('money.currency')));
-        Money::setCurrencies($config->get('money.currencies', []));
+        $this->callAfterResolving(BladeCompiler::class, function ($blade) {
+            BladeExtension::register($blade);
+        });
     }
 }

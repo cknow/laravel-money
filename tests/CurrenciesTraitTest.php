@@ -1,11 +1,13 @@
 <?php
 
-namespace Cknow\Money;
+namespace Cknow\Money\Tests;
 
+use Cknow\Money\CurrenciesTrait;
+use GrahamCampbell\TestBench\AbstractPackageTestCase;
 use Money\Currency;
 use stdClass;
 
-class CurrenciesTraitTest extends \PHPUnit\Framework\TestCase
+class CurrenciesTraitTest extends AbstractPackageTestCase
 {
     private static function currencyListSize(\Money\Currencies $currencies)
     {

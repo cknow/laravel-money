@@ -1,17 +1,12 @@
 <?php
 
-namespace Cknow\Money;
+namespace Cknow\Money\Tests;
 
+use Cknow\Money\MoneyServiceProvider;
 use GrahamCampbell\TestBench\AbstractPackageTestCase;
 
 class MoneyServiceProviderTest extends AbstractPackageTestCase
 {
-    public function testLocale()
-    {
-        static::assertEquals('en', Money::getLocale());
-        static::assertEquals('USD', Money::getDefaultCurrency());
-    }
-
     public function testBladeDirectives()
     {
         $customDirectives = $this->app->make('blade.compiler')->getCustomDirectives();

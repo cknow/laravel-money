@@ -1,11 +1,14 @@
 <?php
 
-namespace Cknow\Money;
+namespace Cknow\Money\Tests;
 
+use Cknow\Money\BladeExtension;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\View\Compilers\BladeCompiler;
 use Mockery;
+use PHPUnit\Framework\TestCase;
 
-class BladeExtensionTest extends \PHPUnit\Framework\TestCase
+class BladeExtensionTest extends TestCase
 {
     /**
      * @var \Illuminate\View\Compilers\BladeCompiler
@@ -16,7 +19,7 @@ class BladeExtensionTest extends \PHPUnit\Framework\TestCase
     {
         parent::setUp();
 
-        $this->compiler = new BladeCompiler(Mockery::mock('Illuminate\Filesystem\Filesystem'), __DIR__);
+        $this->compiler = new BladeCompiler(Mockery::mock(Filesystem::class), __DIR__);
 
         BladeExtension::register($this->compiler);
     }

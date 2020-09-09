@@ -1,6 +1,6 @@
 <?php
 
-namespace Cknow\Money\Database\Models;
+namespace Cknow\Money\Tests\Database\Models;
 
 use Cknow\Money\MoneyCast;
 use Illuminate\Database\Eloquent\Model;

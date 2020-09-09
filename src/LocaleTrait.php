@@ -17,7 +17,7 @@ trait LocaleTrait
     public static function getLocale()
     {
         if (!isset(static::$locale)) {
-            static::setLocale('en_US');
+            static::setLocale(config('money.locale', 'en_US'));
         }
 
         return static::$locale;

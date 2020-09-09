@@ -8,16 +8,13 @@
     ],
     "homepage": "https://github.com/cknow/laravel-money",
     "license": "MIT",
+    "type": "library",
     "authors": [
         {
             "name": "Ricardo Gobbo de Souza",
             "email": "ricardogobbosouza@yahoo.com.br"
         }
     ],
-    "support": {
-        "issues": "https://github.com/cknow/laravel-money/issues",
-        "source": "https://github.com/cknow/laravel-money"
-    },
     "require": {
         "php": "^7.3.0",
         "ext-json": "*",
@@ -33,23 +30,26 @@
         "phpunit/phpunit": "^8.5|^9.0"
     },
     "autoload": {
-        "files": [
-            "src/helpers.php"
-        ],
         "psr-4": {
             "Cknow\\Money\\": "src/"
-        }
+        },
+        "files": [
+            "src/helpers.php"
+        ]
     },
     "autoload-dev": {
+        "psr-4": {
+            "Cknow\\Money\\Tests\\": "tests/"
+        },
         "files": [
             "tests/Database/Migrations/2020_04_30_000000_create_users_table.php"
-        ],
-        "psr-4": {
-            "Cknow\\Money\\": "tests/"
-        }
+        ]
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
+    "scripts": {
+        "test": "vendor/bin/phpunit"
+    },
     "config": {
         "sort-packages": true
     },

@@ -1,23 +1,18 @@
 <?php
 
-namespace Cknow\Money;
+namespace Cknow\Money\Tests;
 
+use Cknow\Money\Money;
 use Money\Currencies\BitcoinCurrencies;
-use Money\Currencies\ISOCurrencies;
 use Money\Formatter\BitcoinMoneyFormatter;
 use Money\Formatter\DecimalMoneyFormatter;
 use Money\Formatter\IntlLocalizedDecimalFormatter;
 use Money\Formatter\IntlMoneyFormatter;
 use NumberFormatter as N;
+use PHPUnit\Framework\TestCase;
 
-class MoneyFormatterTraitTest extends \PHPUnit\Framework\TestCase
+class MoneyFormatterTraitTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        Money::setCurrencies(new ISOCurrencies());
-        Money::setLocale('en_US');
-    }
-
     public function testFormat()
     {
         static::assertEquals('$1.00', Money::USD(100)->format());
