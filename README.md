@@ -20,7 +20,7 @@ composer require cknow/laravel-money
 or add this to require section in your composer.json file:
 
 ```bash
-"cknow/laravel-money": "~5.1"
+"cknow/laravel-money": "~6.0"
 ```
 
 then run ```composer update```
