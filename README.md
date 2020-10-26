@@ -135,12 +135,18 @@ At this stage the cast can be defined in the following ways:
 
 ```php
 protected $casts = [
-    // cast money using the currency defined in the package config
+    // cast money using the currency defined in the package config, storing it as decimals
     'money' => MoneyCast::class,
-    // cast money using the defined currency
+    // cast money using the defined currency, storing it as decimals
     'money' => MoneyCast::class . ':AUD',
-    // cast money using the currency defined in the model attribute 'currency'
+    // cast money using the currency defined in the model attribute 'currency', storing it as decimals
     'money' => MoneyCast::class . ':currency',
+    // cast money using the currency defined in the package config, storing it as integer (1000 => 10.00)
+    'money' => MoneyIntCast::class,
+    // cast money using the defined currency, storing it as integer (1000 => 10.00)
+    'money' => MoneyIntCast::class . ':AUD',
+    // cast money using the currency defined in the model attribute 'currency', storing it as integer (1000 => 10.00)
+    'money' => MoneyIntCast::class . ':currency',
 ];
 ```
 
@@ -167,6 +173,8 @@ $model->money = '€13';
 $model->currency; // 'EUR'
 $model->money->getAmount(); // '1300'
 ```
+
+When using `MoneyCast`, the value will be stored through eloquent in decimal format, while using `MoneyIntCast` will store the value using an integer representing the lowest currency unit available ($10.00 will be stored as 1000).
 
 ## Helpers
 
