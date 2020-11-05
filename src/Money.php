@@ -23,6 +23,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     use MoneyParserTrait;
     use Macroable {
         __call as macroCall;
+        __callStatic as macroableCallStatic;
     }
 
     /**
