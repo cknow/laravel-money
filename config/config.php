@@ -15,5 +15,6 @@ return [
             // 'MY1' => 2,
             // 'MY2' => 3
         ]
-    ]
+    ],
+    'perferred_caster_parser' => 'parseByDecimal'
 ];
