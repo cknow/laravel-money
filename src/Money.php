@@ -17,13 +17,13 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     use CurrenciesTrait;
     use LocaleTrait;
     use MoneyFactory {
-        __callStatic as factoryCallStatic;
+        MoneyFactory::__callStatic as factoryCallStatic;
     }
     use MoneyFormatterTrait;
     use MoneyParserTrait;
     use Macroable {
-        __call as macroCall;
-        __callStatic as macroableCallStatic;
+        Macroable::__call as macroCall;
+        Macroable::__callStatic as macroableCallStatic;
     }
 
     /**
