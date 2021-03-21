@@ -25,6 +25,17 @@ trait MoneyFormatterTrait
      */
     public function format($locale = null, Currencies $currencies = null, $style = NumberFormatter::CURRENCY)
     {
+        if (config('money.customFormatter')) {
+            $numberFormatter = new NumberFormatter($locale ?: static::getLocale(), $style);
+
+            $formatter = app(config('money.customFormatter'), [
+                'formatter' => $numberFormatter,
+                'currencies' => $currencies ?: static::getCurrencies(),
+            ]);
+
+            return $this->formatByFormatter($formatter);
+        }
+
         return $this->formatByIntl($locale, $currencies, $style);
     }
 

@@ -8,6 +8,7 @@ return [
      */
     'locale' => config('app.locale', 'en_US'),
     'defaultCurrency' => config('app.currency', 'USD'),
+    'customFormatter' => null,
     'currencies' => [
         'iso' => 'all',
         'bitcoin' => 'all',
