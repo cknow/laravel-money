@@ -17,10 +17,9 @@ trait MoneyFormatterTrait
     /**
      * Format.
      *
-     * @param string|null       $locale
-     * @param \Money\Currencies $currencies
-     * @param int               $style
-     *
+     * @param  string|null  $locale
+     * @param  \Money\Currencies  $currencies
+     * @param  int  $style
      * @return string
      */
     public function format($locale = null, Currencies $currencies = null, $style = NumberFormatter::CURRENCY)
@@ -31,8 +30,7 @@ trait MoneyFormatterTrait
     /**
      * Format by aggregate.
      *
-     * @param MoneyFormatter[] $formatters
-     *
+     * @param  MoneyFormatter[]  $formatters
      * @return string
      */
     public function formatByAggregate(array $formatters)
@@ -45,9 +43,8 @@ trait MoneyFormatterTrait
     /**
      * Format by bitcoin.
      *
-     * @param int               $fractionDigits
-     * @param \Money\Currencies $currencies
-     *
+     * @param  int  $fractionDigits
+     * @param  \Money\Currencies  $currencies
      * @return string
      */
     public function formatByBitcoin($fractionDigits = 2, Currencies $currencies = null)
@@ -60,8 +57,7 @@ trait MoneyFormatterTrait
     /**
      * Format by decimal.
      *
-     * @param \Money\Currencies $currencies
-     *
+     * @param  \Money\Currencies  $currencies
      * @return string
      */
     public function formatByDecimal(Currencies $currencies = null)
@@ -74,10 +70,9 @@ trait MoneyFormatterTrait
     /**
      * Format by intl.
      *
-     * @param string|null       $locale
-     * @param \Money\Currencies $currencies
-     * @param int               $style
-     *
+     * @param  string|null  $locale
+     * @param  \Money\Currencies  $currencies
+     * @param  int  $style
      * @return string
      */
     public function formatByIntl($locale = null, Currencies $currencies = null, $style = NumberFormatter::CURRENCY)
@@ -91,10 +86,9 @@ trait MoneyFormatterTrait
     /**
      * Format by intl localized decimal.
      *
-     * @param string|null       $locale
-     * @param \Money\Currencies $currencies
-     * @param int               $style
-     *
+     * @param  string|null  $locale
+     * @param  \Money\Currencies  $currencies
+     * @param  int  $style
      * @return string
      */
     public function formatByIntlLocalizedDecimal(
@@ -111,8 +105,7 @@ trait MoneyFormatterTrait
     /**
      * Format by formatter.
      *
-     * @param \Money\MoneyFormatter $formatter
-     *
+     * @param  \Money\MoneyFormatter  $formatter
      * @return string
      */
     public function formatByFormatter(MoneyFormatter $formatter)
