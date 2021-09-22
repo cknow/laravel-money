@@ -24,7 +24,7 @@
         "moneyphp/money": "^3.3"
     },
     "require-dev": {
-        "graham-campbell/testbench": "^5.5",
+        "graham-campbell/testbench": "^5.6",
         "illuminate/filesystem": "^7.0|^8.0",
         "mockery/mockery": "^1.4",
         "phpunit/phpunit": "^8.5|^9.0",

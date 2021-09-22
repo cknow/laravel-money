@@ -144,13 +144,6 @@ class MoneyCastTest extends AbstractPackageTestCase
         new User(['money' => 'abc']);
     }
 
-    /**
-     * Get the service provider class.
-     *
-     * @param \Illuminate\Contracts\Foundation\Application $app
-     *
-     * @return string
-     */
     protected function getServiceProviderClass()
     {
         return MoneyServiceProvider::class;
