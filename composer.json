@@ -45,19 +45,19 @@
             "tests/Database/Migrations/2020_04_30_000000_create_users_table.php"
         ]
     },
+    "extra": {
+      "laravel": {
+          "providers": [
+              "Cknow\\Money\\MoneyServiceProvider"
+          ]
+      }
+    },
+    "config": {
+      "sort-packages": true
+    },
     "minimum-stability": "dev",
     "prefer-stable": true,
     "scripts": {
-        "test": "vendor/bin/phpunit"
-    },
-    "config": {
-        "sort-packages": true
-    },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "Cknow\\Money\\MoneyServiceProvider"
-            ]
-        }
+      "test": "vendor/bin/phpunit"
     }
 }
