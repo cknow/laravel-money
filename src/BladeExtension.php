@@ -9,7 +9,7 @@ class BladeExtension
     /**
      * Register.
      *
-     * @param \Illuminate\View\Compilers\BladeCompiler $compiler
+     * @param  \Illuminate\View\Compilers\BladeCompiler  $compiler
      */
     public static function register(BladeCompiler $compiler)
     {
@@ -28,7 +28,7 @@ class BladeExtension
     /**
      * Register aggregations.
      *
-     * @param \Illuminate\View\Compilers\BladeCompiler $compiler
+     * @param  \Illuminate\View\Compilers\BladeCompiler  $compiler
      */
     private static function registerAggregations(BladeCompiler $compiler)
     {
@@ -52,7 +52,7 @@ class BladeExtension
     /**
      * Register parsers.
      *
-     * @param \Illuminate\View\Compilers\BladeCompiler $compiler
+     * @param  \Illuminate\View\Compilers\BladeCompiler  $compiler
      */
     private static function registerParsers(BladeCompiler $compiler)
     {
