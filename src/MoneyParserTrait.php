@@ -175,6 +175,10 @@ trait MoneyParserTrait
      */
     public static function parseByParser(MoneyParser $parser, $money, $forceCurrency = null)
     {
+        if (is_string($forceCurrency)) {
+            $forceCurrency = new Currency($forceCurrency);
+        }
+
         return static::convert($parser->parse($money, $forceCurrency));
     }
 }

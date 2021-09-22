@@ -3,6 +3,7 @@
 namespace Cknow\Money\Tests;
 
 use Cknow\Money\Money;
+use Money\Currency;
 use Money\Parser\BitcoinMoneyParser;
 use Money\Parser\DecimalMoneyParser;
 use Money\Parser\IntlMoneyParser;
@@ -70,6 +71,6 @@ class MoneyParserTraitTest extends TestCase
         $parser = new DecimalMoneyParser(Money::getCurrencies());
 
         static::assertEquals(Money::parseByParser($parser, '1.00', 'USD'), Money::USD(100));
-        static::assertEquals(Money::parseByParser($parser, '1.00', 'EUR'), Money::EUR(100));
+        static::assertEquals(Money::parseByParser($parser, '1.00', new Currency('EUR')), Money::EUR(100));
     }
 }
