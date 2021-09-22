@@ -27,7 +27,8 @@
         "graham-campbell/testbench": "^5.5",
         "illuminate/filesystem": "^7.0|^8.0",
         "mockery/mockery": "^1.4",
-        "phpunit/phpunit": "^8.5|^9.0"
+        "phpunit/phpunit": "^8.5|^9.0",
+        "spatie/phpunit-watcher": "^1.0"
     },
     "autoload": {
         "psr-4": {
@@ -58,6 +59,7 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "scripts": {
-      "test": "vendor/bin/phpunit"
+      "test": "vendor/bin/phpunit",
+      "watch": "vendor/bin/phpunit-watcher watch"
     }
 }
