@@ -168,6 +168,10 @@ trait MoneyParserTrait
      */
     public static function parseByParser(MoneyParser $parser, $money, $fallbackCurrency = null)
     {
+        if (is_string($fallbackCurrency)) {
+            $fallbackCurrency = new Currency($fallbackCurrency);
+        }
+
         return static::convert($parser->parse($money, $fallbackCurrency));
     }
 }

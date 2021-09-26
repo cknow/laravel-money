@@ -70,7 +70,7 @@ class MoneyParserTraitTest extends TestCase
     {
         $parser = new DecimalMoneyParser(Money::getCurrencies());
 
-        static::assertEquals(Money::parseByParser($parser, '1.00', new Currency('USD')), Money::USD(100));
+        static::assertEquals(Money::parseByParser($parser, '1.00', 'USD'), Money::USD(100));
         static::assertEquals(Money::parseByParser($parser, '1.00', new Currency('EUR')), Money::EUR(100));
     }
 }
