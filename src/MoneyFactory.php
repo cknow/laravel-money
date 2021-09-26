@@ -191,9 +191,8 @@ trait MoneyFactory
     /**
      * __callStatic.
      *
-     * @param string $method
-     * @param array  $arguments
-     *
+     * @param  string  $method
+     * @param  array  $arguments
      * @return \Cknow\Money\Money
      */
     public static function __callStatic($method, array $arguments)
@@ -204,8 +203,7 @@ trait MoneyFactory
     /**
      * Create a new instance from the base money instance.
      *
-     * @param \Money\Money $instance
-     *
+     * @param  \Money\Money  $instance
      * @return \Cknow\Money\Money
      */
     public static function fromMoney(\Money\Money $instance)

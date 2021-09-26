@@ -48,7 +48,7 @@ class HelpersTest extends AbstractPackageTestCase
     public function testMoneyParse()
     {
         static::assertEquals(money_parse('$1.00'), Money::USD(100));
-        static::assertEquals(money_parse('$1.00', 'USD'), Money::USD(100));
+        static::assertEquals(money_parse('$1.00', new Currency('USD')), Money::USD(100));
     }
 
     public function testMoneyParseByBitcoin()
@@ -59,25 +59,25 @@ class HelpersTest extends AbstractPackageTestCase
 
     public function testMoneyParseByDecimal()
     {
-        static::assertEquals(money_parse_by_decimal('5.00', 'EUR'), Money::EUR(500));
-        static::assertEquals(money_parse_by_decimal('5.00', 'USD', null), Money::USD(500));
+        static::assertEquals(money_parse_by_decimal('5.00', new Currency('EUR')), Money::EUR(500));
+        static::assertEquals(money_parse_by_decimal('5.00', new Currency('USD'), null), Money::USD(500));
     }
 
     public function testMoneyParseIntl()
     {
         static::assertEquals(money_parse_by_intl('$1.00'), Money::USD(100));
-        static::assertEquals(money_parse_by_intl('$1.00', 'EUR'), Money::EUR(100));
-        static::assertEquals(money_parse_by_intl('$1.00', 'USD', 'en_US'), Money::USD(100));
-        static::assertEquals(money_parse_by_intl('$1.00', 'USD', 'en_US', Money::getCurrencies()), Money::USD(100));
+        static::assertEquals(money_parse_by_intl('$1.00', new Currency('EUR')), Money::EUR(100));
+        static::assertEquals(money_parse_by_intl('$1.00', new Currency('USD'), 'en_US'), Money::USD(100));
+        static::assertEquals(money_parse_by_intl('$1.00', new Currency('USD'), 'en_US', Money::getCurrencies()), Money::USD(100));
     }
 
     public function testMoneyParseIntlLocalizedDecimal()
     {
-        static::assertEquals(money_parse_by_intl_localized_decimal('1.00', 'USD'), Money::USD(100));
-        static::assertEquals(money_parse_by_intl_localized_decimal('1.00', 'EUR'), Money::EUR(100));
-        static::assertEquals(money_parse_by_intl_localized_decimal('1.00', 'USD', 'en_US'), Money::USD(100));
+        static::assertEquals(money_parse_by_intl_localized_decimal('1.00', new Currency('USD')), Money::USD(100));
+        static::assertEquals(money_parse_by_intl_localized_decimal('1.00', new Currency('EUR')), Money::EUR(100));
+        static::assertEquals(money_parse_by_intl_localized_decimal('1.00', new Currency('USD'), 'en_US'), Money::USD(100));
         static::assertEquals(
-            money_parse_by_intl_localized_decimal('1.00', 'USD', 'en_US', Money::getCurrencies()),
+            money_parse_by_intl_localized_decimal('1.00', new Currency('USD'), 'en_US', Money::getCurrencies()),
             Money::USD(100)
         );
     }

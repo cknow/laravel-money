@@ -18,7 +18,7 @@ class MoneyCast implements CastsAttributes
     /**
      * Instantiate the class.
      *
-     * @param string|null $currency
+     * @param  string|null  $currency
      */
     public function __construct(string $currency = null)
     {
@@ -28,11 +28,10 @@ class MoneyCast implements CastsAttributes
     /**
      * Transform the attribute from the underlying model values.
      *
-     * @param \Illuminate\Database\Eloquent\Model $model
-     * @param string                              $key
-     * @param mixed                               $value
-     * @param array                               $attributes
-     *
+     * @param  \Illuminate\Database\Eloquent\Model  $model
+     * @param  string  $key
+     * @param  mixed  $value
+     * @param  array  $attributes
      * @return \Cknow\Money\Money|null
      */
     public function get($model, string $key, $value, array $attributes)
@@ -51,14 +50,13 @@ class MoneyCast implements CastsAttributes
     /**
      * Transform the attribute to its underlying model values.
      *
-     * @param \Illuminate\Database\Eloquent\Model $model
-     * @param string                              $key
-     * @param mixed                               $value
-     * @param array                               $attributes
+     * @param  \Illuminate\Database\Eloquent\Model  $model
+     * @param  string  $key
+     * @param  mixed  $value
+     * @param  array  $attributes
+     * @return array
      *
      * @throws \InvalidArgumentException
-     *
-     * @return array
      */
     public function set($model, string $key, $value, array $attributes)
     {
@@ -87,8 +85,7 @@ class MoneyCast implements CastsAttributes
     /**
      * Retrieve the money.
      *
-     * @param array $attributes
-     *
+     * @param  array  $attributes
      * @return \Money\Currency
      */
     protected function getCurrency(array $attributes)

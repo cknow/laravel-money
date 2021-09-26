@@ -15,6 +15,7 @@ class CurrenciesTraitTest extends AbstractPackageTestCase
         foreach ($currencies as $currency) {
             $size++;
         }
+
         return $size;
     }
 
@@ -43,8 +44,8 @@ class CurrenciesTraitTest extends AbstractPackageTestCase
             'bitcoin' => ['XBT'],
             'custom' => [
                 'MY1' => 2,
-                'MY2' => 3
-            ]
+                'MY2' => 3,
+            ],
         ]);
 
         static::assertInstanceOf(\Money\Currencies\AggregateCurrencies::class, $mock->getCurrencies());
@@ -67,8 +68,8 @@ class CurrenciesTraitTest extends AbstractPackageTestCase
             'bitcoin' => ['XBT'],
             'custom' => [
                 'MY1' => 2,
-                'MY2' => 3
-            ]
+                'MY2' => 3,
+            ],
         ]);
     }
 
@@ -81,8 +82,8 @@ class CurrenciesTraitTest extends AbstractPackageTestCase
             'bitcoin' => ['UNKNOWN'],
             'custom' => [
                 'MY1' => 2,
-                'MY2' => 3
-            ]
+                'MY2' => 3,
+            ],
         ]);
     }
 
@@ -95,8 +96,8 @@ class CurrenciesTraitTest extends AbstractPackageTestCase
             'bitcoin' => ['XBT'],
             'custom' => [
                 'MY1' => ['some' => 'value'],
-                'MY2' => -5
-            ]
+                'MY2' => -5,
+            ],
         ]);
     }
 
@@ -116,7 +117,7 @@ class CurrenciesTraitTest extends AbstractPackageTestCase
         $mock->setCurrencies([
             'iso' => [],
             'bitcoin' => [],
-            'custom' => []
+            'custom' => [],
         ]);
 
         static::assertInstanceOf(\Money\Currencies::class, $mock->getCurrencies());

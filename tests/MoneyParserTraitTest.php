@@ -3,6 +3,7 @@
 namespace Cknow\Money\Tests;
 
 use Cknow\Money\Money;
+use Money\Currency;
 use Money\Parser\BitcoinMoneyParser;
 use Money\Parser\DecimalMoneyParser;
 use Money\Parser\IntlMoneyParser;
@@ -14,7 +15,7 @@ class MoneyParserTraitTest extends TestCase
     public function testParse()
     {
         static::assertEquals(Money::parse('$1.00'), Money::USD(100));
-        static::assertEquals(Money::parse('$1.00', 'USD'), Money::USD(100));
+        static::assertEquals(Money::parse('$1.00', new Currency('USD')), Money::USD(100));
     }
 
     public function testParseByAggregate()
@@ -29,8 +30,8 @@ class MoneyParserTraitTest extends TestCase
         ];
 
         // static::assertEquals(Money::parseByAggregate("\xC9\x831000.00", 'EUR', $parsers), Money::XBT(100000));
-        static::assertEquals(Money::parseByAggregate('1.00', 'EUR', $parsers), Money::EUR(100));
-        static::assertEquals(Money::parseByAggregate('$1.00', 'EUR', $parsers), Money::EUR(100));
+        static::assertEquals(Money::parseByAggregate('1.00', new Currency('EUR'), $parsers), Money::EUR(100));
+        static::assertEquals(Money::parseByAggregate('$1.00', new Currency('EUR'), $parsers), Money::EUR(100));
     }
 
     public function testParseByBitcoin()
@@ -42,25 +43,25 @@ class MoneyParserTraitTest extends TestCase
 
     public function testParseByDecimal()
     {
-        static::assertEquals(Money::parseByDecimal('1.00', 'EUR'), Money::EUR(100));
-        static::assertEquals(Money::parseByDecimal('1.00', 'USD', Money::getCurrencies()), Money::USD(100));
+        static::assertEquals(Money::parseByDecimal('1.00', new Currency('EUR')), Money::EUR(100));
+        static::assertEquals(Money::parseByDecimal('1.00', new Currency('USD'), Money::getCurrencies()), Money::USD(100));
     }
 
     public function testParseIntl()
     {
         static::assertEquals(Money::parseByIntl('$1.00'), Money::USD(100));
-        static::assertEquals(Money::parseByIntl('$1.00', 'EUR'), Money::EUR(100));
-        static::assertEquals(Money::parseByIntl('$1.00', 'USD', 'en_US'), Money::USD(100));
-        static::assertEquals(Money::parseByIntl('$1.00', 'USD', 'en_US', Money::getCurrencies()), Money::USD(100));
+        static::assertEquals(Money::parseByIntl('$1.00', new Currency('EUR')), Money::EUR(100));
+        static::assertEquals(Money::parseByIntl('$1.00', new Currency('USD'), 'en_US'), Money::USD(100));
+        static::assertEquals(Money::parseByIntl('$1.00', new Currency('USD'), 'en_US', Money::getCurrencies()), Money::USD(100));
     }
 
     public function testParseIntlLocalizedDecimal()
     {
-        static::assertEquals(Money::parseByIntlLocalizedDecimal('1.00', 'USD'), Money::USD(100));
-        static::assertEquals(Money::parseByIntlLocalizedDecimal('1.00', 'EUR'), Money::EUR(100));
-        static::assertEquals(Money::parseByIntlLocalizedDecimal('1.00', 'USD', 'en_US'), Money::USD(100));
+        static::assertEquals(Money::parseByIntlLocalizedDecimal('1.00', new Currency('USD')), Money::USD(100));
+        static::assertEquals(Money::parseByIntlLocalizedDecimal('1.00', new Currency('EUR')), Money::EUR(100));
+        static::assertEquals(Money::parseByIntlLocalizedDecimal('1.00', new Currency('USD'), 'en_US'), Money::USD(100));
         static::assertEquals(
-            Money::parseByIntlLocalizedDecimal('1.00', 'USD', 'en_US', Money::getCurrencies()),
+            Money::parseByIntlLocalizedDecimal('1.00', new Currency('USD'), 'en_US', Money::getCurrencies()),
             Money::USD(100)
         );
     }
@@ -69,7 +70,7 @@ class MoneyParserTraitTest extends TestCase
     {
         $parser = new DecimalMoneyParser(Money::getCurrencies());
 
-        static::assertEquals(Money::parseByParser($parser, '1.00', 'USD'), Money::USD(100));
-        static::assertEquals(Money::parseByParser($parser, '1.00', 'EUR'), Money::EUR(100));
+        static::assertEquals(Money::parseByParser($parser, '1.00', new Currency('USD')), Money::USD(100));
+        static::assertEquals(Money::parseByParser($parser, '1.00', new Currency('EUR')), Money::EUR(100));
     }
 }

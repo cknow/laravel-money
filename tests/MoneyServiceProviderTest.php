@@ -15,7 +15,7 @@ class MoneyServiceProviderTest extends AbstractPackageTestCase
         static::assertArrayHasKey('currency', $customDirectives);
     }
 
-    protected function getServiceProviderClass($app)
+    protected function getServiceProviderClass()
     {
         return MoneyServiceProvider::class;
     }
