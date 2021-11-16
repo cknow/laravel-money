@@ -8,6 +8,7 @@ use Money\Currency;
  * Money.
  *
  * @method static Money AED(int|string $amount)
+ * @method static Money AFN(int|string $amount)
  * @method static Money ALL(int|string $amount)
  * @method static Money AMD(int|string $amount)
  * @method static Money ANG(int|string $amount)
@@ -158,8 +159,9 @@ use Money\Currency;
  * @method static Money USN(int|string $amount)
  * @method static Money UYI(int|string $amount)
  * @method static Money UYU(int|string $amount)
+ * @method static Money UYW(int|string $amount)
  * @method static Money UZS(int|string $amount)
- * @method static Money VEF(int|string $amount)
+ * @method static Money VES(int|string $amount)
  * @method static Money VND(int|string $amount)
  * @method static Money VUV(int|string $amount)
  * @method static Money WST(int|string $amount)
@@ -170,7 +172,6 @@ use Money\Currency;
  * @method static Money XBB(int|string $amount)
  * @method static Money XBC(int|string $amount)
  * @method static Money XBD(int|string $amount)
- * @method static Money XBT(int|string $amount)
  * @method static Money XCD(int|string $amount)
  * @method static Money XDR(int|string $amount)
  * @method static Money XOF(int|string $amount)
