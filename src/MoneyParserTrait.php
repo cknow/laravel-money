@@ -38,33 +38,32 @@ trait MoneyParserTrait
             $currency = new Currency($currency);
         }
 
-        if (is_string($value) && filter_var($value, FILTER_VALIDATE_FLOAT) === false) {
+        if (is_int($value) || filter_var($value, FILTER_VALIDATE_INT) !== false) {
+            return new Money($value, $currency);
+        }
+
+        if (is_scalar($value)) {
             $locale = static::getLocale();
             $currencies = static::getCurrencies();
 
             try {
                 return static::parseByAggregate($value, null, [
                     new IntlMoneyParser(new NumberFormatter($locale, NumberFormatter::CURRENCY), $currencies),
+                    new IntlLocalizedDecimalParser(new NumberFormatter($locale, NumberFormatter::DECIMAL), $currencies),
+                    new DecimalMoneyParser($currencies),
                     new BitcoinMoneyParser($bitCointDigits),
                 ]);
             } catch (ParserException $e) {
-                try {
-                    return static::parseByIntlLocalizedDecimal($value, $currency, $locale, $currencies);
-                } catch (ParserException $e) {
-                    throw new ParserException(sprintf('Unable to parse: %s', $value));
-                }
+                return static::parseByAggregate($value, $currency, [
+                    new IntlMoneyParser(new NumberFormatter($locale, NumberFormatter::CURRENCY), $currencies),
+                    new IntlLocalizedDecimalParser(new NumberFormatter($locale, NumberFormatter::DECIMAL), $currencies),
+                    new DecimalMoneyParser($currencies),
+                    new BitcoinMoneyParser($bitCointDigits),
+                ]);
             }
         }
 
-        if (is_string($value)) {
-            return new Money($value, $currency);
-        }
-
-        if (is_int($value) || is_float($value)) {
-            return static::parseByDecimal((string) $value, $currency);
-        }
-
-        throw new InvalidArgumentException(sprintf('Invalid value: %s', json_encode($value)));
+        throw new InvalidArgumentException(sprintf('Invalid value %s', json_encode($value)));
     }
 
     /**
@@ -147,7 +146,7 @@ trait MoneyParserTrait
      */
     public static function parseByIntlLocalizedDecimal(
         $money,
-        $forceCurrency,
+        $forceCurrency = null,
         $locale = null,
         Currencies $currencies = null,
         $style = NumberFormatter::DECIMAL
@@ -172,6 +171,6 @@ trait MoneyParserTrait
             $forceCurrency = new Currency($forceCurrency);
         }
 
-        return static::convert($parser->parse($money, $forceCurrency));
+        return static::convert($parser->parse((string) $money, $forceCurrency));
     }
 }
