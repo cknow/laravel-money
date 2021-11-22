@@ -69,7 +69,7 @@ class MoneyCastTest extends AbstractPackageTestCase
 
         $this->assertDatabaseHas('users', [
             'id' => 1,
-            'money' => "$1,234.56",
+            'money' => '$1,234.56',
             'wage' => 50000,
             'debits' => 100.99,
             'credits' => 99,
@@ -128,7 +128,7 @@ class MoneyCastTest extends AbstractPackageTestCase
 
         $this->assertDatabaseHas('users', [
             'id' => 1,
-            'money' => "$100,000.22",
+            'money' => '$100,000.22',
             'wage' => 7050019,
             'debits' => 0.00012345,
             'currency' => 'XBT',
@@ -157,7 +157,7 @@ class MoneyCastTest extends AbstractPackageTestCase
 
         $this->assertDatabaseHas('users', [
             'id' => 1,
-            'money' => "$1.00",
+            'money' => '$1.00',
         ]);
     }
 

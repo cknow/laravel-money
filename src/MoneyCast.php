@@ -100,7 +100,6 @@ class MoneyCast implements CastsAttributes
         $defaultCode = Money::getDefaultCurrency();
 
         if ($this->currency === null) {
-
             return new Currency($defaultCode);
         }
 

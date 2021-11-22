@@ -3,6 +3,7 @@
 namespace Cknow\Money\Tests;
 
 use Cknow\Money\Money;
+use InvalidArgumentException;
 use Money\Currency;
 use Money\Exception\ParserException;
 use Money\Parser\BitcoinMoneyParser;
@@ -11,7 +12,6 @@ use Money\Parser\IntlMoneyParser;
 use NumberFormatter;
 use PHPUnit\Framework\TestCase;
 use stdClass;
-use InvalidArgumentException;
 
 class MoneyParserTraitTest extends TestCase
 {
