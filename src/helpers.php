@@ -105,13 +105,13 @@ if (! function_exists('money_parse_by_bitcoin')) {
      * money parse by bitcoin.
      *
      * @param  string  $money
-     * @param  string|null  $forceCurrency
+     * @param  string|null  $fallbackCurrency
      * @param  int  $fractionDigits
      * @return \Cknow\Money\Money
      */
-    function money_parse_by_bitcoin($money, $forceCurrency = null, $fractionDigits = 2)
+    function money_parse_by_bitcoin($money, $fallbackCurrency = null, $fractionDigits = 2)
     {
-        return Cknow\Money\Money::parseByBitcoin($money, $forceCurrency, $fractionDigits);
+        return Cknow\Money\Money::parseByBitcoin($money, $fallbackCurrency, $fractionDigits);
     }
 }
 
@@ -120,13 +120,13 @@ if (! function_exists('money_parse_by_decimal')) {
      * money parse by decimal.
      *
      * @param  string  $money
-     * @param  string|null  $forceCurrency
+     * @param  string|null  $fallbackCurrency
      * @param  \Money\Currencies  $currencies
      * @return \Cknow\Money\Money
      */
-    function money_parse_by_decimal($money, $forceCurrency = null, Money\Currencies $currencies = null)
+    function money_parse_by_decimal($money, $fallbackCurrency = null, Money\Currencies $currencies = null)
     {
-        return Cknow\Money\Money::parseByDecimal($money, $forceCurrency, $currencies);
+        return Cknow\Money\Money::parseByDecimal($money, $fallbackCurrency, $currencies);
     }
 }
 
@@ -135,14 +135,14 @@ if (! function_exists('money_parse_by_intl')) {
      * money parse by intl.
      *
      * @param  string  $money
-     * @param  string|null  $forceCurrency
+     * @param  string|null  $fallbackCurrency
      * @param  string|null  $locale
      * @param  \Money\Currencies  $currencies
      * @return \Cknow\Money\Money
      */
-    function money_parse_by_intl($money, $forceCurrency = null, $locale = null, Money\Currencies $currencies = null)
+    function money_parse_by_intl($money, $fallbackCurrency = null, $locale = null, Money\Currencies $currencies = null)
     {
-        return Cknow\Money\Money::parseByIntl($money, $forceCurrency, $locale, $currencies);
+        return Cknow\Money\Money::parseByIntl($money, $fallbackCurrency, $locale, $currencies);
     }
 }
 
@@ -151,17 +151,17 @@ if (! function_exists('money_parse_by_intl_localized_decimal')) {
      * money parse by intl localized decimal.
      *
      * @param  string  $money
-     * @param  string  $forceCurrency
+     * @param  string  $fallbackCurrency
      * @param  string|null  $locale
      * @param  \Money\Currencies  $currencies
      * @return \Cknow\Money\Money
      */
     function money_parse_by_intl_localized_decimal(
         $money,
-        $forceCurrency,
+        $fallbackCurrency,
         $locale = null,
         Money\Currencies $currencies = null
     ) {
-        return Cknow\Money\Money::parseByIntlLocalizedDecimal($money, $forceCurrency, $locale, $currencies);
+        return Cknow\Money\Money::parseByIntlLocalizedDecimal($money, $fallbackCurrency, $locale, $currencies);
     }
 }

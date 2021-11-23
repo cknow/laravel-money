@@ -70,52 +70,52 @@ trait MoneyParserTrait
      * Parse by aggregate.
      *
      * @param  string  $money
-     * @param  string|null  $forceCurrency
+     * @param  string|null  $fallbackCurrency
      * @param  MoneyParser[]  $parsers
      * @return \Cknow\Money\Money
      */
-    public static function parseByAggregate($money, $forceCurrency = null, array $parsers = [])
+    public static function parseByAggregate($money, $fallbackCurrency = null, array $parsers = [])
     {
         $parser = new AggregateMoneyParser($parsers);
 
-        return static::parseByParser($parser, $money, $forceCurrency);
+        return static::parseByParser($parser, $money, $fallbackCurrency);
     }
 
     /**
      * Parse by bitcoin.
      *
      * @param  string  $money
-     * @param  string|null  $forceCurrency
+     * @param  string|null  $fallbackCurrency
      * @param  int  $fractionDigits
      * @return \Cknow\Money\Money
      */
-    public static function parseByBitcoin($money, $forceCurrency = null, $fractionDigits = 2)
+    public static function parseByBitcoin($money, $fallbackCurrency = null, $fractionDigits = 2)
     {
         $parser = new BitcoinMoneyParser($fractionDigits);
 
-        return static::parseByParser($parser, $money, $forceCurrency);
+        return static::parseByParser($parser, $money, $fallbackCurrency);
     }
 
     /**
      * Parse by decimal.
      *
      * @param  string  $money
-     * @param  string|null  $forceCurrency
+     * @param  string|null  $fallbackCurrency
      * @param  \Money\Currencies  $currencies
      * @return \Cknow\Money\Money
      */
-    public static function parseByDecimal($money, $forceCurrency = null, Currencies $currencies = null)
+    public static function parseByDecimal($money, $fallbackCurrency = null, Currencies $currencies = null)
     {
         $parser = new DecimalMoneyParser($currencies ?: static::getCurrencies());
 
-        return static::parseByParser($parser, $money, $forceCurrency);
+        return static::parseByParser($parser, $money, $fallbackCurrency);
     }
 
     /**
      * Parse by intl.
      *
      * @param  string  $money
-     * @param  string|null  $forceCurrency
+     * @param  string|null  $fallbackCurrency
      * @param  string|null  $locale
      * @param  \Money\Currencies  $currencies
      * @param  int  $style
@@ -123,7 +123,7 @@ trait MoneyParserTrait
      */
     public static function parseByIntl(
         $money,
-        $forceCurrency = null,
+        $fallbackCurrency = null,
         $locale = null,
         Currencies $currencies = null,
         $style = NumberFormatter::CURRENCY
@@ -131,14 +131,14 @@ trait MoneyParserTrait
         $numberFormatter = new NumberFormatter($locale ?: static::getLocale(), $style);
         $parser = new IntlMoneyParser($numberFormatter, $currencies ?: static::getCurrencies());
 
-        return static::parseByParser($parser, $money, $forceCurrency);
+        return static::parseByParser($parser, $money, $fallbackCurrency);
     }
 
     /**
      * Parse by intl localized decimal.
      *
      * @param  string  $money
-     * @param  string  $forceCurrency
+     * @param  string  $fallbackCurrency
      * @param  string|null  $locale
      * @param  \Money\Currencies  $currencies
      * @param  int  $style
@@ -146,7 +146,7 @@ trait MoneyParserTrait
      */
     public static function parseByIntlLocalizedDecimal(
         $money,
-        $forceCurrency = null,
+        $fallbackCurrency = null,
         $locale = null,
         Currencies $currencies = null,
         $style = NumberFormatter::DECIMAL
@@ -154,7 +154,7 @@ trait MoneyParserTrait
         $numberFormatter = new NumberFormatter($locale ?: static::getLocale(), $style);
         $parser = new IntlLocalizedDecimalParser($numberFormatter, $currencies ?: static::getCurrencies());
 
-        return static::parseByParser($parser, $money, $forceCurrency);
+        return static::parseByParser($parser, $money, $fallbackCurrency);
     }
 
     /**
@@ -162,15 +162,15 @@ trait MoneyParserTrait
      *
      * @param  \Money\MoneyParser  $parser
      * @param  string  $money
-     * @param  string|null  $forceCurrency
+     * @param  string|null  $fallbackCurrency
      * @return \Cknow\Money\Money
      */
-    public static function parseByParser(MoneyParser $parser, $money, $forceCurrency = null)
+    public static function parseByParser(MoneyParser $parser, $money, $fallbackCurrency = null)
     {
-        if (is_string($forceCurrency)) {
-            $forceCurrency = new Currency($forceCurrency);
+        if (is_string($fallbackCurrency)) {
+            $fallbackCurrency = new Currency($fallbackCurrency);
         }
 
-        return static::convert($parser->parse((string) $money, $forceCurrency));
+        return static::convert($parser->parse((string) $money, $fallbackCurrency));
     }
 }
