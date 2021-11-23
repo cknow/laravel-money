@@ -87,20 +87,6 @@ class CurrenciesTraitTest extends AbstractPackageTestCase
         ]);
     }
 
-    public function testSetCurrenciesWrongCustomCurrenciesConfig()
-    {
-        $this->expectException(\InvalidArgumentException::class);
-        $mock = $this->getMockForTrait(CurrenciesTrait::class);
-        $mock->setCurrencies([
-            'iso' => ['USD'],
-            'bitcoin' => ['XBT'],
-            'custom' => [
-                'MY1' => ['some' => 'value'],
-                'MY2' => -5,
-            ],
-        ]);
-    }
-
     public function testSetCurrenciesWrongStandardCurrenciesConfig()
     {
         $this->expectException(\InvalidArgumentException::class);
