@@ -17,10 +17,11 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
-            $table->decimal('money', 15, 2);
-            $table->decimal('wage', 15, 2);
+            $table->string('money');
+            $table->integer('wage')->nullable();
             $table->decimal('debits', 15, 2)->nullable();
-            $table->string('currency');
+            $table->decimal('credits', 15, 2)->nullable();
+            $table->string('currency')->nullable();
             $table->timestamps();
         });
     }
