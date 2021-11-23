@@ -32,7 +32,7 @@ class User extends Model
      * @var array
      */
     protected $casts = [
-        'money' => MoneyStringCast::class.':USD',
+        'money' => MoneyStringCast::class,
         'wage' => MoneyIntegerCast::class.':EUR',
         'debits' => MoneyDecimalCast::class.':currency',
         'credits' => MoneyCast::class.':USD',

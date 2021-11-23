@@ -143,24 +143,6 @@ class MoneyCastTest extends AbstractPackageTestCase
         new User(['money' => new stdClass()]);
     }
 
-    public function testCastsMoneyWithDefaultCurrency()
-    {
-        $user = User::create(['money' => '1.00']);
-
-        static::assertInstanceOf(Money::class, $user->money);
-        static::assertSame('100', $user->money->getAmount());
-        static::assertSame('USD', $user->money->getCurrency()->getCode());
-
-        $user->save();
-
-        static::assertSame(1, $user->id);
-
-        $this->assertDatabaseHas('users', [
-            'id' => 1,
-            'money' => '$1.00',
-        ]);
-    }
-
     public function testFailsToParseInvalidMoney()
     {
         $this->expectException(ParserException::class);
