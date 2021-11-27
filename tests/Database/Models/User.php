@@ -32,8 +32,8 @@ class User extends Model
      */
     protected $casts = [
         'money' => MoneyStringCast::class,
-        'wage' => MoneyIntegerCast::class . ':EUR',
-        'debits' => MoneyDecimalCast::class . ':currency',
-        'credits' => MoneyDecimalCast::class . ':USD',
+        'wage' => MoneyIntegerCast::class.':EUR',
+        'debits' => MoneyDecimalCast::class.':currency',
+        'credits' => MoneyDecimalCast::class.':USD',
     ];
 }
