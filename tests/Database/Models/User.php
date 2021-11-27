@@ -2,10 +2,9 @@
 
 namespace Cknow\Money\Tests\Database\Models;
 
-use Cknow\Money\MoneyCast;
-use Cknow\Money\MoneyDecimalCast;
-use Cknow\Money\MoneyIntegerCast;
-use Cknow\Money\MoneyStringCast;
+use Cknow\Money\Casts\MoneyDecimalCast;
+use Cknow\Money\Casts\MoneyIntegerCast;
+use Cknow\Money\Casts\MoneyStringCast;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -33,8 +32,8 @@ class User extends Model
      */
     protected $casts = [
         'money' => MoneyStringCast::class,
-        'wage' => MoneyIntegerCast::class.':EUR',
-        'debits' => MoneyDecimalCast::class.':currency',
-        'credits' => MoneyCast::class.':USD',
+        'wage' => MoneyIntegerCast::class . ':EUR',
+        'debits' => MoneyDecimalCast::class . ':currency',
+        'credits' => MoneyDecimalCast::class . ':USD',
     ];
 }
