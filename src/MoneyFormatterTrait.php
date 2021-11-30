@@ -2,6 +2,7 @@
 
 namespace Cknow\Money;
 
+use InvalidArgumentException;
 use Money\Currencies;
 use Money\Currencies\BitcoinCurrencies;
 use Money\Formatter\AggregateMoneyFormatter;
@@ -21,10 +22,32 @@ trait MoneyFormatterTrait
      * @param  \Money\Currencies  $currencies
      * @param  int  $style
      * @return string
+     *
+     * @throws \InvalidArgumentException
      */
     public function format($locale = null, Currencies $currencies = null, $style = NumberFormatter::CURRENCY)
     {
-        return $this->formatByIntl($locale, $currencies, $style);
+        $defaultFormatter = config('money.defaultFormatter');
+
+        if (is_null($defaultFormatter)) {
+            return $this->formatByIntl($locale, $currencies, $style);
+        }
+
+        $formatter = null;
+
+        if (is_string($defaultFormatter)) {
+            $formatter = app($defaultFormatter);
+        }
+
+        if (is_array($defaultFormatter) && count($defaultFormatter) === 2) {
+            $formatter = app($defaultFormatter[0], $defaultFormatter[1]);
+        }
+
+        if ($formatter instanceof MoneyFormatter) {
+            return $this->formatByFormatter($formatter);
+        }
+
+        throw new InvalidArgumentException(sprintf('Invalid default formatter %s', json_encode($defaultFormatter)));
     }
 
     /**
