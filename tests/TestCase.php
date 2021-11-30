@@ -10,7 +10,7 @@ abstract class TestCase extends AbstractPackageTestCase
     /**
      * Setup the application environment.
      *
-     * @param \Illuminate\Contracts\Foundation\Application $app
+     * @param  \Illuminate\Contracts\Foundation\Application  $app
      *
      * @return void
      */
