@@ -14,6 +14,6 @@ class MoneyStringCast extends MoneyCast
      */
     protected function getFormatter(Money $money)
     {
-        return $money->format();
+        return $money->formatByIntl();
     }
 }

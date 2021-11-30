@@ -2,14 +2,15 @@
 
 namespace Cknow\Money\Tests;
 
+use Cknow\Money\Formatters\CurrencySymbolMoneyFormatter;
 use Cknow\Money\Money;
+use InvalidArgumentException;
 use Money\Currencies\BitcoinCurrencies;
 use Money\Formatter\BitcoinMoneyFormatter;
 use Money\Formatter\DecimalMoneyFormatter;
 use Money\Formatter\IntlLocalizedDecimalFormatter;
 use Money\Formatter\IntlMoneyFormatter;
 use NumberFormatter as N;
-use PHPUnit\Framework\TestCase;
 
 class MoneyFormatterTraitTest extends TestCase
 {
@@ -21,6 +22,26 @@ class MoneyFormatterTraitTest extends TestCase
         static::assertEquals('$1.00', Money::USD(100)->format('en_US', Money::getCurrencies(), N::CURRENCY));
         static::assertEquals('1,99', Money::EUR(199)->format('fr_FR', Money::getCurrencies(), N::DECIMAL));
         static::assertEquals('1', Money::USD(100)->format('en_US', Money::getCurrencies(), N::DECIMAL));
+    }
+
+    public function testDefaultFormatter()
+    {
+        config(['money.defaultFormatter' => null]);
+        static::assertEquals('$1.00', Money::USD(100)->format());
+
+        config(['money.defaultFormatter' => [BitcoinMoneyFormatter::class, ['fractionDigits' => 2, 'currencies' => new BitcoinCurrencies()]]]);
+        static::assertEquals("\xC9\x830.41", Money::XBT(41000000)->format());
+    }
+
+    public function testInvalidDefaultFormatter()
+    {
+        $defaultFormatter = [BitcoinMoneyFormatter::class];
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid default formatter '.json_encode($defaultFormatter));
+
+        config(['money.defaultFormatter' => $defaultFormatter]);
+        static::assertEquals('$1.00', Money::USD(100)->format());
     }
 
     public function testFormatByAggregate()
