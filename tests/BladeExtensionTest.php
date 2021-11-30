@@ -6,7 +6,6 @@ use Cknow\Money\BladeExtension;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\View\Compilers\BladeCompiler;
 use Mockery;
-use PHPUnit\Framework\TestCase;
 
 class BladeExtensionTest extends TestCase
 {

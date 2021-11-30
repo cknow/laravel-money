@@ -10,7 +10,6 @@ use Money\Parser\BitcoinMoneyParser;
 use Money\Parser\DecimalMoneyParser;
 use Money\Parser\IntlMoneyParser;
 use NumberFormatter;
-use PHPUnit\Framework\TestCase;
 use stdClass;
 
 class MoneyParserTraitTest extends TestCase

@@ -3,9 +3,8 @@
 namespace Cknow\Money\Tests;
 
 use Cknow\Money\LocaleTrait;
-use GrahamCampbell\TestBench\AbstractPackageTestCase;
 
-class LocaleTraitTest extends AbstractPackageTestCase
+class LocaleTraitTest extends TestCase
 {
     public function testGetLocale()
     {

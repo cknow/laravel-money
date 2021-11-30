@@ -4,7 +4,6 @@ namespace Cknow\Money\Tests;
 
 use Cknow\Money\Money;
 use Money\Currency;
-use PHPUnit\Framework\TestCase;
 
 class MoneyFactoryTest extends TestCase
 {

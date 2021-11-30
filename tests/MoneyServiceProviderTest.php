@@ -2,10 +2,7 @@
 
 namespace Cknow\Money\Tests;
 
-use Cknow\Money\MoneyServiceProvider;
-use GrahamCampbell\TestBench\AbstractPackageTestCase;
-
-class MoneyServiceProviderTest extends AbstractPackageTestCase
+class MoneyServiceProviderTest extends TestCase
 {
     public function testBladeDirectives()
     {
@@ -13,10 +10,5 @@ class MoneyServiceProviderTest extends AbstractPackageTestCase
 
         static::assertArrayHasKey('money', $customDirectives);
         static::assertArrayHasKey('currency', $customDirectives);
-    }
-
-    protected function getServiceProviderClass()
-    {
-        return MoneyServiceProvider::class;
     }
 }

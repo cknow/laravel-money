@@ -3,10 +3,9 @@
 namespace Cknow\Money\Tests;
 
 use Cknow\Money\Money;
-use GrahamCampbell\TestBench\AbstractPackageTestCase;
 use Money\Currency;
 
-class HelpersTest extends AbstractPackageTestCase
+class HelpersTest extends TestCase
 {
     public function testCurrency()
     {

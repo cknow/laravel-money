@@ -3,9 +3,7 @@
 namespace Cknow\Money\Tests;
 
 use Cknow\Money\Money;
-use Cknow\Money\MoneyServiceProvider;
 use Cknow\Money\Tests\Database\Models\User;
-use GrahamCampbell\TestBench\AbstractPackageTestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use InvalidArgumentException;
 use Money\Exception\ParserException;
@@ -15,7 +13,7 @@ use stdClass;
 /**
  * The money cast test.
  */
-class MoneyCastTest extends AbstractPackageTestCase
+class MoneyCastTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -149,10 +147,5 @@ class MoneyCastTest extends AbstractPackageTestCase
         $this->expectExceptionMessage('Unable to parse abc');
 
         new User(['money' => 'abc']);
-    }
-
-    protected function getServiceProviderClass()
-    {
-        return MoneyServiceProvider::class;
     }
 }

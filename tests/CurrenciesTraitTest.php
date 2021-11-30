@@ -3,11 +3,10 @@
 namespace Cknow\Money\Tests;
 
 use Cknow\Money\CurrenciesTrait;
-use GrahamCampbell\TestBench\AbstractPackageTestCase;
 use Money\Currency;
 use stdClass;
 
-class CurrenciesTraitTest extends AbstractPackageTestCase
+class CurrenciesTraitTest extends TestCase
 {
     private static function currencyListSize(\Money\Currencies $currencies)
     {
@@ -24,7 +23,7 @@ class CurrenciesTraitTest extends AbstractPackageTestCase
         $mock = $this->getMockForTrait(CurrenciesTrait::class);
 
         static::assertInstanceOf(\Money\Currencies::class, $mock->getCurrencies());
-        static::assertInstanceOf(\Money\Currencies\ISOCurrencies::class, $mock->getCurrencies());
+        static::assertInstanceOf(\Money\Currencies\AggregateCurrencies::class, $mock->getCurrencies());
     }
 
     public function testSetCurrencies()
