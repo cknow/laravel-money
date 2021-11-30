@@ -23,6 +23,8 @@ trait MoneyParserTrait
      * @param  \Money\Currency|string|null  $currency
      * @param  iny  $bitCointDigits
      * @return \Cknow\Money\Money|null
+     *
+     * @throws \InvalidArgumentException
      */
     public static function parse($value, $currency = null, $bitCointDigits = 2)
     {
