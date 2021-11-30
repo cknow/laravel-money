@@ -103,7 +103,7 @@ trait MoneyParserTrait
      *
      * @param  string  $money
      * @param  string|null  $fallbackCurrency
-     * @param  \Money\Currencies  $currencies
+     * @param  \Money\Currencies|null  $currencies
      * @return \Cknow\Money\Money
      */
     public static function parseByDecimal($money, $fallbackCurrency = null, Currencies $currencies = null)
@@ -119,7 +119,7 @@ trait MoneyParserTrait
      * @param  string  $money
      * @param  string|null  $fallbackCurrency
      * @param  string|null  $locale
-     * @param  \Money\Currencies  $currencies
+     * @param  \Money\Currencies|null  $currencies
      * @param  int  $style
      * @return \Cknow\Money\Money
      */
@@ -140,9 +140,9 @@ trait MoneyParserTrait
      * Parse by intl localized decimal.
      *
      * @param  string  $money
-     * @param  string  $fallbackCurrency
+     * @param  string|null  $fallbackCurrency
      * @param  string|null  $locale
-     * @param  \Money\Currencies  $currencies
+     * @param  \Money\Currencies|null  $currencies
      * @param  int  $style
      * @return \Cknow\Money\Money
      */

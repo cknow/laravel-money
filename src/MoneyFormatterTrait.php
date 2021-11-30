@@ -19,7 +19,7 @@ trait MoneyFormatterTrait
      * Format.
      *
      * @param  string|null  $locale
-     * @param  \Money\Currencies  $currencies
+     * @param  \Money\Currencies|null  $currencies
      * @param  int  $style
      * @return string
      *
@@ -67,7 +67,7 @@ trait MoneyFormatterTrait
      * Format by bitcoin.
      *
      * @param  int  $fractionDigits
-     * @param  \Money\Currencies  $currencies
+     * @param  \Money\Currencies|null  $currencies
      * @return string
      */
     public function formatByBitcoin($fractionDigits = 2, Currencies $currencies = null)
@@ -80,7 +80,7 @@ trait MoneyFormatterTrait
     /**
      * Format by decimal.
      *
-     * @param  \Money\Currencies  $currencies
+     * @param  \Money\Currencies|null  $currencies
      * @return string
      */
     public function formatByDecimal(Currencies $currencies = null)
@@ -94,7 +94,7 @@ trait MoneyFormatterTrait
      * Format by intl.
      *
      * @param  string|null  $locale
-     * @param  \Money\Currencies  $currencies
+     * @param  \Money\Currencies|null  $currencies
      * @param  int  $style
      * @return string
      */
@@ -110,7 +110,7 @@ trait MoneyFormatterTrait
      * Format by intl localized decimal.
      *
      * @param  string|null  $locale
-     * @param  \Money\Currencies  $currencies
+     * @param  \Money\Currencies|null  $currencies
      * @param  int  $style
      * @return string
      */
