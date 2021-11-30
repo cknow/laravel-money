@@ -2,7 +2,6 @@
 
 namespace Cknow\Money\Tests;
 
-use Cknow\Money\Formatters\CurrencySymbolMoneyFormatter;
 use Cknow\Money\Money;
 use InvalidArgumentException;
 use Money\Currencies\BitcoinCurrencies;
