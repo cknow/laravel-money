@@ -2,6 +2,7 @@
 
 namespace Cknow\Money\Tests;
 
+use Cknow\Money\Formatters\CurrencySymbolMoneyFormatter;
 use Cknow\Money\Money;
 use InvalidArgumentException;
 use Money\Currencies\BitcoinCurrencies;
@@ -27,6 +28,12 @@ class MoneyFormatterTraitTest extends TestCase
     {
         config(['money.defaultFormatter' => null]);
         static::assertEquals('$1.00', Money::USD(100)->format());
+
+        config(['money.defaultFormatter' => CurrencySymbolMoneyFormatter::class]);
+        static::assertEquals('$1.00', Money::USD(100)->format());
+
+        config(['money.defaultFormatter' => [CurrencySymbolMoneyFormatter::class, ['right' => true]]]);
+        static::assertEquals('1.00$', Money::USD(100)->format());
 
         config(['money.defaultFormatter' => [BitcoinMoneyFormatter::class, ['fractionDigits' => 2, 'currencies' => new BitcoinCurrencies()]]]);
         static::assertEquals("\xC9\x830.41", Money::XBT(41000000)->format());
@@ -63,6 +70,12 @@ class MoneyFormatterTraitTest extends TestCase
         static::assertEquals("\xC9\x835", Money::XBT(500000000)->formatByBitcoin(0));
         static::assertEquals("\xC9\x830.41", Money::XBT(41000000)->formatByBitcoin(2));
         static::assertEquals("\xC9\x8310.0000", Money::XBT(1000000000)->formatByBitcoin(4, new BitcoinCurrencies()));
+    }
+
+    public function testFormatByCurrencySymbol()
+    {
+        static::assertEquals('$1.00', Money::USD(100)->formatByCurrencySymbol());
+        static::assertEquals('1.00$', Money::USD(100)->formatByCurrencySymbol(true));
     }
 
     public function testFormatByDecimal()

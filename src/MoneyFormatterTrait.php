@@ -2,6 +2,7 @@
 
 namespace Cknow\Money;
 
+use Cknow\Money\Formatters\CurrencySymbolMoneyFormatter;
 use InvalidArgumentException;
 use Money\Currencies;
 use Money\Currencies\BitcoinCurrencies;
@@ -73,6 +74,21 @@ trait MoneyFormatterTrait
     public function formatByBitcoin($fractionDigits = 2, Currencies $currencies = null)
     {
         $formatter = new BitcoinMoneyFormatter($fractionDigits, $currencies ?: new BitcoinCurrencies());
+
+        return $this->formatByFormatter($formatter);
+    }
+
+    /**
+     * Format by currency symbol.
+     *
+     * @param  bool  $right
+     * @param  string|null  $locale
+     * @param  \Money\Currencies  $currencies
+     * @return string
+     */
+    public function formatByCurrencySymbol($right = false, $locale = null, Currencies $currencies = null)
+    {
+        $formatter = new CurrencySymbolMoneyFormatter($right, $locale ?: static::getLocale(), $currencies ?: static::getCurrencies());
 
         return $this->formatByFormatter($formatter);
     }

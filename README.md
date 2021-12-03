@@ -102,6 +102,8 @@ Money::sum(Money::USD(100), Money::USD(200), Money::USD(300)); // Money::USD(600
 Money::USD(500)->format(); // $5.00
 Money::USD(199)->format(null, null, \NumberFormatter::DECIMAL); // 1,99
 Money::XBT(41000000)->formatByBitcoin(); // \xC9\x830.41
+Money::USD(500)->formatByCurrencySymbol(); // $5.00
+Money::USD(500)->formatByCurrencySymbol(true); // 5.00$
 Money::USD(500)->formatByDecimal(); // 5.00
 Money::USD(500)->formatByIntl(); // $5.00
 Money::USD(199)->formatByIntl(null, null, \NumberFormatter::DECIMAL); // 1,99
