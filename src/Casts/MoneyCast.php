@@ -49,7 +49,7 @@ abstract class MoneyCast implements CastsAttributes
             return $value;
         }
 
-        return Money::parse($value, $this->getCurrency($attributes));
+        return Money::parse($value, $this->getCurrency($model));
     }
 
     /**
@@ -90,10 +90,10 @@ abstract class MoneyCast implements CastsAttributes
     /**
      * Get currency.
      *
-     * @param  array  $attributes
+     * @param  \Illuminate\Database\Eloquent\Model  $model
      * @return \Money\Currency
      */
-    protected function getCurrency(array $attributes)
+    protected function getCurrency(Model $model)
     {
         $defaultCode = Money::getDefaultCurrency();
 
@@ -108,7 +108,7 @@ abstract class MoneyCast implements CastsAttributes
             return $currency;
         }
 
-        $code = $attributes[$this->currency] ?? $defaultCode;
+        $code = $model->{$this->currency} ?? $defaultCode;
 
         return new Currency($code);
     }
