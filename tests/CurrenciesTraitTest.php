@@ -18,6 +18,22 @@ class CurrenciesTraitTest extends TestCase
         return $size;
     }
 
+    public function testIsValidCurrency()
+    {
+        $mock = $this->getMockForTrait(CurrenciesTrait::class);
+
+        static::assertTrue($mock->isValidCurrency('USD'));
+        static::assertTrue($mock->isValidCurrency(new Currency('USD')));
+    }
+
+    public function testIsNotValidCurrency()
+    {
+        $mock = $this->getMockForTrait(CurrenciesTrait::class);
+
+        static::assertFalse($mock->isValidCurrency('FAIL'));
+        static::assertFalse($mock->isValidCurrency(new Currency('FAIL')));
+    }
+
     public function testGetCurrencies()
     {
         $mock = $this->getMockForTrait(CurrenciesTrait::class);
