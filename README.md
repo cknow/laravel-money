@@ -178,6 +178,7 @@ $model->money->getAmount(); // '1300'
 ## Helpers
 
 ```php
+currency() // To use default currency present in `config/money.php`
 currency('USD');
 money(500); // To use default currency present in `config/money.php`
 money(500, 'USD');
@@ -199,6 +200,7 @@ money_parse_by_intl_localized_decimal('1.00', 'USD'); // Money::USD(100)
 ## Blade Extensions
 
 ```php
+@currency() // To use default currency present in `config/money.php`
 @currency('USD')
 @money(500) // To use default currency present in `config/money.php`
 @money(500, 'USD')

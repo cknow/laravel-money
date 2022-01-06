@@ -4,12 +4,12 @@ if (! function_exists('currency')) {
     /**
      * currency.
      *
-     * @param  string  $currency
+     * @param  string|null  $currency
      * @return \Money\Currency
      */
-    function currency($currency)
+    function currency($currency = null)
     {
-        return new Money\Currency($currency);
+        return new Money\Currency($currency ?: Cknow\Money\Money::getDefaultCurrency());
     }
 }
 
@@ -25,7 +25,7 @@ if (! function_exists('money')) {
     {
         return new Cknow\Money\Money(
             $amount,
-            new Money\Currency($currency ?: Cknow\Money\Money::getDefaultCurrency())
+            currency($currency)
         );
     }
 }
