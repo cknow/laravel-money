@@ -4,12 +4,12 @@ if (! function_exists('currency')) {
     /**
      * currency.
      *
-     * @param  string|null  $currency
+     * @param  \Money\Currency|string|null  $currency
      * @return \Money\Currency
      */
     function currency($currency = null)
     {
-        return new Money\Currency($currency ?: Cknow\Money\Money::getDefaultCurrency());
+        return Cknow\Money\Money::parseCurrency($currency ?: Cknow\Money\Money::getDefaultCurrency());
     }
 }
 
@@ -18,15 +18,12 @@ if (! function_exists('money')) {
      * money.
      *
      * @param  int|string  $amount
-     * @param  string|null  $currency
+     * @param  \Money\Currency|string|null  $currency
      * @return \Cknow\Money\Money
      */
     function money($amount, $currency = null)
     {
-        return new Cknow\Money\Money(
-            $amount,
-            currency($currency)
-        );
+        return new Cknow\Money\Money($amount, currency($currency));
     }
 }
 
@@ -105,7 +102,7 @@ if (! function_exists('money_parse_by_bitcoin')) {
      * money parse by bitcoin.
      *
      * @param  string  $money
-     * @param  string|null  $fallbackCurrency
+     * @param  \Money\Currency|string|null  $fallbackCurrency
      * @param  int  $fractionDigits
      * @return \Cknow\Money\Money
      */
@@ -120,7 +117,7 @@ if (! function_exists('money_parse_by_decimal')) {
      * money parse by decimal.
      *
      * @param  string  $money
-     * @param  string|null  $fallbackCurrency
+     * @param  \Money\Currency|string|null  $fallbackCurrency
      * @param  \Money\Currencies|null  $currencies
      * @return \Cknow\Money\Money
      */
@@ -135,7 +132,7 @@ if (! function_exists('money_parse_by_intl')) {
      * money parse by intl.
      *
      * @param  string  $money
-     * @param  string|null  $fallbackCurrency
+     * @param  \Money\Currency|string|null  $fallbackCurrency
      * @param  string|null  $locale
      * @param  \Money\Currencies|null  $currencies
      * @return \Cknow\Money\Money
@@ -151,7 +148,7 @@ if (! function_exists('money_parse_by_intl_localized_decimal')) {
      * money parse by intl localized decimal.
      *
      * @param  string  $money
-     * @param  string|null  $fallbackCurrency
+     * @param  \Money\Currency|string|null  $fallbackCurrency
      * @param  string|null  $locale
      * @param  \Money\Currencies|null  $currencies
      * @return \Cknow\Money\Money

@@ -4,7 +4,6 @@ namespace Cknow\Money;
 
 use InvalidArgumentException;
 use Money\Currencies;
-use Money\Currency;
 use Money\Exception\ParserException;
 use Money\MoneyParser;
 use Money\Parser\AggregateMoneyParser;
@@ -36,9 +35,7 @@ trait MoneyParserTrait
             return static::fromMoney($value);
         }
 
-        if (is_string($currency)) {
-            $currency = new Currency($currency);
-        }
+        $currency = static::parseCurrency($currency);
 
         if (is_int($value) || filter_var($value, FILTER_VALIDATE_INT) !== false) {
             return new Money($value, $currency);
@@ -72,7 +69,7 @@ trait MoneyParserTrait
      * Parse by aggregate.
      *
      * @param  string  $money
-     * @param  string|null  $fallbackCurrency
+     * @param  \Money\Currency|string|null  $fallbackCurrency
      * @param  MoneyParser[]  $parsers
      * @return \Cknow\Money\Money
      */
@@ -87,7 +84,7 @@ trait MoneyParserTrait
      * Parse by bitcoin.
      *
      * @param  string  $money
-     * @param  string|null  $fallbackCurrency
+     * @param  \Money\Currency|string|null  $fallbackCurrency
      * @param  int  $fractionDigits
      * @return \Cknow\Money\Money
      */
@@ -102,7 +99,7 @@ trait MoneyParserTrait
      * Parse by decimal.
      *
      * @param  string  $money
-     * @param  string|null  $fallbackCurrency
+     * @param  \Money\Currency|string|null  $fallbackCurrency
      * @param  \Money\Currencies|null  $currencies
      * @return \Cknow\Money\Money
      */
@@ -117,7 +114,7 @@ trait MoneyParserTrait
      * Parse by intl.
      *
      * @param  string  $money
-     * @param  string|null  $fallbackCurrency
+     * @param  \Money\Currency|string|null  $fallbackCurrency
      * @param  string|null  $locale
      * @param  \Money\Currencies|null  $currencies
      * @param  int  $style
@@ -140,7 +137,7 @@ trait MoneyParserTrait
      * Parse by intl localized decimal.
      *
      * @param  string  $money
-     * @param  string|null  $fallbackCurrency
+     * @param  \Money\Currency|string|null  $fallbackCurrency
      * @param  string|null  $locale
      * @param  \Money\Currencies|null  $currencies
      * @param  int  $style
@@ -164,14 +161,12 @@ trait MoneyParserTrait
      *
      * @param  \Money\MoneyParser  $parser
      * @param  string  $money
-     * @param  string|null  $fallbackCurrency
+     * @param  \Money\Currency|string|null  $fallbackCurrency
      * @return \Cknow\Money\Money
      */
     public static function parseByParser(MoneyParser $parser, $money, $fallbackCurrency = null)
     {
-        if (is_string($fallbackCurrency)) {
-            $fallbackCurrency = new Currency($fallbackCurrency);
-        }
+        $fallbackCurrency = static::parseCurrency($fallbackCurrency);
 
         return static::convert($parser->parse((string) $money, $fallbackCurrency));
     }

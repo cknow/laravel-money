@@ -5,7 +5,6 @@ namespace Cknow\Money\Casts;
 use Cknow\Money\Money;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use InvalidArgumentException;
-use Money\Currency;
 
 abstract class MoneyCast implements CastsAttributes
 {
@@ -98,10 +97,10 @@ abstract class MoneyCast implements CastsAttributes
         $defaultCode = Money::getDefaultCurrency();
 
         if ($this->currency === null) {
-            return new Currency($defaultCode);
+            return Money::parseCurrency($defaultCode);
         }
 
-        $currency = new Currency($this->currency);
+        $currency = Money::parseCurrency($this->currency);
         $currencies = Money::getCurrencies();
 
         if ($currencies->contains($currency)) {
@@ -110,6 +109,6 @@ abstract class MoneyCast implements CastsAttributes
 
         $code = $attributes[$this->currency] ?? $defaultCode;
 
-        return new Currency($code);
+        return Money::parseCurrency($code);
     }
 }

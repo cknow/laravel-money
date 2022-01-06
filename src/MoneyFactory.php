@@ -2,8 +2,6 @@
 
 namespace Cknow\Money;
 
-use Money\Currency;
-
 /**
  * Money.
  *
@@ -198,7 +196,7 @@ trait MoneyFactory
      */
     public static function __callStatic($method, array $arguments)
     {
-        return new Money($arguments[0], new Currency($method));
+        return new Money($arguments[0], Money::parseCurrency($method));
     }
 
     /**

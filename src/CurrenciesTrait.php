@@ -23,6 +23,21 @@ trait CurrenciesTrait
     protected static $currencies;
 
     /**
+     * Parse currency.
+     *
+     * @param  \Money\Currency|string  $currency
+     * @return \Money\Currency
+     */
+    public static function parseCurrency($currency)
+    {
+        if (is_string($currency)) {
+            return new Currency($currency);
+        }
+
+        return $currency;
+    }
+
+    /**
      * Validates currency.
      *
      * @param  \Money\Currency|string  $currency
@@ -30,11 +45,7 @@ trait CurrenciesTrait
      */
     public static function isValidCurrency($currency)
     {
-        if (is_string($currency)) {
-            $currency = new Currency($currency);
-        }
-
-        return static::getCurrencies()->contains($currency);
+        return static::getCurrencies()->contains(static::parseCurrency($currency));
     }
 
     /**
@@ -145,7 +156,7 @@ trait CurrenciesTrait
             $lisCurrencies = [];
 
             foreach ($config as $index => $currencyCode) {
-                $currency = new Currency($currencyCode);
+                $currency = static::parseCurrency($currencyCode);
 
                 if (! $currencies->contains($currency)) {
                     throw new InvalidArgumentException(
