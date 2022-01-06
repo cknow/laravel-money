@@ -23,6 +23,21 @@ trait CurrenciesTrait
     protected static $currencies;
 
     /**
+     * Validates currency.
+     *
+     * @param  \Money\Currency|string  $currency
+     * @return  bool
+     */
+    public static function isValidCurrency($currency)
+    {
+        if (is_string($currency)) {
+            $currency = new Currency($currency);
+        }
+
+        return static::getCurrencies()->contains($currency);
+    }
+
+    /**
      * Get default currency.
      *
      * @return string
