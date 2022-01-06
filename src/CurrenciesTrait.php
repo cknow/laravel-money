@@ -26,7 +26,7 @@ trait CurrenciesTrait
      * Validates currency.
      *
      * @param  \Money\Currency|string  $currency
-     * @return  bool
+     * @return bool
      */
     public static function isValidCurrency($currency)
     {
