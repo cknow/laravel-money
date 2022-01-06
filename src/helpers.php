@@ -4,7 +4,7 @@ if (! function_exists('currency')) {
     /**
      * currency.
      *
-     * @param  string|null $currency
+     * @param  string|null  $currency
      * @return \Money\Currency
      */
     function currency($currency = null)
