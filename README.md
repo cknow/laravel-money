@@ -91,6 +91,8 @@ Money::USD(500)->isZero(); // false
 Money::USD(500)->isPositive(); // true
 Money::USD(500)->isNegative(); // false
 Money::USD(500)->getMoney(); // Instance of \Money\Money
+Money::isValidCurrency('USD'); // true
+Money::isValidCurrency('FAIL'); // false
 
 // Aggregation
 Money::min(Money::USD(100), Money::USD(200), Money::USD(300)); // Money::USD(100)
