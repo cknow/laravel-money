@@ -59,7 +59,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
             return $this->macroCall($method, $arguments);
         }
 
-        if (! method_exists($this->money, $method)) {
+        if (!method_exists($this->money, $method)) {
             return $this;
         }
 
@@ -72,7 +72,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
             'allocate', 'allocateTo',
         ];
 
-        if (! in_array($method, $methods)) {
+        if (!in_array($method, $methods)) {
             return $result;
         }
 
@@ -143,6 +143,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      *
      * @return array
      */
+    #[\ReturnTypeWillChange]
     public function jsonSerialize()
     {
         return array_merge(
@@ -208,7 +209,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      */
     private static function convertResult($result)
     {
-        if (! is_array($result)) {
+        if (!is_array($result)) {
             return static::convert($result);
         }
 
