@@ -139,9 +139,9 @@ Money::USD(500)->formatByFormatter(new MyFormatter()); // My Formatter
 At this stage the cast can be defined in the following ways:
 
 ```php
-use Cknow\Money\MoneyDecimalCast;
-use Cknow\Money\MoneyIntegerCast;
-use Cknow\Money\MoneyStringCast;
+use Cknow\Money\Casts\MoneyDecimalCast;
+use Cknow\Money\Casts\MoneyIntegerCast;
+use Cknow\Money\Casts\MoneyStringCast;
 
 protected $casts = [
     // cast money as decimal using the currency defined in the package config
