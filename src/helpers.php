@@ -17,7 +17,7 @@ if (! function_exists('money')) {
     /**
      * money.
      *
-     * @param  int|string  $amount
+     * @param  int|string|null  $amount
      * @param  \Money\Currency|string|null  $currency
      * @return \Cknow\Money\Money
      */
