@@ -37,7 +37,7 @@ trait MoneyParserTrait
 
         $currency = static::parseCurrency($currency);
 
-        if (is_int($value) || filter_var($value, FILTER_VALIDATE_INT) !== false) {
+        if (is_int($value) || filter_var("'" . $value . "'", \FILTER_VALIDATE_INT) !== false) {
             return new Money($value, $currency);
         }
 
