@@ -43,7 +43,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      */
     public function __construct($amount, Currency $currency)
     {
-        $amount = is_null($amount) ? (string) $amount : $amount;
+        $amount = is_null($amount) ? (int) $amount : $amount;
 
         $this->money = new \Money\Money($amount, $currency);
     }
