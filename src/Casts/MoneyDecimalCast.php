@@ -16,4 +16,15 @@ class MoneyDecimalCast extends MoneyCast
     {
         return $money->formatByDecimal();
     }
+
+    public function get($model, string $key, $value, array $attributes)
+    {
+        if (filter_var($value, FILTER_VALIDATE_INT) !== false) {
+            $value = number_format($value, '2');
+        }
+
+        return parent::get($model, $key, $value, $attributes);
+    }
+
+
 }

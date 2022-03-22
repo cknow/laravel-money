@@ -5,6 +5,7 @@ namespace Cknow\Money\Tests;
 use Cknow\Money\Money;
 use Cknow\Money\Tests\Database\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\DB;
 use InvalidArgumentException;
 use Money\Exception\ParserException;
 use Money\Money as BaseMoney;
@@ -33,32 +34,41 @@ class MoneyCastTest extends TestCase
 
     public function testCastsMoneyWhenRetrievingCastedValues()
     {
-        $user = User::create([
-            'money' => 1234.56,
-            'wage' => 50000,
+        DB::table('users')->insert([
+            'money' => '1234.56',
+            'wage' => 5000000,
             'debits' => null,
-            'credits' => null,
+            'credits' => 12.00,
             'currency' => 'AUD',
         ]);
+        $user = User::findOrFail(1);
 
         static::assertInstanceOf(Money::class, $user->money);
         static::assertInstanceOf(Money::class, $user->wage);
         static::assertNull($user->debits);
-        static::assertNull($user->credits);
+        static::assertInstanceOf(Money::class, $user->credits);
 
         static::assertSame('123456', $user->money->getAmount());
+        static::assertSame('$1,234.56', $user->money->format());
         static::assertSame('USD', $user->money->getCurrency()->getCode());
 
-        static::assertSame('50000', $user->wage->getAmount());
+        static::assertSame('€50,000.00', $user->wage->format());
+        static::assertSame('5000000', $user->wage->getAmount());
         static::assertSame('EUR', $user->wage->getCurrency()->getCode());
+
+        static::assertSame('$12.00', $user->credits->format());
+        static::assertSame('1200', $user->credits->getAmount());
+        static::assertSame('USD', $user->credits->getCurrency()->getCode());
 
         $user->debits = 100.99;
         $user->credits = '$99';
 
         static::assertSame('10099', $user->debits->getAmount());
+        static::assertSame('A$100.99', $user->debits->format());
         static::assertSame('AUD', $user->debits->getCurrency()->getCode());
 
         static::assertSame('9900', $user->credits->getAmount());
+        static::assertSame('$99.00', $user->credits->format());
         static::assertSame('USD', $user->credits->getCurrency()->getCode());
 
         $user->save();
@@ -68,11 +78,12 @@ class MoneyCastTest extends TestCase
         $this->assertDatabaseHas('users', [
             'id' => 1,
             'money' => '$1,234.56',
-            'wage' => 50000,
+            'wage' => 5000000,
             'debits' => 100.99,
-            'credits' => 99,
+            'credits' => 99.00,
             'currency' => 'AUD',
         ]);
+
     }
 
     public function testCastsMoneyWhenSettingCastedValues()
@@ -85,9 +96,11 @@ class MoneyCastTest extends TestCase
         ]);
 
         static::assertSame('0', $user->money->getAmount());
+        static::assertSame('$0.00', $user->money->format());
         static::assertSame('USD', $user->money->getCurrency()->getCode());
 
         static::assertSame('6500000', $user->wage->getAmount());
+        static::assertSame('€65,000.00', $user->wage->format());
         static::assertSame('EUR', $user->wage->getCurrency()->getCode());
 
         static::assertNull($user->debits);
@@ -100,7 +113,7 @@ class MoneyCastTest extends TestCase
         $user->wage = 70500.19;
         $user->debits = '¥213860';
 
-        static::assertSame('100', $user->money->getAmount());
+        static::assertSame('10000', $user->money->getAmount());
         static::assertSame('USD', $user->money->getCurrency()->getCode());
 
         static::assertSame('7050019', $user->wage->getAmount());
