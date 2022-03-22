@@ -111,6 +111,7 @@ class MoneyCastTest extends TestCase
         $user->money = 100;
         $user->wage = 70500.19;
         $user->debits = '¥213860';
+        $user->credits = 123;
 
         static::assertSame('10000', $user->money->getAmount());
         static::assertSame('USD', $user->money->getCurrency()->getCode());
@@ -121,6 +122,10 @@ class MoneyCastTest extends TestCase
         static::assertSame('213860', $user->debits->getAmount());
         static::assertSame('JPY', $user->debits->getCurrency()->getCode());
         static::assertSame('JPY', $user->currency);
+
+        static::assertSame('12300', $user->credits->getAmount());
+        static::assertSame('$123.00', $user->credits->format());
+        static::assertSame('USD', $user->credits->getCurrency()->getCode());
 
         $user->money = '100,000.22';
         $user->debits = 'Ƀ0.00012345';
@@ -141,6 +146,7 @@ class MoneyCastTest extends TestCase
             'money' => '$100,000.22',
             'wage' => 7050019,
             'debits' => 0.00012345,
+            'credits' => 123.00,
             'currency' => 'XBT',
         ]);
     }
