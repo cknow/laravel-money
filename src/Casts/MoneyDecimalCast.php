@@ -25,6 +25,4 @@ class MoneyDecimalCast extends MoneyCast
 
         return parent::get($model, $key, $value, $attributes);
     }
-
-
 }

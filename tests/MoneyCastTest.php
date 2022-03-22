@@ -83,7 +83,6 @@ class MoneyCastTest extends TestCase
             'credits' => 99.00,
             'currency' => 'AUD',
         ]);
-
     }
 
     public function testCastsMoneyWhenSettingCastedValues()
