@@ -25,4 +25,13 @@ class MoneyDecimalCast extends MoneyCast
 
         return parent::get($model, $key, $value, $attributes);
     }
+
+    public function set($model, string $key, $value, array $attributes)
+    {
+        if (filter_var($value, FILTER_VALIDATE_INT) !== false) {
+            $value = number_format($value, '2');
+        }
+
+        return parent::set($model, $key, $value, $attributes);
+    }
 }

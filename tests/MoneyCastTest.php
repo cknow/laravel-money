@@ -111,7 +111,7 @@ class MoneyCastTest extends TestCase
         $user->money = 100;
         $user->wage = 70500.19;
         $user->debits = '¥213860';
-        $user->credits = 123;
+        $user->credits = 123.00;
 
         static::assertSame('10000', $user->money->getAmount());
         static::assertSame('USD', $user->money->getCurrency()->getCode());
