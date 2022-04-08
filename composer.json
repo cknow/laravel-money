@@ -27,7 +27,7 @@
         "graham-campbell/testbench": "^5.7",
         "illuminate/filesystem": "^7.0|^8.0|^9.0",
         "mockery/mockery": "^1.5",
-        "phpunit/phpunit": "^9.5.10",
+        "phpunit/phpunit": "^8.5|^9.5.10",
         "spatie/phpunit-watcher": "^1.0"
     },
     "autoload": {
