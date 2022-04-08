@@ -7,6 +7,13 @@ use Money\Currency;
 
 class MoneyTest extends TestCase
 {
+    public function testNullable()
+    {
+        static::assertEquals(new Money(), Money::USD(0));
+        static::assertEquals(new Money(null), Money::USD(0));
+        static::assertEquals(new Money(null, new Currency('USD')), Money::USD(0));
+    }
+
     public function testConvert()
     {
         static::assertEquals(Money::USD(25), Money::convert(new \Money\Money(25, new Currency('USD'))));

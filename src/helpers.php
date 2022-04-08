@@ -21,7 +21,7 @@ if (! function_exists('money')) {
      * @param  \Money\Currency|string|null  $currency
      * @return \Cknow\Money\Money
      */
-    function money($amount, $currency = null)
+    function money($amount = null, $currency = null)
     {
         return new Cknow\Money\Money($amount, currency($currency));
     }

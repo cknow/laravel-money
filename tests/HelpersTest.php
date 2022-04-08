@@ -7,14 +7,15 @@ use Money\Currency;
 
 class HelpersTest extends TestCase
 {
-    public function testCurrency()
+    public function testMoney()
     {
+        static::assertEquals(money(), new Money(0, new Currency('USD')));
         static::assertEquals(money(25), new Money(25, new Currency('USD')));
         static::assertEquals(money(25, 'USD'), new Money(25, new Currency('USD')));
         static::assertEquals(money(25, 'EUR'), new Money(25, new Currency('EUR')));
     }
 
-    public function testMoney()
+    public function testCurrency()
     {
         static::assertEquals(currency('USD'), new Currency('USD'));
         static::assertEquals(currency('EUR'), new Currency('EUR'));

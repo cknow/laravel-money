@@ -7,7 +7,6 @@ use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Support\Traits\Macroable;
 use JsonSerializable;
-use Money\Currency;
 
 /**
  * @mixin \Money\Money
@@ -39,11 +38,12 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      * Money.
      *
      * @param  int|string|null  $amount
-     * @param  \Money\Currency  $currency
+     * @param  \Money\Currency|string|null  $currency
      */
-    public function __construct($amount, Currency $currency)
+    public function __construct($amount = null, $currency = null)
     {
-        $amount = is_null($amount) ? (string) $amount : $amount;
+        $amount = is_null($amount) ? (int) $amount : $amount;
+        $currency = Money::parseCurrency($currency ?: Money::getDefaultCurrency());
 
         $this->money = new \Money\Money($amount, $currency);
     }
