@@ -10,10 +10,10 @@ class MoneyStringCast extends MoneyCast
      * Get formatter.
      *
      * @param  \Cknow\Money\Money  $money
-     * @return mixed
+     * @return string
      */
     protected function getFormatter(Money $money)
     {
-        return $money->formatByIntl();
+        return (string) $money->formatByIntl();
     }
 }

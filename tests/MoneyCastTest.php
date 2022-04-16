@@ -5,6 +5,7 @@ namespace Cknow\Money\Tests;
 use Cknow\Money\Money;
 use Cknow\Money\Tests\Database\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\DB;
 use InvalidArgumentException;
 use Money\Exception\ParserException;
 use Money\Money as BaseMoney;
@@ -33,18 +34,20 @@ class MoneyCastTest extends TestCase
 
     public function testCastsMoneyWhenRetrievingCastedValues()
     {
-        $user = User::create([
-            'money' => 1234.56,
+        DB::table('users')->insert([
+            'money' => '1234.56',
             'wage' => 50000,
             'debits' => null,
-            'credits' => null,
+            'credits' => 12.00,
             'currency' => 'AUD',
         ]);
+
+        $user = User::findOrFail(1);
 
         static::assertInstanceOf(Money::class, $user->money);
         static::assertInstanceOf(Money::class, $user->wage);
         static::assertNull($user->debits);
-        static::assertNull($user->credits);
+        static::assertInstanceOf(Money::class, $user->credits);
 
         static::assertSame('123456', $user->money->getAmount());
         static::assertSame('USD', $user->money->getCurrency()->getCode());

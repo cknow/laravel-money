@@ -150,6 +150,8 @@ protected $casts = [
     'money' => MoneyIntegerCast::class . ':AUD',
     // cast money as string using the currency defined in the model attribute 'currency'
     'money' => MoneyStringCast::class . ':currency',
+    // cast money as decimal using the defined currency and forcing decimals
+    'money' => MoneyDecimalCast::class . ':USD,true',
 ];
 ```
 

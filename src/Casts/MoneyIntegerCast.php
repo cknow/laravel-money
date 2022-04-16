@@ -10,10 +10,10 @@ class MoneyIntegerCast extends MoneyCast
      * Get formatter.
      *
      * @param  \Cknow\Money\Money  $money
-     * @return mixed
+     * @return int
      */
     protected function getFormatter(Money $money)
     {
-        return $money->getAmount();
+        return (int) $money->getAmount();
     }
 }
