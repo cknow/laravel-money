@@ -35,34 +35,38 @@ trait MoneyParserTrait
             return static::fromMoney($value);
         }
 
+        if (! is_scalar($value)) {
+            throw new InvalidArgumentException(sprintf('Invalid value %s', json_encode($value)));
+        }
+
         $currency = static::parseCurrency($currency);
 
-        if (is_int($value) || filter_var($value, FILTER_VALIDATE_INT) !== false) {
+        if (is_int($value) || (filter_var($value, FILTER_VALIDATE_INT) !== false && ! is_float($value))) {
             return new Money($value, $currency);
         }
 
-        if (is_scalar($value)) {
-            $locale = static::getLocale();
-            $currencies = static::getCurrencies();
-
-            try {
-                return static::parseByAggregate($value, null, [
-                    new IntlMoneyParser(new NumberFormatter($locale, NumberFormatter::CURRENCY), $currencies),
-                    new IntlLocalizedDecimalParser(new NumberFormatter($locale, NumberFormatter::DECIMAL), $currencies),
-                    new DecimalMoneyParser($currencies),
-                    new BitcoinMoneyParser($bitCointDigits),
-                ]);
-            } catch (ParserException $e) {
-                return static::parseByAggregate($value, $currency, [
-                    new IntlMoneyParser(new NumberFormatter($locale, NumberFormatter::CURRENCY), $currencies),
-                    new IntlLocalizedDecimalParser(new NumberFormatter($locale, NumberFormatter::DECIMAL), $currencies),
-                    new DecimalMoneyParser($currencies),
-                    new BitcoinMoneyParser($bitCointDigits),
-                ]);
-            }
+        if (is_float($value) || filter_var($value, FILTER_VALIDATE_FLOAT)) {
+            return static::parseByDecimal($value, $currency);
         }
 
-        throw new InvalidArgumentException(sprintf('Invalid value %s', json_encode($value)));
+        $locale = static::getLocale();
+        $currencies = static::getCurrencies();
+
+        try {
+            return static::parseByAggregate($value, null, [
+                new IntlMoneyParser(new NumberFormatter($locale, NumberFormatter::CURRENCY), $currencies),
+                new IntlLocalizedDecimalParser(new NumberFormatter($locale, NumberFormatter::DECIMAL), $currencies),
+                new DecimalMoneyParser($currencies),
+                new BitcoinMoneyParser($bitCointDigits),
+            ]);
+        } catch (ParserException $e) {
+            return static::parseByAggregate($value, $currency, [
+                new IntlMoneyParser(new NumberFormatter($locale, NumberFormatter::CURRENCY), $currencies),
+                new IntlLocalizedDecimalParser(new NumberFormatter($locale, NumberFormatter::DECIMAL), $currencies),
+                new DecimalMoneyParser($currencies),
+                new BitcoinMoneyParser($bitCointDigits),
+            ]);
+        }
     }
 
     /**
