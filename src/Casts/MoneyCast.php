@@ -16,22 +16,52 @@ abstract class MoneyCast implements CastsAttributes
     protected $currency;
 
     /**
+     * Force decimals.
+     *
+     * @var bool
+     */
+    protected $forceDecimals = false;
+
+    /**
      * Instantiate the class.
      *
      * @param  string|null  $currency
+     * @param  mixed  $forceDecimals
      */
-    public function __construct(string $currency = null)
+    public function __construct(string $currency = null, $forceDecimals = null)
     {
         $this->currency = $currency;
+        $this->forceDecimals = is_string($forceDecimals)
+            ? filter_var($forceDecimals, FILTER_VALIDATE_BOOLEAN)
+            : (bool) $forceDecimals;
     }
 
     /**
      * Get formatter.
      *
      * @param  \Cknow\Money\Money  $money
-     * @return mixed
+     * @return string|float|int
      */
     abstract protected function getFormatter(Money $money);
+
+    /**
+     * Prepare value to parser.
+     *
+     * @param  mixed  $value
+     * @return mixed
+     */
+    protected function prepareValue($value)
+    {
+        if (! $this->forceDecimals) {
+            return $value;
+        }
+
+        if (is_int($value) || (filter_var($value, FILTER_VALIDATE_INT) !== false && ! is_float($value))) {
+            return sprintf('%.14F', $value);
+        }
+
+        return $value;
+    }
 
     /**
      * Transform the attribute from the underlying model values.
@@ -48,7 +78,10 @@ abstract class MoneyCast implements CastsAttributes
             return $value;
         }
 
-        return Money::parse($value, $this->getCurrency($attributes));
+        $value = $this->prepareValue($value);
+        $currency = $this->getCurrency($attributes);
+
+        return Money::parse($value, $currency);
     }
 
     /**
@@ -69,6 +102,7 @@ abstract class MoneyCast implements CastsAttributes
         }
 
         try {
+            $value = $this->prepareValue($value);
             $currency = $this->getCurrency($attributes);
             $money = Money::parse($value, $currency);
         } catch (InvalidArgumentException $e) {

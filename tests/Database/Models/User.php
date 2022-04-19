@@ -34,6 +34,6 @@ class User extends Model
         'money' => MoneyStringCast::class,
         'wage' => MoneyIntegerCast::class.':EUR',
         'debits' => MoneyDecimalCast::class.':currency',
-        'credits' => MoneyDecimalCast::class.':USD',
+        'credits' => MoneyDecimalCast::class.':USD,true',
     ];
 }
