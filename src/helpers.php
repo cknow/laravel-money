@@ -17,13 +17,15 @@ if (! function_exists('money')) {
     /**
      * money.
      *
-     * @param  int|string|null  $amount
+     * @param  mixed  $amount
      * @param  \Money\Currency|string|null  $currency
+     * @param string|null  $locale
+     * @param  \Money\Currencies|null  $currencies
      * @return \Cknow\Money\Money
      */
-    function money($amount = null, $currency = null)
+    function money($amount = null, $currency = null, $locale= null, $currencies= null)
     {
-        return new Cknow\Money\Money($amount, currency($currency));
+        return new Cknow\Money\Money($amount, $currency, $locale, $currencies);
     }
 }
 
@@ -89,11 +91,28 @@ if (! function_exists('money_parse')) {
      *
      * @param  mixed  $value
      * @param  \Money\Currency|string|null  $currency
-     * @return \Cknow\Money\Money|null
+     * @param  string|null  $locale
+     * @param  \Money\Currencies|null  $currencies
+     * @param  int|null  $bitCointDigits
+     * @param  bool  $convert
+     * @return \Cknow\Money\Money|\Money\Money
      */
-    function money_parse($value, $currency = null)
-    {
-        return Cknow\Money\Money::parse($value, $currency);
+    function money_parse(
+        $value,
+        $currency = null,
+        $locale = null,
+        $currencies = null,
+        $bitCointDigits = null,
+        $convert = true
+    ) {
+        return Cknow\Money\Money::parse(
+            $value,
+            $currency,
+            $locale,
+            $currencies,
+            $bitCointDigits,
+            $convert
+        );
     }
 }
 
@@ -103,12 +122,22 @@ if (! function_exists('money_parse_by_bitcoin')) {
      *
      * @param  string  $money
      * @param  \Money\Currency|string|null  $fallbackCurrency
-     * @param  int  $fractionDigits
-     * @return \Cknow\Money\Money
+     * @param  int|null  $fractionDigits
+     * @param  bool  $convert
+     * @return \Cknow\Money\Money|\Money\Money
      */
-    function money_parse_by_bitcoin($money, $fallbackCurrency = null, $fractionDigits = 2)
-    {
-        return Cknow\Money\Money::parseByBitcoin($money, $fallbackCurrency, $fractionDigits);
+    function money_parse_by_bitcoin(
+        $money,
+        $fallbackCurrency = null,
+        $fractionDigits = null,
+        $convert = true
+    ) {
+        return Cknow\Money\Money::parseByBitcoin(
+            $money,
+            $fallbackCurrency,
+            $fractionDigits,
+            $convert
+        );
     }
 }
 
@@ -119,11 +148,21 @@ if (! function_exists('money_parse_by_decimal')) {
      * @param  string  $money
      * @param  \Money\Currency|string|null  $fallbackCurrency
      * @param  \Money\Currencies|null  $currencies
-     * @return \Cknow\Money\Money
+     * @param  bool  $convert
+     * @return \Cknow\Money\Money|\Money\Money
      */
-    function money_parse_by_decimal($money, $fallbackCurrency = null, Money\Currencies $currencies = null)
-    {
-        return Cknow\Money\Money::parseByDecimal($money, $fallbackCurrency, $currencies);
+    function money_parse_by_decimal(
+        $money,
+        $fallbackCurrency = null,
+        Money\Currencies $currencies = null,
+        $convert = true
+    ) {
+        return Cknow\Money\Money::parseByDecimal(
+            $money,
+            $fallbackCurrency,
+            $currencies,
+            $convert
+        );
     }
 }
 
@@ -135,11 +174,26 @@ if (! function_exists('money_parse_by_intl')) {
      * @param  \Money\Currency|string|null  $fallbackCurrency
      * @param  string|null  $locale
      * @param  \Money\Currencies|null  $currencies
-     * @return \Cknow\Money\Money
+     * @param  int|null  $style
+     * @param  bool  $convert
+     * @return \Cknow\Money\Money|\Money\Money
      */
-    function money_parse_by_intl($money, $fallbackCurrency = null, $locale = null, Money\Currencies $currencies = null)
-    {
-        return Cknow\Money\Money::parseByIntl($money, $fallbackCurrency, $locale, $currencies);
+    function money_parse_by_intl(
+        $money,
+        $fallbackCurrency = null,
+        $locale = null,
+        Money\Currencies $currencies = null,
+        $style = null,
+        $convert = true,
+    ) {
+        return Cknow\Money\Money::parseByIntl(
+            $money,
+            $fallbackCurrency,
+            $locale,
+            $currencies,
+            $style,
+            $convert
+        );
     }
 }
 
@@ -151,14 +205,25 @@ if (! function_exists('money_parse_by_intl_localized_decimal')) {
      * @param  \Money\Currency|string|null  $fallbackCurrency
      * @param  string|null  $locale
      * @param  \Money\Currencies|null  $currencies
-     * @return \Cknow\Money\Money
+     * @param  int|null  $style
+     * @param  bool  $convert
+     * @return \Cknow\Money\Money|\Money\Money
      */
     function money_parse_by_intl_localized_decimal(
         $money,
         $fallbackCurrency = null,
         $locale = null,
-        Money\Currencies $currencies = null
+        Money\Currencies $currencies = null,
+        $style = null,
+        $convert = true,
     ) {
-        return Cknow\Money\Money::parseByIntlLocalizedDecimal($money, $fallbackCurrency, $locale, $currencies);
+        return Cknow\Money\Money::parseByIntlLocalizedDecimal(
+            $money,
+            $fallbackCurrency,
+            $locale,
+            $currencies,
+            $style,
+            $convert
+        );
     }
 }

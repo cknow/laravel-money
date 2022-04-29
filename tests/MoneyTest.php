@@ -7,6 +7,23 @@ use Money\Currency;
 
 class MoneyTest extends TestCase
 {
+    public function testConstructorTypes()
+    {
+        static::assertEquals(Money::USD('$10.00'), Money::USD(1000));
+        static::assertEquals(Money::USD('R$10.00'), Money::BRL(1000));
+        static::assertEquals(Money::USD('$10.10'), Money::USD(1010));
+        static::assertEquals(Money::USD('R$10,10', 'pt-BR'), Money::BRL(1010));
+        static::assertEquals(Money::BRL('R$10,10', 'pt-BR'), Money::BRL(1010));
+        static::assertEquals(Money::USD(1000), Money::USD(1000));
+        static::assertEquals(Money::USD(10.00), Money::USD(1000));
+        static::assertEquals(Money::USD('1000'), Money::USD(1000));
+        static::assertEquals(Money::USD('10.00'), Money::USD(1000));
+        static::assertEquals(Money::USD(10.10), Money::USD(1010));
+        static::assertEquals(Money::USD('10.10'), Money::USD(1010));
+        static::assertEquals(Money::USD('10'), Money::USD(10));
+        static::assertEquals(Money::USD(10), Money::USD(10));
+    }
+
     public function testNullable()
     {
         static::assertEquals(new Money(), Money::USD(0));
