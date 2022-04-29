@@ -184,7 +184,7 @@ if (! function_exists('money_parse_by_intl')) {
         $locale = null,
         Money\Currencies $currencies = null,
         $style = null,
-        $convert = true,
+        $convert = true
     ) {
         return Cknow\Money\Money::parseByIntl(
             $money,
@@ -215,7 +215,7 @@ if (! function_exists('money_parse_by_intl_localized_decimal')) {
         $locale = null,
         Money\Currencies $currencies = null,
         $style = null,
-        $convert = true,
+        $convert = true
     ) {
         return Cknow\Money\Money::parseByIntlLocalizedDecimal(
             $money,
