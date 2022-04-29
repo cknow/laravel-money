@@ -3,8 +3,8 @@
 [![Latest Stable Version](https://poser.pugx.org/cknow/laravel-money/version)](https://packagist.org/packages/cknow/laravel-money)
 [![Total Downloads](https://poser.pugx.org/cknow/laravel-money/downloads)](https://packagist.org/packages/cknow/laravel-money)
 [![tests](https://github.com/cknow/laravel-money/workflows/tests/badge.svg)](https://github.com/cknow/laravel-money/actions)
-[![StyleCI](https://styleci.io/repos/40018123/shield?style=flat)](https://styleci.io/repos/40018123)
-[![codecov](https://codecov.io/gh/cknow/laravel-money/branch/master/graph/badge.svg)](https://codecov.io/gh/cknow/laravel-money)
+[![StyleCI](https://github.styleci.io/repos/40018123/shield?style=flat)](https://github.styleci.io/repos/40018123)
+[![codecov](https://codecov.io/gh/cknow/laravel-money/graph/badge.svg)](https://codecov.io/gh/cknow/laravel-money)
 [![License](https://poser.pugx.org/cknow/laravel-money/license)](https://packagist.org/packages/cknow/laravel-money)
 
 > **Note:** This project abstracts [MoneyPHP](http://moneyphp.org/)
@@ -31,6 +31,7 @@ then run ```composer update```
 use Cknow\Money\Money;
 
 echo Money::USD(500); // $5.00
+echo Money::USD(500, true); // $500.00 force decimals
 ```
 
 ## Configuration
