@@ -91,6 +91,7 @@ if (! function_exists('money_parse')) {
      *
      * @param  mixed  $value
      * @param  \Money\Currency|string|null  $currency
+     * @param  bool  $forceDecimals
      * @param  string|null  $locale
      * @param  \Money\Currencies|null  $currencies
      * @param  int|null  $bitCointDigits
@@ -100,6 +101,7 @@ if (! function_exists('money_parse')) {
     function money_parse(
         $value,
         $currency = null,
+        $forceDecimals = false,
         $locale = null,
         $currencies = null,
         $bitCointDigits = null,
@@ -108,6 +110,7 @@ if (! function_exists('money_parse')) {
         return Cknow\Money\Money::parse(
             $value,
             $currency,
+            $forceDecimals,
             $locale,
             $currencies,
             $bitCointDigits,

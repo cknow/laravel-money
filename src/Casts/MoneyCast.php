@@ -45,25 +45,6 @@ abstract class MoneyCast implements CastsAttributes
     abstract protected function getFormatter(Money $money);
 
     /**
-     * Prepare value to parser.
-     *
-     * @param  mixed  $value
-     * @return mixed
-     */
-    protected function prepareValue($value)
-    {
-        if (! $this->forceDecimals) {
-            return $value;
-        }
-
-        if (is_int($value) || (filter_var($value, FILTER_VALIDATE_INT) !== false && ! is_float($value))) {
-            return sprintf('%.14F', $value);
-        }
-
-        return $value;
-    }
-
-    /**
      * Transform the attribute from the underlying model values.
      *
      * @param  \Illuminate\Database\Eloquent\Model  $model
@@ -75,13 +56,10 @@ abstract class MoneyCast implements CastsAttributes
     public function get($model, string $key, $value, array $attributes)
     {
         if ($value === null) {
-            return $value;
+            return null;
         }
 
-        $value = $this->prepareValue($value);
-        $currency = $this->getCurrency($attributes);
-
-        return Money::parse($value, $currency);
+        return Money::parse($value, $this->getCurrency($attributes), $this->forceDecimals);
     }
 
     /**
@@ -102,9 +80,7 @@ abstract class MoneyCast implements CastsAttributes
         }
 
         try {
-            $value = $this->prepareValue($value);
-            $currency = $this->getCurrency($attributes);
-            $money = Money::parse($value, $currency);
+            $money = Money::parse($value, $this->getCurrency($attributes), $this->forceDecimals);
         } catch (InvalidArgumentException $e) {
             throw new InvalidArgumentException(
                 sprintf('Invalid data provided for %s::$%s', get_class($model), $key)

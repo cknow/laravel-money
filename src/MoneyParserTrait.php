@@ -20,6 +20,7 @@ trait MoneyParserTrait
      *
      * @param  mixed  $value
      * @param  \Money\Currency|string|null  $currency
+     * @param  bool  $forceDecimals
      * @param  string|null  $locale
      * @param  \Money\Currencies|null  $currencies
      * @param  int|null  $bitCointDigits
@@ -31,6 +32,7 @@ trait MoneyParserTrait
     public static function parse(
         $value,
         $currency = null,
+        $forceDecimals = false,
         $locale = null,
         $currencies = null,
         $bitCointDigits = null,
@@ -50,11 +52,14 @@ trait MoneyParserTrait
             throw new InvalidArgumentException(sprintf('Invalid value %s', json_encode($value)));
         }
 
-        $currency = static::parseCurrency($currency ?: static::getDefaultCurrency());
+        if (
+            (is_int($value) || (filter_var($value, FILTER_VALIDATE_INT) !== false && ! is_float($value)))
+            && $forceDecimals
+        ) {
+            $value = sprintf('%.14F', $value);
+        }
 
-        //if (is_int($value) || (filter_var($value, FILTER_VALIDATE_INT) !== false && ! is_float($value)) && ) {
-            //$value = sprintf('%.14F', $value);
-        //}
+        $currency = static::parseCurrency($currency ?: static::getDefaultCurrency());
 
         if (is_int($value) || (filter_var($value, FILTER_VALIDATE_INT) !== false && ! is_float($value))) {
             return $convert

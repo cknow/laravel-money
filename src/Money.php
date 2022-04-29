@@ -39,12 +39,13 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      *
      * @param  mixed  $amount
      * @param  \Money\Currency|string|null  $currency
+     * @param  bool $forceDecimals
      * @param  string|null  $locale
      * @param  \Money\Currencies|null  $currencies
      */
-    public function __construct($amount = null, $currency = null, $locale = null, $currencies = null)
+    public function __construct($amount = null, $currency = null, $forceDecimals = false, $locale = null, $currencies = null)
     {
-        $this->money = Money::parse($amount, $currency, $locale, $currencies, null, false);
+        $this->money = Money::parse($amount, $currency, $forceDecimals, $locale, $currencies, null, false);
     }
 
     /**

@@ -16,7 +16,9 @@ class MoneyParserTraitTest extends TestCase
 {
     public function testParse()
     {
-        static::assertEquals(Money::parse(10.00, 'USD'), Money::USD(1000));
+        static::assertEquals(Money::parse(10, 'USD', true), Money::USD(1000));
+        static::assertEquals(Money::parse('10', 'USD', true), Money::USD(1000));
+        static::assertEquals(Money::parse(10.00, 'USD', true), Money::USD(1000));
         static::assertEquals(Money::parse(0.10, 'USD'), Money::USD(10));
         static::assertEquals(Money::parse('0.10', 'USD'), Money::USD(10));
         static::assertEquals(Money::parse(1.10, 'USD'), Money::USD(110));
