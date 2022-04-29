@@ -39,7 +39,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      *
      * @param  mixed  $amount
      * @param  \Money\Currency|string|null  $currency
-     * @param  bool $forceDecimals
+     * @param  bool  $forceDecimals
      * @param  string|null  $locale
      * @param  \Money\Currencies|null  $currencies
      */

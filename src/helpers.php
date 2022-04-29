@@ -19,11 +19,11 @@ if (! function_exists('money')) {
      *
      * @param  mixed  $amount
      * @param  \Money\Currency|string|null  $currency
-     * @param string|null  $locale
+     * @param  string|null  $locale
      * @param  \Money\Currencies|null  $currencies
      * @return \Cknow\Money\Money
      */
-    function money($amount = null, $currency = null, $locale= null, $currencies= null)
+    function money($amount = null, $currency = null, $locale = null, $currencies= null)
     {
         return new Cknow\Money\Money($amount, $currency, $locale, $currencies);
     }
