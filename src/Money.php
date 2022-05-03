@@ -49,78 +49,6 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     }
 
     /**
-     * __call.
-     *
-     * @param  string  $method
-     * @param  array  $arguments
-     * @return \Cknow\Money\Money|\Cknow\Money\Money[]|mixed
-     */
-    public function __call($method, array $arguments)
-    {
-        if (static::hasMacro($method)) {
-            return $this->macroCall($method, $arguments);
-        }
-
-        if (! method_exists($this->money, $method)) {
-            return $this;
-        }
-
-        $result = call_user_func_array([$this->money, $method], static::getArguments($arguments));
-
-        $methods = [
-            'add', 'subtract',
-            'multiply', 'divide', 'mod',
-            'absolute', 'negative',
-            'allocate', 'allocateTo',
-        ];
-
-        if (! in_array($method, $methods)) {
-            return $result;
-        }
-
-        return static::convertResult($result);
-    }
-
-    /**
-     * __toString.
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        return $this->render();
-    }
-
-    /**
-     * __callStatic.
-     *
-     * @param  string  $method
-     * @param  array  $arguments
-     * @return \Cknow\Money\Money
-     */
-    public static function __callStatic($method, array $arguments)
-    {
-        if (in_array($method, ['min', 'max', 'avg', 'sum'])) {
-            $result = call_user_func_array([\Money\Money::class, $method], static::getArguments($arguments));
-
-            return static::convert($result);
-        }
-
-        return static::factoryCallStatic($method, $arguments);
-    }
-
-    /**
-     * Convert.
-     *
-     * @param  \Money\Money  $instance
-     * @return \Cknow\Money\Money
-     */
-    public static function convert(\Money\Money $instance)
-    {
-        return static::fromMoney($instance);
-    }
-
-    /**
      * Get money.
      *
      * @return \Money\Money
@@ -128,6 +56,50 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     public function getMoney()
     {
         return $this->money;
+    }
+
+    /**
+     * Divide.
+     *
+     * @param  int|string|float  $divisor
+     * @param  int  $roundingMode
+     * @return \Cknow\Money\Money
+     */
+    public function divide($divisor, $roundingMode = \Money\Money::ROUND_HALF_UP)
+    {
+        if (
+            is_int($divisor)
+            || (filter_var($divisor, FILTER_VALIDATE_INT) !== false && ! is_float($divisor))
+        ) {
+            return $this->__call('divide', [$divisor, $roundingMode]);
+        }
+
+        $money = $this->getMoney();
+        $calculator = $money->getCalculator();
+
+        return new self((int) $calculator::divide($money->getAmount(), $divisor), $money->getCurrency());
+    }
+
+    /**
+     * Multiply.
+     *
+     * @param  int|string|float  $multiplier
+     * @param  int  $roundingMode
+     * @return \Cknow\Money\Money
+     */
+    public function multiply($multiplier, $roundingMode = \Money\Money::ROUND_HALF_UP)
+    {
+        if (
+            is_int($multiplier)
+            || (filter_var($multiplier, FILTER_VALIDATE_INT) !== false && ! is_float($multiplier))
+        ) {
+            return $this->__call('multiply', [$multiplier, $roundingMode]);
+        }
+
+        $money = $this->getMoney();
+        $calculator = $money->getCalculator();
+
+        return new self((int) $calculator::multiply($money->getAmount(), $multiplier), $money->getCurrency());
     }
 
     /**
@@ -184,6 +156,78 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     public function render()
     {
         return $this->format();
+    }
+
+    /**
+     * __toString.
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->render();
+    }
+
+    /**
+     * __call.
+     *
+     * @param  string  $method
+     * @param  array  $arguments
+     * @return \Cknow\Money\Money|\Cknow\Money\Money[]|mixed
+     */
+    public function __call($method, array $arguments)
+    {
+        if (static::hasMacro($method)) {
+            return $this->macroCall($method, $arguments);
+        }
+
+        if (! method_exists($this->money, $method)) {
+            return $this;
+        }
+
+        $result = call_user_func_array([$this->money, $method], static::getArguments($arguments));
+
+        $methods = [
+            'add', 'subtract',
+            'multiply', 'divide', 'mod',
+            'absolute', 'negative',
+            'allocate', 'allocateTo',
+        ];
+
+        if (! in_array($method, $methods)) {
+            return $result;
+        }
+
+        return static::convertResult($result);
+    }
+
+    /**
+     * Convert.
+     *
+     * @param  \Money\Money  $instance
+     * @return \Cknow\Money\Money
+     */
+    public static function convert(\Money\Money $instance)
+    {
+        return static::fromMoney($instance);
+    }
+
+    /**
+     * __callStatic.
+     *
+     * @param  string  $method
+     * @param  array  $arguments
+     * @return \Cknow\Money\Money
+     */
+    public static function __callStatic($method, array $arguments)
+    {
+        if (in_array($method, ['min', 'max', 'avg', 'sum'])) {
+            $result = call_user_func_array([\Money\Money::class, $method], static::getArguments($arguments));
+
+            return static::convert($result);
+        }
+
+        return static::factoryCallStatic($method, $arguments);
     }
 
     /**

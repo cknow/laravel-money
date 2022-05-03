@@ -83,14 +83,22 @@ class MoneyTest extends TestCase
 
     public function testMultiply()
     {
+        static::assertEquals(Money::USD(275), Money::USD(5.5)->multiply(0.5));
+        static::assertEquals(Money::USD(1100), Money::USD(5.5)->multiply(2));
         static::assertEquals(Money::USD(10), Money::USD(5)->multiply(2));
-        static::assertEquals(Money::EUR(10), Money::EUR(5)->multiply(2));
+        static::assertEquals(Money::USD(101), Money::USD(35)->multiply(2.9));
+        static::assertEquals(Money::USD(10150), Money::USD(35, true)->multiply(2.9));
+        static::assertEquals(Money::USD(11550), Money::USD(35, true)->multiply(3.3));
     }
 
     public function testDivide()
     {
+        static::assertEquals(Money::USD(4040), Money::USD(20.20)->divide(0.5));
+        static::assertEquals(Money::USD(1010), Money::USD(20.20)->divide(2));
         static::assertEquals(Money::USD(10), Money::USD(20)->divide(2));
-        static::assertEquals(Money::EUR(10), Money::EUR(20)->divide(2));
+        static::assertEquals(Money::USD(0.12), Money::USD(35)->divide(2.9));
+        static::assertEquals(Money::USD(12.06), Money::USD(35, true)->divide(2.9));
+        static::assertEquals(Money::USD(10.60), Money::USD(35, true)->divide(3.3));
     }
 
     public function testMod()
