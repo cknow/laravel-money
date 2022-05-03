@@ -14,12 +14,12 @@ class CurrencyTest extends TestCase
             [
                 'currency1' => 'USD',
                 'currency2' => 'EUR',
-                'currency3' => new \Money\Currency('BRL')
+                'currency3' => new \Money\Currency('BRL'),
             ],
             [
                 'currency1' =>  'currency',
                 'currency2' =>  new Currency,
-                'currency3' =>  new Currency
+                'currency3' =>  new Currency,
             ]
         );
 
@@ -31,11 +31,11 @@ class CurrencyTest extends TestCase
         $v = Validator::make(
             [
                 'currency1' => 'foo',
-                'currency2' => 'bar'
+                'currency2' => 'bar',
             ],
             [
                 'currency1' =>  'currency',
-                'currency2' =>  new Currency
+                'currency2' =>  new Currency,
             ]
         );
 

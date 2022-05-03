@@ -36,7 +36,7 @@ class MoneyTest extends TestCase
                 'money8' => new Money('BRL', 'pt_BR'),
                 'money9' => 'money:BRL,pt_BR',
                 'money10' => new Money,
-                'money11' => new Money
+                'money11' => new Money,
             ]
         );
 

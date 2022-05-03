@@ -33,13 +33,13 @@ class MoneyServiceProvider extends ServiceProvider
             BladeExtension::register($blade);
         });
 
-        Validator::extend('currency', function($attribute, $value) {
+        Validator::extend('currency', function ($attribute, $value) {
             $rule = new Rules\Currency();
 
             return $rule->passes($attribute, $value);
         });
 
-        Validator::extend('money', function($attribute, $value, $parameters) {
+        Validator::extend('money', function ($attribute, $value, $parameters) {
             $rule = new Rules\Money(...$parameters);
 
             return $rule->passes($attribute, $value);

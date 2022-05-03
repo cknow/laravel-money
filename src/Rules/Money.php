@@ -51,10 +51,10 @@ class Money implements Rule
 
     /**
      * Determine if the validation rule passes.
-    *
-    * @param  string  $attribute
-    * @param  mixed  $value
-    * @return bool
+     *
+     * @param  string  $attribute
+     * @param  mixed  $value
+     * @return bool
     */
     public function passes($attribute, $value)
     {
@@ -68,8 +68,8 @@ class Money implements Rule
                 $this->bitCointDigits
             );
 
-            return !(
-                $this->currency && !$money->getCurrency()->equals(\Cknow\Money\Money::parseCurrency($this->currency))
+            return ! (
+                $this->currency && ! $money->getCurrency()->equals(\Cknow\Money\Money::parseCurrency($this->currency))
             );
         } catch (InvalidArgumentException $e) {
             return false;
@@ -80,8 +80,8 @@ class Money implements Rule
 
     /**
      * Get the validation error message.
-    *
-    * @return string
+     *
+     * @return string
     */
     public function message()
     {
