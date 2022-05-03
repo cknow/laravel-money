@@ -277,8 +277,8 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     {
         $reflection = new \ReflectionMethod(\Money\Money::class, 'getCalculator');
         $calculator = $reflection->isPublic()
-            ?  call_user_func([\Money\Money::class, 'getCalculator'])
-            :  \Money\Calculator\BcMathCalculator::class;
+            ? call_user_func([\Money\Money::class, 'getCalculator'])
+            : \Money\Calculator\BcMathCalculator::class;
 
         return new $calculator();
     }
