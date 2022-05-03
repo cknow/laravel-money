@@ -71,13 +71,13 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
             is_int($divisor)
             || (filter_var($divisor, FILTER_VALIDATE_INT) !== false && ! is_float($divisor))
         ) {
-            return $this->__call('divide', [$divisor, $roundingMode]);
+            //return $this->__call('divide', [$divisor, $roundingMode]);
         }
 
         $money = $this->getMoney();
-        $calculator = $money->getCalculator();
+        $calculator = static::resolveCalculator();
 
-        return new self((int) $calculator::divide($money->getAmount(), $divisor), $money->getCurrency());
+        return new self((int) $calculator->divide($money->getAmount(), $divisor), $money->getCurrency());
     }
 
     /**
@@ -93,13 +93,13 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
             is_int($multiplier)
             || (filter_var($multiplier, FILTER_VALIDATE_INT) !== false && ! is_float($multiplier))
         ) {
-            return $this->__call('multiply', [$multiplier, $roundingMode]);
+            //return $this->__call('multiply', [$multiplier, $roundingMode]);
         }
 
         $money = $this->getMoney();
-        $calculator = $money->getCalculator();
+        $calculator = static::resolveCalculator();
 
-        return new self((int) $calculator::multiply($money->getAmount(), $multiplier), $money->getCurrency());
+        return new self((int) $calculator->multiply($money->getAmount(), $multiplier), $money->getCurrency());
     }
 
     /**
@@ -266,5 +266,20 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
         }
 
         return $results;
+    }
+
+    /**
+     * Resolve calculator.
+     *
+     * @return \Money\Calculator
+     */
+    private static function resolveCalculator()
+    {
+        $reflection = new \ReflectionMethod(\Money\Money::class, 'getCalculator');
+        $calculator = $reflection->isPublic()
+            ?  call_user_func([\Money\Money::class, 'getCalculator'])
+            :  \Money\Calculator\BcMathCalculator::class;
+
+        return new $calculator();
     }
 }
