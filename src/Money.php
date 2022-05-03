@@ -7,6 +7,8 @@ use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Support\Traits\Macroable;
 use JsonSerializable;
+use Money\Calculator\BcMathCalculator;
+use ReflectionMethod;
 
 /**
  * @mixin \Money\Money
@@ -71,7 +73,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
             is_int($divisor)
             || (filter_var($divisor, FILTER_VALIDATE_INT) !== false && ! is_float($divisor))
         ) {
-            //return $this->__call('divide', [$divisor, $roundingMode]);
+            return $this->__call('divide', [$divisor, $roundingMode]);
         }
 
         $money = $this->getMoney();
@@ -93,7 +95,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
             is_int($multiplier)
             || (filter_var($multiplier, FILTER_VALIDATE_INT) !== false && ! is_float($multiplier))
         ) {
-            //return $this->__call('multiply', [$multiplier, $roundingMode]);
+            return $this->__call('multiply', [$multiplier, $roundingMode]);
         }
 
         $money = $this->getMoney();
@@ -275,10 +277,10 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      */
     private static function resolveCalculator()
     {
-        $reflection = new \ReflectionMethod(\Money\Money::class, 'getCalculator');
+        $reflection = new ReflectionMethod(\Money\Money::class, 'getCalculator');
         $calculator = $reflection->isPublic()
             ? call_user_func([\Money\Money::class, 'getCalculator'])
-            : \Money\Calculator\BcMathCalculator::class;
+            : BcMathCalculator::class;
 
         return new $calculator();
     }
