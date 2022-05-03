@@ -12,8 +12,8 @@ class MoneyTest extends TestCase
         static::assertEquals(Money::USD('$10.00'), Money::USD(1000));
         static::assertEquals(Money::USD('R$10.00'), Money::BRL(1000));
         static::assertEquals(Money::USD('$10.10'), Money::USD(1010));
-        static::assertEquals(Money::USD('R$10,10', false, 'pt-BR'), Money::BRL(1010));
-        static::assertEquals(Money::BRL('R$10,10', false, 'pt-BR'), Money::BRL(1010));
+        static::assertEquals(Money::USD('R$10,10', false, 'pt_BR'), Money::BRL(1010));
+        static::assertEquals(Money::BRL('R$10,10', false, 'pt_BR'), Money::BRL(1010));
         static::assertEquals(Money::USD(1000), Money::USD(1000));
         static::assertEquals(Money::USD(10.00), Money::USD(1000));
         static::assertEquals(Money::USD('1000'), Money::USD(1000));

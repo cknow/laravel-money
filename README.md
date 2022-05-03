@@ -135,6 +135,48 @@ class MyFormatter implements \Money\MoneyFormatter
 Money::USD(500)->formatByFormatter(new MyFormatter()); // My Formatter
 ```
 
+## Rules
+
+Below is a list of all available validation rules and their function:
+
+### currency
+
+The field under validation must be a valid currency.
+
+```php
+Validator::make([
+  'currency1' => 'USD',
+  'currency2' => 'EUR',
+  'currency3' => new \Money\Currency('BRL'),
+], [
+  'currency1' => new \Cknow\Money\Rules\Currency(),
+  'currency2' => new \Cknow\Money\Rules\Currency(),
+  'currency3' => 'currency',
+]);
+```
+
+### money
+
+The field under validation must be a valid money.
+
+```php
+Validator::make([
+  'money1' => '$10.00'
+  'money2' => '€10.00',
+  'money3' => 'R$10,00',
+  'money4' => '$10.00'
+  'money5' => '€10.00',
+  'money6' => 'R$10,00',
+], [
+  'money1' => new \Cknow\Money\Rules\Money(),
+  'money2' => new \Cknow\Money\Rules\Money('EUR'), // forcing currency
+  'money3' => new \Cknow\Money\Rules\Money('BRL', 'pt_BR'), // forcing currency and locale
+  'money4' => 'money',
+  'money5' => 'money:EUR', // forcing currency
+  'money6' => 'money:BRL,pt_BR', // forcing currency and locale
+]);
+```
+
 ## Casts
 
 At this stage the cast can be defined in the following ways:
