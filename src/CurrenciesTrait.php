@@ -84,7 +84,7 @@ trait CurrenciesTrait
      */
     public static function getISOCurrencies()
     {
-        if (!static::$ISOCurrencies && is_file($file = config('money.isoCurrenciesPath'))) {
+        if (! isset(static::$ISOCurrencies) && is_file($file = config('money.isoCurrenciesPath'))) {
             static::$ISOCurrencies = require $file;
         }
 
