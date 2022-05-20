@@ -3,7 +3,7 @@
 namespace Cknow\Money;
 
 /**
- * Money.
+ * Money Factory.
  *
  * @method static Money AED(mixed $amount, bool $forceDecimals = false, string|null $locale = null, \Money\Currencies|null $currencies = null)
  * @method static Money ALL(mixed $amount, bool $forceDecimals = false, string|null $locale = null, \Money\Currencies|null $currencies = null)
