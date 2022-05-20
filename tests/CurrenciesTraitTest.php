@@ -34,6 +34,15 @@ class CurrenciesTraitTest extends TestCase
         static::assertFalse($mock->isValidCurrency(new Currency('FAIL')));
     }
 
+    public function testGetISOCurrencies()
+    {
+        $mock = $this->getMockForTrait(CurrenciesTrait::class);
+
+        static::assertIsArray($mock->getISOCurrencies());
+        static::assertArrayHasKey('BRL', $mock->getISOCurrencies());
+        static::assertArrayHasKey('USD', $mock->getISOCurrencies());
+    }
+
     public function testGetCurrencies()
     {
         $mock = $this->getMockForTrait(CurrenciesTrait::class);

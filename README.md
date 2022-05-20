@@ -94,6 +94,7 @@ Money::USD(500)->isNegative(); // false
 Money::USD(500)->getMoney(); // Instance of \Money\Money
 Money::isValidCurrency('USD'); // true
 Money::isValidCurrency('FAIL'); // false
+Money::getISOCurrencies(); // Load ISO currencies
 
 // Aggregation
 Money::min(Money::USD(100), Money::USD(200), Money::USD(300)); // Money::USD(100)

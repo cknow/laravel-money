@@ -23,6 +23,11 @@ trait CurrenciesTrait
     protected static $currencies;
 
     /**
+     * @var array
+     */
+    protected static $ISOCurrencies;
+
+    /**
      * Parse currency.
      *
      * @param  \Money\Currency|string  $currency
@@ -70,6 +75,20 @@ trait CurrenciesTrait
     public static function setDefaultCurrency($currency)
     {
         static::$currency = $currency;
+    }
+
+    /**
+     * Get ISO currencies.
+     *
+     * @return array
+     */
+    public static function getISOCurrencies()
+    {
+        if (! isset(static::$ISOCurrencies) && is_file($file = config('money.isoCurrenciesPath'))) {
+            static::$ISOCurrencies = require $file;
+        }
+
+        return static::$ISOCurrencies;
     }
 
     /**
