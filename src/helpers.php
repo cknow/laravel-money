@@ -19,13 +19,14 @@ if (! function_exists('money')) {
      *
      * @param  mixed  $amount
      * @param  \Money\Currency|string|null  $currency
+     * @param  bool  $forceDecimals
      * @param  string|null  $locale
      * @param  \Money\Currencies|null  $currencies
      * @return \Cknow\Money\Money
      */
-    function money($amount = null, $currency = null, $locale = null, $currencies = null)
+    function money($amount = null, $currency = null, $forceDecimals = false, $locale = null, $currencies = null)
     {
-        return new Cknow\Money\Money($amount, $currency, $locale, $currencies);
+        return new Cknow\Money\Money($amount, $currency, $forceDecimals, $locale, $currencies);
     }
 }
 
@@ -33,11 +34,11 @@ if (! function_exists('money_min')) {
     /**
      * money min.
      *
-     * @param  \Cknow\Money\Money  $first
-     * @param  \Cknow\Money\Money  ...$collection
+     * @param  \Cknow\Money\Money|\Money\Money  $first
+     * @param  \Cknow\Money\Money|\Money\Money  ...$collection
      * @return \Cknow\Money\Money
      */
-    function money_min(Cknow\Money\Money $first, Cknow\Money\Money ...$collection)
+    function money_min(Cknow\Money\Money|Money\Money $first, Cknow\Money\Money|Money\Money ...$collection)
     {
         return Cknow\Money\Money::min($first, ...$collection);
     }
@@ -47,11 +48,11 @@ if (! function_exists('money_max')) {
     /**
      * money max.
      *
-     * @param  \Cknow\Money\Money  $first
-     * @param  \Cknow\Money\Money  ...$collection
+     * @param  \Cknow\Money\Money|\Money\Money  $first
+     * @param  \Cknow\Money\Money|\Money\Money  ...$collection
      * @return \Cknow\Money\Money
      */
-    function money_max(Cknow\Money\Money $first, Cknow\Money\Money ...$collection)
+    function money_max(Cknow\Money\Money|Money\Money $first, Cknow\Money\Money|Money\Money ...$collection)
     {
         return Cknow\Money\Money::max($first, ...$collection);
     }
@@ -61,11 +62,11 @@ if (! function_exists('money_avg')) {
     /**
      * money avg.
      *
-     * @param  \Cknow\Money\Money  $first
-     * @param  \Cknow\Money\Money  ...$collection
+     * @param  \Cknow\Money\Money|\Money\Money  $first
+     * @param  \Cknow\Money\Money|\Money\Money  ...$collection
      * @return \Cknow\Money\Money
      */
-    function money_avg(Cknow\Money\Money $first, Cknow\Money\Money ...$collection)
+    function money_avg(Cknow\Money\Money|Money\Money $first, Cknow\Money\Money|Money\Money ...$collection)
     {
         return Cknow\Money\Money::avg($first, ...$collection);
     }
@@ -75,11 +76,11 @@ if (! function_exists('money_sum')) {
     /**
      * money sum.
      *
-     * @param  \Cknow\Money\Money  $first
-     * @param  \Cknow\Money\Money  ...$collection
+     * @param  \Cknow\Money\Money|\Money\Money  $first
+     * @param  \Cknow\Money\Money|\Money\Money  ...$collection
      * @return \Cknow\Money\Money
      */
-    function money_sum(Cknow\Money\Money $first, Cknow\Money\Money ...$collection)
+    function money_sum(Cknow\Money\Money|Money\Money $first, Cknow\Money\Money|Money\Money ...$collection)
     {
         return Cknow\Money\Money::sum($first, ...$collection);
     }
