@@ -307,6 +307,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
 
         if ($reflection->isPublic()) {
             $calculator = call_user_func([\Money\Money::class, 'getCalculator']);
+
             return new $calculator();
         }
 
