@@ -7,7 +7,6 @@ use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Support\Traits\Macroable;
 use JsonSerializable;
-use Money\Calculator\BcMathCalculator;
 use ReflectionMethod;
 
 /**
@@ -299,14 +298,33 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      * Resolve calculator.
      *
      * @return \Money\Calculator
+     *
+     * @throws \RuntimeException
      */
     private static function resolveCalculator()
     {
         $reflection = new ReflectionMethod(\Money\Money::class, 'getCalculator');
-        $calculator = $reflection->isPublic()
-            ? call_user_func([\Money\Money::class, 'getCalculator'])
-            : BcMathCalculator::class;
 
-        return new $calculator();
+        if ($reflection->isPublic()) {
+            $calculator = call_user_func([\Money\Money::class, 'getCalculator']);
+            return new $calculator();
+        }
+
+        $calculators = [
+            \Money\Calculator\BcMathCalculator::class,
+            \Money\Calculator\GmpCalculator::class,
+            \Money\Calculator\PhpCalculator::class,
+        ];
+
+        foreach ($calculators as $calculator) {
+            if (! class_exists($calculator)) continue;
+
+            /** @var Calculator $calculator */
+            if ($calculator::supported()) {
+                return new $calculator();
+            }
+        }
+
+        throw new \RuntimeException('Cannot find calculator for money calculations');
     }
 }
