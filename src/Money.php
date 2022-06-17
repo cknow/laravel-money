@@ -317,7 +317,9 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
         ];
 
         foreach ($calculators as $calculator) {
-            if (! class_exists($calculator)) continue;
+            if (! class_exists($calculator)) {
+                continue;
+            }
 
             /** @var Calculator $calculator */
             if ($calculator::supported()) {
