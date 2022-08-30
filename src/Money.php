@@ -45,6 +45,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
         MoneyFactory::__callStatic as factoryCallStatic;
     }
     use MoneyFormatterTrait;
+    use MoneySerializerTrait;
     use MoneyParserTrait;
     use Macroable {
         Macroable::__call as macroCall;
@@ -82,6 +83,16 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     public function getMoney()
     {
         return $this->money;
+    }
+
+    /**
+     * Get attributes.
+     *
+     * @return array
+     */
+    public function getAttributes()
+    {
+        return $this->attributes;
     }
 
     /**
@@ -146,11 +157,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     #[\ReturnTypeWillChange]
     public function jsonSerialize()
     {
-        return array_merge(
-            $this->attributes,
-            $this->money->jsonSerialize(),
-            ['formatted' => $this->render()]
-        );
+        return $this->serialize();
     }
 
     /**
