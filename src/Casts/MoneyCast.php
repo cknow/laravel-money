@@ -89,7 +89,7 @@ abstract class MoneyCast implements CastsAttributes
 
         $amount = $this->getFormatter($money);
 
-        if (array_key_exists($this->currency, $attributes)) {
+        if ($this->currency) {
             return [$key => $amount, $this->currency => $money->getCurrency()->getCode()];
         }
 
