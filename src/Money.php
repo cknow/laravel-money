@@ -103,7 +103,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
         $money = $this->getMoney();
         $calculator = static::resolveCalculator();
 
-        return new self((int) $calculator->divide($money->getAmount(), $divisor), $money->getCurrency());
+        return new self((int) round($calculator->divide($money->getAmount(), $divisor), 0, $roundingMode), $money->getCurrency());
     }
 
     /**
@@ -125,7 +125,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
         $money = $this->getMoney();
         $calculator = static::resolveCalculator();
 
-        return new self((int) $calculator->multiply($money->getAmount(), $multiplier), $money->getCurrency());
+        return new self((int) round($calculator->multiply($money->getAmount(), $multiplier), 0, $roundingMode), $money->getCurrency());
     }
 
     /**
