@@ -151,4 +151,14 @@ class MoneyCastTest extends TestCase
 
         new User(['money' => 'abc']);
     }
+
+    public function testSetCurrencyForNewEmptyUser() {
+        
+        $user = new User();
+
+        $user->debits = 100.99;
+
+        static::assertSame('10099', $user->debits->getAmount());
+        static::assertSame('USD', $user->debits->getCurrency()->getCode());
+    }
 }
