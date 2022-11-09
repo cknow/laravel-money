@@ -160,5 +160,6 @@ class MoneyCastTest extends TestCase
 
         static::assertSame('10099', $user->debits->getAmount());
         static::assertSame('USD', $user->debits->getCurrency()->getCode());
+        static::assertSame('USD', $user->currency);
     }
 }
