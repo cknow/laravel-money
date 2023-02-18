@@ -9,7 +9,34 @@ use Illuminate\Support\Traits\Macroable;
 use JsonSerializable;
 
 /**
- * @mixin \Money\Money
+ * Money.
+ *
+ * @method bool isSameCurrency(Money|\Money\Money ...$others)
+ * @method bool equals(Money|\Money\Money $other)
+ * @method int compare(Money|\Money\Money $other)
+ * @method bool greaterThan(Money|\Money\Money $other)
+ * @method bool greaterThanOrEqual(Money|\Money\Money $other)
+ * @method bool lessThan(Money|\Money\Money $other)
+ * @method bool lessThanOrEqual(Money|\Money\Money $other)
+ * @method string getAmount()
+ * @method \Money\Currency getCurrency()
+ * @method Money add(Money|\Money\Money ...$addends)
+ * @method Money subtract(Money|\Money\Money ...$subtrahends)
+ * @method Money multiply(float|int|string $multiplier, int $roundingMode = \Money\Money::ROUND_HALF_UP)
+ * @method Money divide(float|int|string $divisor, int $roundingMode = \Money\Money::ROUND_HALF_UP)
+ * @method Money mod(Money|\Money\Money $divisor)
+ * @method Money absolute()
+ * @method Money negative()
+ * @method Money[] allocate(array $ratios)
+ * @method Money[] allocateTo(int $n)
+ * @method string ratioOf(Money|\Money\Money $money)
+ * @method bool isZero()
+ * @method bool isPositive()
+ * @method bool isNegative()
+ * @method static Money min(Money|\Money\Money $first, Money|\Money\Money ...$collection)
+ * @method static Money max(Money|\Money\Money $first, Money|\Money\Money ...$collection)
+ * @method static Money sum(Money|\Money\Money $first, Money|\Money\Money ...$collection)
+ * @method static Money avg(Money|\Money\Money $first, Money|\Money\Money ...$collection)
  */
 class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
 {
