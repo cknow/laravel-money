@@ -205,7 +205,7 @@ the currency defined in the package configuration is used instead.
 Setting money can be done in several ways:
 
 ```php
-$model->money = 10; // 10.00 USD or any other currency defined
+$model->money = 10; // 0.10 USD or any other currency defined
 $model->money = 10.23; // 10.23 USD or any other currency defined
 $model->money = 'A$10'; // 10.00 AUD
 $model->money = '1,000.23'; // 1000.23 USD or any other currency defined
