@@ -2,7 +2,6 @@
 
 namespace Cknow\Money;
 
-use Cknow\Money\MoneySerializer;
 use Cknow\Money\Serializer\ArrayMoneySerializer;
 use InvalidArgumentException;
 
