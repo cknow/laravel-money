@@ -16,17 +16,17 @@ class MoneySerializerTraitTest extends TestCase
         static::assertEquals([
             'amount' => '100',
             'currency' => 'USD',
-            'formatted' => '$1.00'
+            'formatted' => '$1.00',
         ], Money::USD(100)->serialize());
         static::assertEquals([
             'amount' => '100',
             'currency' => 'EUR',
-            'formatted' => '€1.00'
+            'formatted' => '€1.00',
         ], Money::EUR(100)->serialize());
         static::assertEquals([
             'amount' => '199',
             'currency' => 'EUR',
-            'formatted' => '€1.99'
+            'formatted' => '€1.99',
         ], Money::EUR(199)->serialize());
     }
 
@@ -36,14 +36,14 @@ class MoneySerializerTraitTest extends TestCase
         static::assertEquals([
             'amount' => '100',
             'currency' => 'USD',
-            'formatted' => '$1.00'
+            'formatted' => '$1.00',
         ], Money::USD(100)->serialize());
 
         config(['money.defaultSerializer' => ArrayMoneySerializer::class]);
         static::assertEquals([
             'amount' => '100',
             'currency' => 'USD',
-            'formatted' => '$1.00'
+            'formatted' => '$1.00',
         ], Money::USD(100)->serialize());
 
         config(['money.defaultSerializer' => DecimalMoneySerializer::class]);
@@ -59,14 +59,14 @@ class MoneySerializerTraitTest extends TestCase
         static::assertEquals([
             'amount' => '100',
             'currency' => 'EUR',
-            'formatted' => '€1.00'
+            'formatted' => '€1.00',
         ], Money::EUR(100)->serialize());
 
         config(['money.defaultSerializer' => ArrayMoneySerializer::class]);
         static::assertEquals([
             'amount' => '100',
             'currency' => 'EUR',
-            'formatted' => '€1.00'
+            'formatted' => '€1.00',
         ], Money::EUR(100)->serialize());
 
         config(['money.defaultSerializer' => [DecimalMoneySerializer::class, []]]);
@@ -95,13 +95,13 @@ class MoneySerializerTraitTest extends TestCase
         static::assertEquals([
             'amount' => '100',
             'currency' => 'USD',
-            'formatted' => '$1.00'
+            'formatted' => '$1.00',
         ], Money::USD(100)->serializeByArray());
 
         static::assertEquals([
             'amount' => '100',
             'currency' => 'EUR',
-            'formatted' => '€1.00'
+            'formatted' => '€1.00',
         ], Money::EUR(100)->serializeByArray());
     }
 
@@ -110,13 +110,13 @@ class MoneySerializerTraitTest extends TestCase
         static::assertEquals([
             'amount' => '100',
             'currency' => 'USD',
-            'formatted' => '$1.00'
+            'formatted' => '$1.00',
         ], Money::USD(100)->serializeBySerializer(new ArrayMoneySerializer()));
 
         static::assertEquals([
             'amount' => '100',
             'currency' => 'EUR',
-            'formatted' => '€1.00'
+            'formatted' => '€1.00',
         ], Money::EUR(100)->serializeBySerializer(new ArrayMoneySerializer()));
     }
 
