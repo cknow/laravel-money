@@ -2,8 +2,9 @@
 
 namespace Cknow\Money;
 
-use InvalidArgumentException;
+use Cknow\Money\MoneySerializer;
 use Cknow\Money\Serializer\ArrayMoneySerializer;
+use InvalidArgumentException;
 
 trait MoneySerializerTrait
 {
