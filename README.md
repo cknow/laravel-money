@@ -23,7 +23,7 @@ or add this to require section in your composer.json file:
 "cknow/laravel-money": "^7.0"
 ```
 
-then run ```composer update```
+then run `composer update`
 
 ## Usage
 
@@ -210,7 +210,7 @@ $model->money = 10.23; // 10.23 USD or any other currency defined
 $model->money = 'A$10'; // 10.00 AUD
 $model->money = '1,000.23'; // 1000.23 USD or any other currency defined
 $model->money = '10'; // 0.10 USD or any other currency defined
-$model->money = Money::EUR(10); // 10 EUR
+$model->money = Money::EUR(10); // 0.10 EUR
 ```
 
 When we pass the model attribute holding the currency,
