@@ -42,7 +42,7 @@ class CurrencySymbolMoneyFormatter implements MoneyFormatter
     /**
      * Formats a Money object as string.
      *
-     * @param  \Money\Money  $moeny
+     * @param  \Money\Money  $money
      * @return string
      */
     public function format(\Money\Money $money): string
