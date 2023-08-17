@@ -127,8 +127,6 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
 
     /**
      * Attributes.
-     *
-     * @param  array  $attributes
      */
     public function attributes(array $attributes = [])
     {
@@ -191,7 +189,6 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      * __call.
      *
      * @param  string  $method
-     * @param  array  $arguments
      * @return \Cknow\Money\Money|\Cknow\Money\Money[]|mixed
      */
     public function __call($method, array $arguments)
@@ -223,7 +220,6 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     /**
      * Convert.
      *
-     * @param  \Money\Money  $instance
      * @return \Cknow\Money\Money
      */
     public static function convert(\Money\Money $instance)
@@ -235,7 +231,6 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      * __callStatic.
      *
      * @param  string  $method
-     * @param  array  $arguments
      * @return \Cknow\Money\Money
      */
     public static function __callStatic($method, array $arguments)
@@ -252,7 +247,6 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     /**
      * Get arguments.
      *
-     * @param  array  $arguments
      * @return array
      */
     private static function getArguments(array $arguments = [])

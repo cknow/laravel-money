@@ -9,7 +9,6 @@ class MoneyIntegerCast extends MoneyCast
     /**
      * Get formatter.
      *
-     * @param  \Cknow\Money\Money  $money
      * @return int
      */
     protected function getFormatter(Money $money)

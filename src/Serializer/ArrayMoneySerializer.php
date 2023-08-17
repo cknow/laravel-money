@@ -10,7 +10,6 @@ class ArrayMoneySerializer implements MoneySerializer
     /**
      * Formats a Money object as string.
      *
-     * @param  \Cknow\Money\Money  $money
      * @return array
      */
     public function serialize(Money $money)

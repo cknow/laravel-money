@@ -17,9 +17,9 @@ class CurrencyTest extends TestCase
                 'currency3' => new \Money\Currency('BRL'),
             ],
             [
-                'currency1' =>  'currency',
-                'currency2' =>  new Currency,
-                'currency3' =>  new Currency,
+                'currency1' => 'currency',
+                'currency2' => new Currency,
+                'currency3' => new Currency,
             ]
         );
 
@@ -34,8 +34,8 @@ class CurrencyTest extends TestCase
                 'currency2' => 'bar',
             ],
             [
-                'currency1' =>  'currency',
-                'currency2' =>  new Currency,
+                'currency1' => 'currency',
+                'currency2' => new Currency,
             ]
         );
 

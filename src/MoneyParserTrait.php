@@ -135,7 +135,6 @@ trait MoneyParserTrait
      *
      * @param  string  $money
      * @param  \Money\Currency|string|null  $fallbackCurrency
-     * @param  \Money\Currencies|null  $currencies
      * @param  bool  $convert
      * @return \Cknow\Money\Money|\Money\Money
      */
@@ -156,7 +155,6 @@ trait MoneyParserTrait
      * @param  string  $money
      * @param  \Money\Currency|string|null  $fallbackCurrency
      * @param  string|null  $locale
-     * @param  \Money\Currencies|null  $currencies
      * @param  int|null  $style
      * @param  bool  $convert
      * @return \Cknow\Money\Money|\Money\Money
@@ -185,7 +183,6 @@ trait MoneyParserTrait
      * @param  string  $money
      * @param  \Money\Currency|string|null  $fallbackCurrency
      * @param  string|null  $locale
-     * @param  \Money\Currencies|null  $currencies
      * @param  int|null  $style
      * @param  bool  $convert
      * @return \Cknow\Money\Money|\Money\Money
@@ -211,7 +208,6 @@ trait MoneyParserTrait
     /**
      * Parse by parser.
      *
-     * @param  \Money\MoneyParser  $parser
      * @param  string  $money
      * @param  \Money\Currency|string|null  $fallbackCurrency
      * @param  bool  $convert
