@@ -13,7 +13,7 @@ abstract class TestCase extends AbstractPackageTestCase
      * @param  \Illuminate\Contracts\Foundation\Application  $app
      * @return void
      */
-    protected function getEnvironmentSetUp($app)
+    protected function getEnvironmentSetUp($app): void
     {
         $app->config->set('money.locale', 'en_US');
 
@@ -25,7 +25,7 @@ abstract class TestCase extends AbstractPackageTestCase
      *
      * @return string
      */
-    protected function getServiceProviderClass()
+    protected static function getServiceProviderClass(): string
     {
         return MoneyServiceProvider::class;
     }
