@@ -7,5 +7,5 @@ namespace Cknow\Money;
  */
 interface MoneySerializer
 {
-    public function serialize(Money $money): mixed;
+    public function serialize(Money $money);
 }
