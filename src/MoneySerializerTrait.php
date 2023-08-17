@@ -58,7 +58,7 @@ trait MoneySerializerTrait
      * Serialize by serializer.
      *
      * @param  \Cknow\Money\MoneySerializer  $serializer
-     * @return string
+     * @return mixed
      */
     public function serializeBySerializer(MoneySerializer $serializer)
     {

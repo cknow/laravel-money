@@ -10,11 +10,11 @@ class StringMoneySerializer implements MoneySerializer
     /**
      * Formats a Money object as string.
      *
-     * @param  \Money\Money  $money
-     * @return mixed
+     * @param  \Cknow\Money\Money  $money
+     * @return string
      */
-    public function serialize(Money $money): mixed
+    public function serialize(Money $money)
     {
-        return (string) $money->formatByIntl();
+        return (string) $money->format();
     }
 }

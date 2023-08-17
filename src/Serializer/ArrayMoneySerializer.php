@@ -10,15 +10,15 @@ class ArrayMoneySerializer implements MoneySerializer
     /**
      * Formats a Money object as string.
      *
-     * @param  \Money\Money  $money
-     * @return mixed
+     * @param  \Cknow\Money\Money  $money
+     * @return array
      */
-    public function serialize(Money $money): mixed
+    public function serialize(Money $money)
     {
         return array_merge(
             $money->getAttributes(),
             $money->getMoney()->jsonSerialize(),
-            ['formatted' => $money->render()]
+            ['formatted' => $money->format()]
         );
     }
 }
