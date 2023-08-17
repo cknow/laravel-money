@@ -15,6 +15,6 @@ class StringMoneySerializer implements MoneySerializer
      */
     public function serialize(Money $money)
     {
-        return (string) $money->format();
+        return (string) $money->formatByIntl();
     }
 }
