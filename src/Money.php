@@ -104,17 +104,10 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      */
     public function divide($divisor, $roundingMode = \Money\Money::ROUND_HALF_UP)
     {
-        if (
-            is_int($divisor)
-            || (filter_var($divisor, FILTER_VALIDATE_INT) !== false && ! is_float($divisor))
-        ) {
-            return $this->__call('divide', [$divisor, $roundingMode]);
-        }
-
-        $money = $this->getMoney();
-        $calculator = static::resolveCalculator();
-
-        return new self((int) round($calculator->divide($money->getAmount(), $divisor), 0, $roundingMode), $money->getCurrency());
+        return $this->__call('divide', [
+            is_int($divisor) ? $divisor : strval($divisor),
+            $roundingMode,
+        ]);
     }
 
     /**
@@ -126,17 +119,10 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      */
     public function multiply($multiplier, $roundingMode = \Money\Money::ROUND_HALF_UP)
     {
-        if (
-            is_int($multiplier)
-            || (filter_var($multiplier, FILTER_VALIDATE_INT) !== false && ! is_float($multiplier))
-        ) {
-            return $this->__call('multiply', [$multiplier, $roundingMode]);
-        }
-
-        $money = $this->getMoney();
-        $calculator = static::resolveCalculator();
-
-        return new self((int) round($calculator->multiply($money->getAmount(), $multiplier), 0, $roundingMode), $money->getCurrency());
+        return $this->__call('multiply', [
+            is_int($multiplier) ? $multiplier : strval($multiplier),
+            $roundingMode,
+        ]);
     }
 
     /**
