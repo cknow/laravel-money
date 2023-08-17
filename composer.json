@@ -26,7 +26,6 @@
     "require-dev": {
         "graham-campbell/testbench": "^5.7",
         "illuminate/filesystem": "^7.0|^8.0|^9.0|^10.0",
-        "laravel/pint": "^1.11",
         "mockery/mockery": "^1.6",
         "phpunit/phpunit": "^8.5|^9.5.10|^10.0",
         "spatie/phpunit-watcher": "^1.23"
@@ -60,7 +59,6 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "scripts": {
-        "pint": "vendor/bin/pint",
         "test": "vendor/bin/phpunit",
         "watch": "vendor/bin/phpunit-watcher watch"
     }
