@@ -27,7 +27,7 @@
         "graham-campbell/testbench": "^6.0",
         "illuminate/filesystem": "^9.0|^10.0|^11.0",
         "mockery/mockery": "^1.6",
-        "phpunit/phpunit": "^10.0"
+        "phpunit/phpunit": "^10.5"
     },
     "autoload": {
         "psr-4": {
