@@ -9,7 +9,7 @@ use Cknow\Money\Serializer\IntegerMoneySerializer;
 use Cknow\Money\Serializer\StringMoneySerializer;
 use InvalidArgumentException;
 
-class MoneySerializerTraitTest extends TestCase
+class MoneyFormatterSerializerTest extends TestCase
 {
     public function testSerialize()
     {
