@@ -19,13 +19,13 @@
         "php": "^7.3|^8.0",
         "ext-json": "*",
         "ext-intl": "*",
-        "illuminate/support": "^7.0|^8.0|^9.0|^10.0",
-        "illuminate/view": "^7.0|^8.0|^9.0|^10.0",
+        "illuminate/support": "^7.0|^8.0|^9.0|^10.0|^11.0",
+        "illuminate/view": "^7.0|^8.0|^9.0|^10.0|^11.0",
         "moneyphp/money": "^3.3|^4.2"
     },
     "require-dev": {
-        "graham-campbell/testbench": "^5.7",
-        "illuminate/filesystem": "^7.0|^8.0|^9.0|^10.0",
+        "graham-campbell/testbench": "^5.7|^6.1",
+        "illuminate/filesystem": "^7.0|^8.0|^9.0|^10.0|^11.0",
         "mockery/mockery": "^1.6",
         "phpunit/phpunit": "^8.5|^9.5.10|^10.0",
         "spatie/phpunit-watcher": "^1.23"
