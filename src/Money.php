@@ -2,6 +2,7 @@
 
 namespace Cknow\Money;
 
+use BadMethodCallException;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Contracts\Support\Renderable;
@@ -190,6 +191,8 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      *
      * @param  string  $method
      * @return \Cknow\Money\Money|\Cknow\Money\Money[]|mixed
+     *
+     * @throws \BadMethodCallException
      */
     public function __call($method, array $arguments)
     {
@@ -198,7 +201,11 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
         }
 
         if (! method_exists($this->money, $method)) {
-            return $this;
+            throw new BadMethodCallException(sprintf(
+                'Call to undefined method %s::%s()',
+                static::class,
+                $method
+            ));
         }
 
         $result = call_user_func_array([$this->money, $method], static::getArguments($arguments));
