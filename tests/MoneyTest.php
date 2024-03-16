@@ -193,7 +193,7 @@ class MoneyTest extends TestCase
     public function testCallUndefinedMethod()
     {
         $this->expectException(BadMethodCallException::class);
-        $this->expectExceptionMessage('Call to undefined method ' . Money::class . '::undefined()');
+        $this->expectExceptionMessage('Call to undefined method '.Money::class.'::undefined()');
 
         Money::USD(15)->undefined();
     }

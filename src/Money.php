@@ -200,7 +200,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
             return $this->macroCall($method, $arguments);
         }
 
-        if (!method_exists($this->money, $method)) {
+        if (! method_exists($this->money, $method)) {
             throw new BadMethodCallException(sprintf(
                 'Call to undefined method %s::%s()',
                 static::class,
@@ -217,7 +217,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
             'absolute', 'negative',
         ];
 
-        if (!in_array($method, $methods)) {
+        if (! in_array($method, $methods)) {
             return $result;
         }
 
@@ -275,7 +275,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
      */
     private static function convertResult($result)
     {
-        if (!is_array($result)) {
+        if (! is_array($result)) {
             return static::convert($result);
         }
 
@@ -312,7 +312,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
         ];
 
         foreach ($calculators as $calculator) {
-            if (!class_exists($calculator)) {
+            if (! class_exists($calculator)) {
                 continue;
             }
 
