@@ -25,7 +25,6 @@ abstract class MoneyCast implements CastsAttributes
     /**
      * Instantiate the class.
      *
-     * @param  string|null  $currency
      * @param  mixed  $forceDecimals
      */
     public function __construct(string $currency = null, $forceDecimals = null)
@@ -39,7 +38,6 @@ abstract class MoneyCast implements CastsAttributes
     /**
      * Get formatter.
      *
-     * @param  \Cknow\Money\Money  $money
      * @return string|float|int
      */
     abstract protected function getFormatter(Money $money);
@@ -48,9 +46,7 @@ abstract class MoneyCast implements CastsAttributes
      * Transform the attribute from the underlying model values.
      *
      * @param  \Illuminate\Database\Eloquent\Model  $model
-     * @param  string  $key
      * @param  mixed  $value
-     * @param  array  $attributes
      * @return \Cknow\Money\Money|null
      */
     public function get($model, string $key, $value, array $attributes)
@@ -66,9 +62,7 @@ abstract class MoneyCast implements CastsAttributes
      * Transform the attribute to its underlying model values.
      *
      * @param  \Illuminate\Database\Eloquent\Model  $model
-     * @param  string  $key
      * @param  mixed  $value
-     * @param  array  $attributes
      * @return array
      *
      * @throws \InvalidArgumentException
@@ -99,7 +93,6 @@ abstract class MoneyCast implements CastsAttributes
     /**
      * Get currency.
      *
-     * @param  array  $attributes
      * @return \Money\Currency
      */
     protected function getCurrency(array $attributes)

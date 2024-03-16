@@ -9,7 +9,6 @@ class MoneyDecimalCast extends MoneyCast
     /**
      * Get formatter.
      *
-     * @param  \Cknow\Money\Money  $money
      * @return float
      */
     protected function getFormatter(Money $money)

@@ -2,6 +2,7 @@
 
 namespace Cknow\Money;
 
+use BadMethodCallException;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Support\Traits\Macroable;
@@ -44,6 +45,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable
         MoneyFactory::__callStatic as factoryCallStatic;
     }
     use MoneyFormatterTrait;
+    use MoneySerializerTrait;
     use MoneyParserTrait;
     use Macroable {
         Macroable::__call as macroCall;
@@ -84,6 +86,16 @@ class Money implements Arrayable, Jsonable, JsonSerializable
     }
 
     /**
+     * Get attributes.
+     *
+     * @return array
+     */
+    public function getAttributes()
+    {
+        return $this->attributes;
+    }
+
+    /**
      * Divide.
      *
      * @param  int|string|float  $divisor
@@ -92,17 +104,10 @@ class Money implements Arrayable, Jsonable, JsonSerializable
      */
     public function divide($divisor, $roundingMode = \Money\Money::ROUND_HALF_UP)
     {
-        if (
-            is_int($divisor)
-            || (filter_var($divisor, FILTER_VALIDATE_INT) !== false && ! is_float($divisor))
-        ) {
-            return $this->__call('divide', [$divisor, $roundingMode]);
-        }
-
-        $money = $this->getMoney();
-        $calculator = static::resolveCalculator();
-
-        return new self((int) round($calculator->divide($money->getAmount(), $divisor), 0, $roundingMode), $money->getCurrency());
+        return $this->__call('divide', [
+            is_int($divisor) ? $divisor : strval($divisor),
+            $roundingMode,
+        ]);
     }
 
     /**
@@ -114,23 +119,14 @@ class Money implements Arrayable, Jsonable, JsonSerializable
      */
     public function multiply($multiplier, $roundingMode = \Money\Money::ROUND_HALF_UP)
     {
-        if (
-            is_int($multiplier)
-            || (filter_var($multiplier, FILTER_VALIDATE_INT) !== false && ! is_float($multiplier))
-        ) {
-            return $this->__call('multiply', [$multiplier, $roundingMode]);
-        }
-
-        $money = $this->getMoney();
-        $calculator = static::resolveCalculator();
-
-        return new self((int) round($calculator->multiply($money->getAmount(), $multiplier), 0, $roundingMode), $money->getCurrency());
+        return $this->__call('multiply', [
+            is_int($multiplier) ? $multiplier : strval($multiplier),
+            $roundingMode,
+        ]);
     }
 
     /**
      * Attributes.
-     *
-     * @param  array  $attributes
      */
     public function attributes(array $attributes = [])
     {
@@ -145,11 +141,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable
     #[\ReturnTypeWillChange]
     public function jsonSerialize()
     {
-        return array_merge(
-            $this->attributes,
-            $this->money->jsonSerialize(),
-            ['formatted' => $this->format()]
-        );
+        return $this->serialize();
     }
 
     /**
@@ -187,8 +179,9 @@ class Money implements Arrayable, Jsonable, JsonSerializable
      * __call.
      *
      * @param  string  $method
-     * @param  array  $arguments
      * @return \Cknow\Money\Money|\Cknow\Money\Money[]|mixed
+     *
+     * @throws \BadMethodCallException
      */
     public function __call($method, array $arguments)
     {
@@ -197,7 +190,11 @@ class Money implements Arrayable, Jsonable, JsonSerializable
         }
 
         if (! method_exists($this->money, $method)) {
-            return $this;
+            throw new BadMethodCallException(sprintf(
+                'Call to undefined method %s::%s()',
+                static::class,
+                $method
+            ));
         }
 
         $result = call_user_func_array([$this->money, $method], static::getArguments($arguments));
@@ -219,7 +216,6 @@ class Money implements Arrayable, Jsonable, JsonSerializable
     /**
      * Convert.
      *
-     * @param  \Money\Money  $instance
      * @return \Cknow\Money\Money
      */
     public static function convert(\Money\Money $instance)
@@ -231,7 +227,6 @@ class Money implements Arrayable, Jsonable, JsonSerializable
      * __callStatic.
      *
      * @param  string  $method
-     * @param  array  $arguments
      * @return \Cknow\Money\Money
      */
     public static function __callStatic($method, array $arguments)
@@ -248,7 +243,6 @@ class Money implements Arrayable, Jsonable, JsonSerializable
     /**
      * Get arguments.
      *
-     * @param  array  $arguments
      * @return array
      */
     private static function getArguments(array $arguments = [])

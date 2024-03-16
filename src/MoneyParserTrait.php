@@ -74,19 +74,34 @@ trait MoneyParserTrait
         }
 
         $locale = $locale ?: static::getLocale();
-        $style = NumberFormatter::CURRENCY || NumberFormatter::DECIMAL;
-
-        $parsers = [
-            new IntlMoneyParser(new NumberFormatter($locale, $style), $currencies),
-            new IntlLocalizedDecimalParser(new NumberFormatter($locale, $style), $currencies),
-            new DecimalMoneyParser($currencies),
-            new BitcoinMoneyParser($bitCointDigits ?? 2),
-        ];
+        $bitCointDigits = $bitCointDigits ?? 2;
 
         try {
+            $parsers = [
+                new IntlMoneyParser(new NumberFormatter($locale, NumberFormatter::CURRENCY), $currencies),
+                new IntlLocalizedDecimalParser(new NumberFormatter($locale, NumberFormatter::CURRENCY), $currencies),
+                new DecimalMoneyParser($currencies),
+                new BitcoinMoneyParser($bitCointDigits),
+            ];
+
             return static::parseByAggregate($value, null, $parsers, $convert);
         } catch (ParserException $e) {
-            return static::parseByAggregate($value, $currency, $parsers, $convert);
+            try {
+                return static::parseByAggregate($value, $currency, $parsers, $convert);
+            } catch (ParserException $e) {
+                $parsers = [
+                    new IntlMoneyParser(new NumberFormatter($locale, NumberFormatter::DECIMAL), $currencies),
+                    new IntlLocalizedDecimalParser(new NumberFormatter($locale, NumberFormatter::DECIMAL), $currencies),
+                    new DecimalMoneyParser($currencies),
+                    new BitcoinMoneyParser($bitCointDigits),
+                ];
+
+                try {
+                    return static::parseByAggregate($value, null, $parsers, $convert);
+                } catch (ParserException $e) {
+                    return static::parseByAggregate($value, $currency, $parsers, $convert);
+                }
+            }
         }
     }
 
@@ -135,7 +150,6 @@ trait MoneyParserTrait
      *
      * @param  string  $money
      * @param  \Money\Currency|string|null  $fallbackCurrency
-     * @param  \Money\Currencies|null  $currencies
      * @param  bool  $convert
      * @return \Cknow\Money\Money|\Money\Money
      */
@@ -156,7 +170,6 @@ trait MoneyParserTrait
      * @param  string  $money
      * @param  \Money\Currency|string|null  $fallbackCurrency
      * @param  string|null  $locale
-     * @param  \Money\Currencies|null  $currencies
      * @param  int|null  $style
      * @param  bool  $convert
      * @return \Cknow\Money\Money|\Money\Money
@@ -185,7 +198,6 @@ trait MoneyParserTrait
      * @param  string  $money
      * @param  \Money\Currency|string|null  $fallbackCurrency
      * @param  string|null  $locale
-     * @param  \Money\Currencies|null  $currencies
      * @param  int|null  $style
      * @param  bool  $convert
      * @return \Cknow\Money\Money|\Money\Money
@@ -211,7 +223,6 @@ trait MoneyParserTrait
     /**
      * Parse by parser.
      *
-     * @param  \Money\MoneyParser  $parser
      * @param  string  $money
      * @param  \Money\Currency|string|null  $fallbackCurrency
      * @param  bool  $convert

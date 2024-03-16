@@ -18,11 +18,6 @@ class MoneyCastTest extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * Setup the test environment.
-     *
-     * @return void
-     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -30,6 +25,11 @@ class MoneyCastTest extends TestCase
         $this->loadMigrationsFrom(__DIR__.'/Database/Migrations');
 
         Money::setCurrencies(config('money.currencies'));
+    }
+
+    protected function defineDatabaseMigrations()
+    {
+        $this->loadMigrationsFrom(__DIR__.'/Database/Migrations');
     }
 
     public function testCastsMoneyWhenRetrievingCastedValues()

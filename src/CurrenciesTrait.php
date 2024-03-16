@@ -159,7 +159,6 @@ trait CurrenciesTrait
      * Make currencies list according to array for specified source.
      *
      * @param  array|string  $config
-     * @param  \Money\Currencies  $currencies
      * @param  string  $sourceName
      * @return \Money\Currencies
      *

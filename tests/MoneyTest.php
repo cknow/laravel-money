@@ -2,6 +2,7 @@
 
 namespace Cknow\Money\Tests;
 
+use BadMethodCallException;
 use Cknow\Money\Money;
 use Money\Currency;
 
@@ -90,6 +91,10 @@ class MoneyTest extends TestCase
         static::assertEquals(Money::USD(10150), Money::USD(35, true)->multiply(2.9));
         static::assertEquals(Money::USD(11550), Money::USD(35, true)->multiply(3.3));
         static::assertEquals(Money::USD(3317), Money::USD(199, true)->multiply(0.16666667));
+        static::assertEquals(Money::USD(3651), Money::USD(2501)->multiply(1.46));
+        static::assertEquals(Money::USD(3652), Money::USD(2501)->multiply(1.46, \Money\Money::ROUND_UP));
+        static::assertEquals(Money::USD(3649), Money::USD(2499)->multiply(1.46));
+        static::assertEquals(Money::USD(3648), Money::USD(2499)->multiply(1.46, \Money\Money::ROUND_DOWN));
     }
 
     public function testDivide()
@@ -101,6 +106,10 @@ class MoneyTest extends TestCase
         static::assertEquals(Money::USD(12.07), Money::USD(35, true)->divide(2.9));
         static::assertEquals(Money::USD(10.61), Money::USD(35, true)->divide(3.3));
         static::assertEquals(Money::USD(86.52), Money::USD(199, true)->divide(2.3));
+        static::assertEquals(Money::USD(5321), Money::USD(2501)->divide(0.47));
+        static::assertEquals(Money::USD(5322), Money::USD(2501)->divide(0.47, \Money\Money::ROUND_UP));
+        static::assertEquals(Money::USD(5326), Money::USD(2503)->divide(0.47));
+        static::assertEquals(Money::USD(5325), Money::USD(2503)->divide(0.47, \Money\Money::ROUND_DOWN));
     }
 
     public function testMod()
@@ -183,7 +192,10 @@ class MoneyTest extends TestCase
 
     public function testCallUndefinedMethod()
     {
-        static::assertEquals(Money::USD(15), Money::USD(15)->undefined());
+        $this->expectException(BadMethodCallException::class);
+        $this->expectExceptionMessage('Call to undefined method '.Money::class.'::undefined()');
+
+        Money::USD(15)->undefined();
     }
 
     public function testGetters()

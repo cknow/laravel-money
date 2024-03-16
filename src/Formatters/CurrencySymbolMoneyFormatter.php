@@ -30,7 +30,6 @@ class CurrencySymbolMoneyFormatter implements MoneyFormatter
      *
      * @param  bool  $right
      * @param  string|null  $locale
-     * @param  \Money\Currencies|null  $currencies
      */
     public function __construct($right = false, $locale = null, Currencies $currencies = null)
     {
@@ -41,9 +40,6 @@ class CurrencySymbolMoneyFormatter implements MoneyFormatter
 
     /**
      * Formats a Money object as string.
-     *
-     * @param  \Money\Money  $moeny
-     * @return string
      */
     public function format(\Money\Money $money): string
     {
