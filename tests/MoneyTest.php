@@ -207,7 +207,6 @@ class MoneyTest extends TestCase
         static::assertJson($money->toJson());
         static::assertEquals($money->toArray(), $actual);
         static::assertEquals($money->jsonSerialize(), $actual);
-        static::assertEquals('$1.00', $money->render());
         static::assertEquals('$1.00', $money);
     }
 

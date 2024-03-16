@@ -5,7 +5,6 @@ namespace Cknow\Money;
 use BadMethodCallException;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
-use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Support\Traits\Macroable;
 use JsonSerializable;
 use ReflectionMethod;
@@ -38,7 +37,7 @@ use ReflectionMethod;
  * @method static Money sum(Money|\Money\Money $first, Money|\Money\Money ...$collection)
  * @method static Money avg(Money|\Money\Money $first, Money|\Money\Money ...$collection)
  */
-class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
+class Money implements Arrayable, Jsonable, JsonSerializable
 {
     use CurrenciesTrait;
     use LocaleTrait;
@@ -167,23 +166,13 @@ class Money implements Arrayable, Jsonable, JsonSerializable, Renderable
     }
 
     /**
-     * Get the evaluated contents of the object.
-     *
-     * @return string
-     */
-    public function render()
-    {
-        return $this->format();
-    }
-
-    /**
      * __toString.
      *
      * @return string
      */
     public function __toString()
     {
-        return $this->render();
+        return $this->format();
     }
 
     /**
