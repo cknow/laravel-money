@@ -22,12 +22,10 @@ class MoneyCastTest extends TestCase
     {
         parent::setUp();
 
-        $this->loadMigrationsFrom(__DIR__.'/Database/Migrations');
-
         Money::setCurrencies(config('money.currencies'));
     }
 
-    protected function defineDatabaseMigrations()
+    protected function defineDatabaseMigrations(): void
     {
         $this->loadMigrationsFrom(__DIR__.'/Database/Migrations');
     }
