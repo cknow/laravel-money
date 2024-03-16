@@ -2,6 +2,7 @@
 
 namespace Cknow\Money\Tests;
 
+use BadMethodCallException;
 use Cknow\Money\Money;
 use Money\Currency;
 
@@ -191,7 +192,10 @@ class MoneyTest extends TestCase
 
     public function testCallUndefinedMethod()
     {
-        static::assertEquals(Money::USD(15), Money::USD(15)->undefined());
+        $this->expectException(BadMethodCallException::class);
+        $this->expectExceptionMessage('Call to undefined method '.Money::class.'::undefined()');
+
+        Money::USD(15)->undefined();
     }
 
     public function testGetters()
@@ -203,7 +207,6 @@ class MoneyTest extends TestCase
         static::assertJson($money->toJson());
         static::assertEquals($money->toArray(), $actual);
         static::assertEquals($money->jsonSerialize(), $actual);
-        static::assertEquals('$1.00', $money->render());
         static::assertEquals('$1.00', $money);
     }
 

@@ -18,9 +18,6 @@ class MoneyCastTest extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * Setup the test environment.
-     */
     protected function setUp(): void
     {
         parent::setUp();
