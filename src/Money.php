@@ -49,6 +49,7 @@ class Money implements Arrayable, Jsonable, JsonSerializable
     use MoneyParserTrait;
     use Macroable {
         Macroable::__call as macroCall;
+        Macroable::__callStatic as macroCallStatic;
     }
 
     /**
@@ -231,6 +232,10 @@ class Money implements Arrayable, Jsonable, JsonSerializable
      */
     public static function __callStatic($method, array $arguments)
     {
+        if (static::hasMacro($method)) {
+            return static::macroCallStatic($method, $arguments);
+        }
+
         if (in_array($method, ['min', 'max', 'avg', 'sum'])) {
             $result = call_user_func_array([\Money\Money::class, $method], static::getArguments($arguments));
 

@@ -233,5 +233,10 @@ class MoneyTest extends TestCase
             'some-return-value',
             $money->someMacro()
         );
+
+        static::assertEquals(
+            'some-return-value',
+            Money::someMacro()
+        );
     }
 }
