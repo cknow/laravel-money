@@ -1,10 +1,12 @@
-vendor
+/.phpunit.cache
+/vendor
 composer.phar
 composer.lock
 .DS_Store
 Thumbs.db
-phpunit.xml
-clover.xml
-.idea
-.vscode
+/phpunit.xml
+/clover.xml
+/.idea
+/.fleet
+/.vscode
 .phpunit.result.cache
