@@ -45,6 +45,9 @@
             "tests/Database/Migrations/2020_04_30_000000_create_users_table.php"
         ]
     },
+    "scripts": {
+      "test": "vendor/bin/phpunit"
+    },
     "extra": {
         "laravel": {
             "providers": [
@@ -56,8 +59,5 @@
         "sort-packages": true
     },
     "minimum-stability": "dev",
-    "prefer-stable": true,
-    "scripts": {
-        "test": "vendor/bin/phpunit"
-    }
+    "prefer-stable": true
 }
