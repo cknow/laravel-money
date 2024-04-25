@@ -12,5 +12,6 @@
 .gitattributes export-ignore
 .gitignore export-ignore
 .styleci.yml export-ignore
-.phpunit-watcher.yml export-ignore
+.phpunit-watcher.yml export-ignor
+README.md export-ignore
 phpunit.xml.dist export-ignore
