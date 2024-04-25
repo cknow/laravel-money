@@ -11,12 +11,12 @@ jobs:
       matrix:
         os: [ubuntu-latest]
         php: [8.1, 8.2, 8.3]
-        laravel: [9.*, 10.*, 11.*]
+        laravel: [^9.0, ^10.0, ^11.0]
         stability: [prefer-lowest, prefer-stable]
         exclude:
-          - laravel: 9.*
+          - laravel: ^9.0
             php: 8.3
-          - laravel: 11.*
+          - laravel: ^11.0
             php: 8.1
 
     name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.stability }} - ${{ matrix.os }}
@@ -46,3 +46,5 @@ jobs:
 
       - name: Coverage
         uses: codecov/codecov-action@v4
+        env:
+            CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
