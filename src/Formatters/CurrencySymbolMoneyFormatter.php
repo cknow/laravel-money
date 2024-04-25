@@ -31,7 +31,7 @@ class CurrencySymbolMoneyFormatter implements MoneyFormatter
      * @param  bool  $right
      * @param  string|null  $locale
      */
-    public function __construct($right = false, $locale = null, Currencies $currencies = null)
+    public function __construct($right = false, $locale = null, ?Currencies $currencies = null)
     {
         $this->right = $right;
         $this->locale = $locale ?: Money::getLocale();

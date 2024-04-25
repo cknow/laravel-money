@@ -11,7 +11,6 @@ abstract class TestCase extends AbstractPackageTestCase
      * Setup the application environment.
      *
      * @param  \Illuminate\Contracts\Foundation\Application  $app
-     * @return void
      */
     protected function getEnvironmentSetUp($app): void
     {
@@ -22,8 +21,6 @@ abstract class TestCase extends AbstractPackageTestCase
 
     /**
      * Get the service provider class.
-     *
-     * @return string
      */
     protected static function getServiceProviderClass(): string
     {

@@ -27,7 +27,7 @@ abstract class MoneyCast implements CastsAttributes
      *
      * @param  mixed  $forceDecimals
      */
-    public function __construct(string $currency = null, $forceDecimals = null)
+    public function __construct(?string $currency = null, $forceDecimals = null)
     {
         $this->currency = $currency;
         $this->forceDecimals = is_string($forceDecimals)

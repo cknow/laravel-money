@@ -156,7 +156,7 @@ trait MoneyParserTrait
     public static function parseByDecimal(
         $money,
         $fallbackCurrency = null,
-        Currencies $currencies = null,
+        ?Currencies $currencies = null,
         $convert = true
     ) {
         $parser = new DecimalMoneyParser($currencies ?: static::getCurrencies());
@@ -178,7 +178,7 @@ trait MoneyParserTrait
         $money,
         $fallbackCurrency = null,
         $locale = null,
-        Currencies $currencies = null,
+        ?Currencies $currencies = null,
         $style = null,
         $convert = true
     ) {
@@ -206,7 +206,7 @@ trait MoneyParserTrait
         $money,
         $fallbackCurrency = null,
         $locale = null,
-        Currencies $currencies = null,
+        ?Currencies $currencies = null,
         $style = null,
         $convert = true
     ) {

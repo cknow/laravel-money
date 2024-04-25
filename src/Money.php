@@ -7,7 +7,6 @@ use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Support\Traits\Macroable;
 use JsonSerializable;
-use ReflectionMethod;
 
 /**
  * Money.
@@ -41,16 +40,16 @@ class Money implements Arrayable, Jsonable, JsonSerializable
 {
     use CurrenciesTrait;
     use LocaleTrait;
-    use MoneyFactory {
-        MoneyFactory::__callStatic as factoryCallStatic;
-    }
-    use MoneyFormatterTrait;
-    use MoneySerializerTrait;
-    use MoneyParserTrait;
     use Macroable {
         Macroable::__call as macroCall;
         Macroable::__callStatic as macroCallStatic;
     }
+    use MoneyFactory {
+        MoneyFactory::__callStatic as factoryCallStatic;
+    }
+    use MoneyFormatterTrait;
+    use MoneyParserTrait;
+    use MoneySerializerTrait;
 
     /**
      * @var \Money\Money
@@ -280,42 +279,5 @@ class Money implements Arrayable, Jsonable, JsonSerializable
         }
 
         return $results;
-    }
-
-    /**
-     * Resolve calculator.
-     *
-     * @return \Money\Calculator
-     *
-     * @throws \RuntimeException
-     */
-    private static function resolveCalculator()
-    {
-        $reflection = new ReflectionMethod(\Money\Money::class, 'getCalculator');
-
-        if ($reflection->isPublic()) {
-            $calculator = call_user_func([\Money\Money::class, 'getCalculator']);
-
-            return new $calculator();
-        }
-
-        $calculators = [
-            \Money\Calculator\BcMathCalculator::class,
-            \Money\Calculator\GmpCalculator::class,
-            \Money\Calculator\PhpCalculator::class,
-        ];
-
-        foreach ($calculators as $calculator) {
-            if (! class_exists($calculator)) {
-                continue;
-            }
-
-            /** @var Calculator $calculator */
-            if ($calculator::supported()) {
-                return new $calculator();
-            }
-        }
-
-        throw new \RuntimeException('Cannot find calculator for money calculations');
     }
 }

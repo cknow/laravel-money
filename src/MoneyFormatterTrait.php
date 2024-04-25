@@ -25,7 +25,7 @@ trait MoneyFormatterTrait
      *
      * @throws \InvalidArgumentException
      */
-    public function format($locale = null, Currencies $currencies = null, $style = NumberFormatter::CURRENCY)
+    public function format($locale = null, ?Currencies $currencies = null, $style = NumberFormatter::CURRENCY)
     {
         $defaultFormatter = config('money.defaultFormatter');
 
@@ -69,7 +69,7 @@ trait MoneyFormatterTrait
      * @param  int  $fractionDigits
      * @return string
      */
-    public function formatByBitcoin($fractionDigits = 2, Currencies $currencies = null)
+    public function formatByBitcoin($fractionDigits = 2, ?Currencies $currencies = null)
     {
         $formatter = new BitcoinMoneyFormatter($fractionDigits, $currencies ?: new BitcoinCurrencies());
 
@@ -81,10 +81,9 @@ trait MoneyFormatterTrait
      *
      * @param  bool  $right
      * @param  string|null  $locale
-     * @param  \Money\Currencies  $currencies
      * @return string
      */
-    public function formatByCurrencySymbol($right = false, $locale = null, Currencies $currencies = null)
+    public function formatByCurrencySymbol($right = false, $locale = null, ?Currencies $currencies = null)
     {
         $formatter = new CurrencySymbolMoneyFormatter($right, $locale ?: static::getLocale(), $currencies ?: static::getCurrencies());
 
@@ -96,7 +95,7 @@ trait MoneyFormatterTrait
      *
      * @return string
      */
-    public function formatByDecimal(Currencies $currencies = null)
+    public function formatByDecimal(?Currencies $currencies = null)
     {
         $formatter = new DecimalMoneyFormatter($currencies ?: static::getCurrencies());
 
@@ -110,7 +109,7 @@ trait MoneyFormatterTrait
      * @param  int  $style
      * @return string
      */
-    public function formatByIntl($locale = null, Currencies $currencies = null, $style = NumberFormatter::CURRENCY)
+    public function formatByIntl($locale = null, ?Currencies $currencies = null, $style = NumberFormatter::CURRENCY)
     {
         $numberFormatter = new NumberFormatter($locale ?: static::getLocale(), $style);
         $formatter = new IntlMoneyFormatter($numberFormatter, $currencies ?: static::getCurrencies());
@@ -127,7 +126,7 @@ trait MoneyFormatterTrait
      */
     public function formatByIntlLocalizedDecimal(
         $locale = null,
-        Currencies $currencies = null,
+        ?Currencies $currencies = null,
         $style = NumberFormatter::CURRENCY
     ) {
         $numberFormatter = new NumberFormatter($locale ?: static::getLocale(), $style);
