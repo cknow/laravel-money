@@ -36,6 +36,14 @@ class MoneyTest extends TestCase
         static::assertEquals(new Money(null, new Currency('USD')), Money::USD(0));
     }
 
+    public function testSetCurrency()
+    {
+        static::assertEquals(Money::USD(25)->setCurrency('EUR'), Money::EUR(25));
+        static::assertEquals(Money::EUR(25)->setCurrency('USD'), Money::USD(25));
+        static::assertEquals(Money::USD('10.00')->setCurrency(new Currency('EUR')), Money::EUR(1000));
+        static::assertEquals(Money::EUR(10.10)->setCurrency(new Currency('USD')), Money::USD(1010));
+    }
+
     public function testConvert()
     {
         static::assertEquals(Money::USD(25), Money::convert(new \Money\Money(25, new Currency('USD'))));
