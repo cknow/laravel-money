@@ -96,6 +96,17 @@ class Money implements Arrayable, Jsonable, JsonSerializable
     }
 
     /**
+     * Set currency.
+     *
+     * @param  \Money\Currency|string  $currency
+     * @return \Cknow\Money\Money
+     */
+    public function setCurrency(\Money\Currency|string $currency)
+    {
+        return new Money($this->getAmount(), static::parseCurrency($currency));
+    }
+
+    /**
      * Divide.
      *
      * @param  int|string|float  $divisor
