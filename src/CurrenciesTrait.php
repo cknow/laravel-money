@@ -2,12 +2,12 @@
 
 namespace Cknow\Money;
 
+use Cknow\Money\Currencies\ISOCurrencies;
 use InvalidArgumentException;
 use Money\Currencies;
 use Money\Currencies\AggregateCurrencies;
 use Money\Currencies\BitcoinCurrencies;
 use Money\Currencies\CurrencyList;
-use Money\Currencies\ISOCurrencies;
 use Money\Currency;
 
 trait CurrenciesTrait
@@ -21,11 +21,6 @@ trait CurrenciesTrait
      * @var \Money\Currencies
      */
     protected static $currencies;
-
-    /**
-     * @var array
-     */
-    protected static $ISOCurrencies;
 
     /**
      * Parse currency.
@@ -84,11 +79,7 @@ trait CurrenciesTrait
      */
     public static function getISOCurrencies()
     {
-        if (! isset(static::$ISOCurrencies) && is_file($file = config('money.isoCurrenciesPath'))) {
-            static::$ISOCurrencies = require $file;
-        }
-
-        return static::$ISOCurrencies;
+        return (new ISOCurrencies())->getCurrencies();
     }
 
     /**
