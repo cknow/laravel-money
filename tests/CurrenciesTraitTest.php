@@ -2,6 +2,7 @@
 
 namespace Cknow\Money\Tests;
 
+use Cknow\Money\Currencies\ISOCurrencies;
 use Cknow\Money\CurrenciesTrait;
 use Money\Currency;
 use stdClass;
@@ -139,7 +140,7 @@ class CurrenciesTraitTest extends TestCase
         $mock = $this->getMockForTrait(CurrenciesTrait::class);
         $mock->setCurrencies([]);
 
-        static::assertInstanceOf(\Money\Currencies\ISOCurrencies::class, $mock->getCurrencies());
+        static::assertInstanceOf(ISOCurrencies::class, $mock->getCurrencies());
     }
 
     public function testSetCurrenciesAllISOCurrencies()
@@ -150,7 +151,7 @@ class CurrenciesTraitTest extends TestCase
         ]);
 
         static::assertEquals(
-            new \Money\Currencies\AggregateCurrencies([new \Money\Currencies\ISOCurrencies()]),
+            new \Money\Currencies\AggregateCurrencies([new ISOCurrencies()]),
             $mock->getCurrencies()
         );
     }
