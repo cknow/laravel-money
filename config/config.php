@@ -10,7 +10,9 @@ return [
     'defaultCurrency' => config('app.currency', 'USD'),
     'defaultFormatter' => null,
     'defaultSerializer' => null,
-    'isoCurrenciesPath' => __DIR__.'/../vendor/moneyphp/money/resources/currency.php',
+    'isoCurrenciesPath' => is_dir(__DIR__.'/../vendor')
+        ? __DIR__.'/../vendor/moneyphp/money/resources/currency.php'
+        : __DIR__.'/../../../moneyphp/money/resources/currency.php',
     'currencies' => [
         'iso' => 'all',
         'bitcoin' => 'all',
