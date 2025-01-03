@@ -7,7 +7,7 @@ use Money\Currency;
 
 class MoneyFactoryTest extends TestCase
 {
-    public function testFactoryMethods()
+    public function test_factory_methods()
     {
         $moneyUSD = Money::USD(10);
         static::assertInstanceOf(Money::class, $moneyUSD);

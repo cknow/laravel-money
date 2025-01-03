@@ -11,7 +11,7 @@ use InvalidArgumentException;
 
 class MoneyFormatterSerializerTest extends TestCase
 {
-    public function testSerialize()
+    public function test_serialize()
     {
         static::assertEquals([
             'amount' => '100',
@@ -30,7 +30,7 @@ class MoneyFormatterSerializerTest extends TestCase
         ], Money::EUR(199)->serialize());
     }
 
-    public function testDefaultSerializer()
+    public function test_default_serializer()
     {
         config(['money.defaultSerializer' => null]);
         static::assertEquals([
@@ -79,7 +79,7 @@ class MoneyFormatterSerializerTest extends TestCase
         static::assertEquals('€1.00', Money::EUR(100)->serialize());
     }
 
-    public function testInvalidDefaultSerializer()
+    public function test_invalid_default_serializer()
     {
         $defaultSerializer = [BitcoinMoneySerializer::class];
 
@@ -90,7 +90,7 @@ class MoneyFormatterSerializerTest extends TestCase
         static::assertEquals('$1.00', Money::USD(100)->serialize());
     }
 
-    public function testSerializeByArray()
+    public function test_serialize_by_array()
     {
         static::assertEquals([
             'amount' => '100',
@@ -105,39 +105,39 @@ class MoneyFormatterSerializerTest extends TestCase
         ], Money::EUR(100)->serializeByArray());
     }
 
-    public function testSerializeBySerializerWithArray()
+    public function test_serialize_by_serializer_with_array()
     {
         static::assertEquals([
             'amount' => '100',
             'currency' => 'USD',
             'formatted' => '$1.00',
-        ], Money::USD(100)->serializeBySerializer(new ArrayMoneySerializer()));
+        ], Money::USD(100)->serializeBySerializer(new ArrayMoneySerializer));
 
         static::assertEquals([
             'amount' => '100',
             'currency' => 'EUR',
             'formatted' => '€1.00',
-        ], Money::EUR(100)->serializeBySerializer(new ArrayMoneySerializer()));
+        ], Money::EUR(100)->serializeBySerializer(new ArrayMoneySerializer));
     }
 
-    public function testSerializeByDecimal()
+    public function test_serialize_by_decimal()
     {
-        static::assertEquals('1.00', Money::USD(100)->serializeBySerializer(new DecimalMoneySerializer()));
+        static::assertEquals('1.00', Money::USD(100)->serializeBySerializer(new DecimalMoneySerializer));
 
-        static::assertEquals('1.00', Money::EUR(100)->serializeBySerializer(new DecimalMoneySerializer()));
+        static::assertEquals('1.00', Money::EUR(100)->serializeBySerializer(new DecimalMoneySerializer));
     }
 
-    public function testSerializeByInteger()
+    public function test_serialize_by_integer()
     {
-        static::assertEquals(100, Money::USD(100)->serializeBySerializer(new IntegerMoneySerializer()));
+        static::assertEquals(100, Money::USD(100)->serializeBySerializer(new IntegerMoneySerializer));
 
-        static::assertEquals(100, Money::EUR(100)->serializeBySerializer(new IntegerMoneySerializer()));
+        static::assertEquals(100, Money::EUR(100)->serializeBySerializer(new IntegerMoneySerializer));
     }
 
-    public function testSerializeByString()
+    public function test_serialize_by_string()
     {
-        static::assertEquals('$1.00', Money::USD(100)->serializeBySerializer(new StringMoneySerializer()));
+        static::assertEquals('$1.00', Money::USD(100)->serializeBySerializer(new StringMoneySerializer));
 
-        static::assertEquals('€1.00', Money::EUR(100)->serializeBySerializer(new StringMoneySerializer()));
+        static::assertEquals('€1.00', Money::EUR(100)->serializeBySerializer(new StringMoneySerializer));
     }
 }

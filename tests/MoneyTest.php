@@ -8,7 +8,7 @@ use Money\Currency;
 
 class MoneyTest extends TestCase
 {
-    public function testConstructorTypes()
+    public function test_constructor_types()
     {
         static::assertEquals(Money::USD('$10.00'), Money::USD(1000));
         static::assertEquals(Money::USD('R$10.00'), Money::BRL(1000));
@@ -29,14 +29,14 @@ class MoneyTest extends TestCase
         static::assertEquals(Money::USD('10.10', true), Money::USD(1010));
     }
 
-    public function testNullable()
+    public function test_nullable()
     {
-        static::assertEquals(new Money(), Money::USD(0));
+        static::assertEquals(new Money, Money::USD(0));
         static::assertEquals(new Money(null), Money::USD(0));
         static::assertEquals(new Money(null, new Currency('USD')), Money::USD(0));
     }
 
-    public function testSetCurrency()
+    public function test_set_currency()
     {
         static::assertEquals(Money::USD(25)->setCurrency('EUR'), Money::EUR(25));
         static::assertEquals(Money::EUR(25)->setCurrency('USD'), Money::USD(25));
@@ -44,37 +44,37 @@ class MoneyTest extends TestCase
         static::assertEquals(Money::EUR(10.10)->setCurrency(new Currency('USD')), Money::USD(1010));
     }
 
-    public function testConvert()
+    public function test_convert()
     {
         static::assertEquals(Money::USD(25), Money::convert(new \Money\Money(25, new Currency('USD'))));
         static::assertEquals(Money::EUR(25), Money::convert(new \Money\Money(25, new Currency('EUR'))));
     }
 
-    public function testMin()
+    public function test_min()
     {
         static::assertEquals(Money::USD(10), Money::min(Money::USD(10), Money::USD(20), Money::USD(30)));
         static::assertEquals(Money::EUR(10), Money::min(Money::EUR(10), Money::EUR(20), Money::EUR(30)));
     }
 
-    public function testMax()
+    public function test_max()
     {
         static::assertEquals(Money::USD(30), Money::max(Money::USD(10), Money::USD(20), Money::USD(30)));
         static::assertEquals(Money::EUR(30), Money::max(Money::EUR(10), Money::EUR(20), Money::EUR(30)));
     }
 
-    public function testAvg()
+    public function test_avg()
     {
         static::assertEquals(Money::USD(20), Money::avg(Money::USD(10), Money::USD(20), Money::USD(30)));
         static::assertEquals(Money::EUR(20), Money::avg(Money::EUR(10), Money::EUR(20), Money::EUR(30)));
     }
 
-    public function testSum()
+    public function test_sum()
     {
         static::assertEquals(Money::USD(60), Money::sum(Money::USD(10), Money::USD(20), Money::USD(30)));
         static::assertEquals(Money::EUR(60), Money::sum(Money::EUR(10), Money::EUR(20), Money::EUR(30)));
     }
 
-    public function testAdd()
+    public function test_add()
     {
         static::assertEquals(Money::USD(25), Money::USD(10)->add(Money::USD(15)));
         static::assertEquals(Money::USD(40), Money::USD(10)->add(Money::USD(15), Money::USD(15)));
@@ -82,7 +82,7 @@ class MoneyTest extends TestCase
         static::assertEquals(Money::EUR(40), Money::EUR(10)->add(Money::EUR(15), Money::EUR(15)));
     }
 
-    public function testSubtract()
+    public function test_subtract()
     {
         static::assertEquals(Money::USD(20), Money::USD(25)->subtract(Money::USD(5)));
         static::assertEquals(Money::USD(15), Money::USD(25)->subtract(Money::USD(5), Money::USD(5)));
@@ -90,7 +90,7 @@ class MoneyTest extends TestCase
         static::assertEquals(Money::EUR(10), Money::EUR(20)->subtract(Money::EUR(5), Money::EUR(5)));
     }
 
-    public function testMultiply()
+    public function test_multiply()
     {
         static::assertEquals(Money::USD(275), Money::USD(5.5)->multiply(0.5));
         static::assertEquals(Money::USD(1100), Money::USD(5.5)->multiply(2));
@@ -105,7 +105,7 @@ class MoneyTest extends TestCase
         static::assertEquals(Money::USD(3648), Money::USD(2499)->multiply(1.46, \Money\Money::ROUND_DOWN));
     }
 
-    public function testDivide()
+    public function test_divide()
     {
         static::assertEquals(Money::USD(4040), Money::USD(20.20)->divide(0.5));
         static::assertEquals(Money::USD(1010), Money::USD(20.20)->divide(2));
@@ -120,69 +120,69 @@ class MoneyTest extends TestCase
         static::assertEquals(Money::USD(5325), Money::USD(2503)->divide(0.47, \Money\Money::ROUND_DOWN));
     }
 
-    public function testMod()
+    public function test_mod()
     {
         static::assertEquals(Money::USD(115), Money::USD(415)->mod(Money::USD(150)));
         static::assertEquals(Money::EUR(230), Money::EUR(830)->mod(Money::EUR(300)));
     }
 
-    public function testAbsolute()
+    public function test_absolute()
     {
         static::assertEquals(Money::USD(10), Money::USD(-10)->absolute());
         static::assertEquals(Money::EUR(10), Money::EUR(-10)->absolute());
     }
 
-    public function testNegative()
+    public function test_negative()
     {
         static::assertEquals(Money::USD(-10), Money::USD(10)->negative());
         static::assertEquals(Money::EUR(-10), Money::EUR(10)->negative());
     }
 
-    public function testRatioOf()
+    public function test_ratio_of()
     {
         static::assertEquals('20', (float) Money::USD(60)->ratioOf(Money::USD(3)));
         static::assertEquals('15', (float) Money::EUR(30)->ratioOf(Money::EUR(2)));
     }
 
-    public function testSameCurrency()
+    public function test_same_currency()
     {
         static::assertTrue(Money::USD(100)->isSameCurrency(Money::USD(200)));
         static::assertFalse(Money::USD(100)->isSameCurrency(Money::EUR(200)));
     }
 
-    public function testEquality()
+    public function test_equality()
     {
         static::assertTrue(Money::USD(100)->equals(Money::USD(100)));
         static::assertFalse(Money::EUR(100)->equals(Money::EUR(200)));
     }
 
-    public function testGreaterThan()
+    public function test_greater_than()
     {
         static::assertTrue(Money::USD(100)->greaterThan(Money::USD(50)));
         static::assertFalse(Money::EUR(100)->greaterThan(Money::EUR(100)));
     }
 
-    public function testGreaterThanOrEqual()
+    public function test_greater_than_or_equal()
     {
         static::assertTrue(Money::USD(100)->greaterThanOrEqual(Money::USD(100)));
         static::assertTrue(Money::USD(100)->greaterThanOrEqual(Money::USD(50)));
         static::assertFalse(Money::EUR(100)->greaterThanOrEqual(Money::EUR(150)));
     }
 
-    public function testLessThan()
+    public function test_less_than()
     {
         static::assertTrue(Money::USD(50)->lessThan(Money::USD(100)));
         static::assertFalse(Money::EUR(100)->lessThan(Money::EUR(100)));
     }
 
-    public function testLessThanOrEqual()
+    public function test_less_than_or_equal()
     {
         static::assertTrue(Money::USD(100)->lessThanOrEqual(Money::USD(100)));
         static::assertTrue(Money::USD(50)->lessThanOrEqual(Money::USD(100)));
         static::assertFalse(Money::EUR(100)->lessThanOrEqual(Money::EUR(50)));
     }
 
-    public function testValueSign()
+    public function test_value_sign()
     {
         static::assertTrue(Money::USD(0)->isZero());
         static::assertTrue(Money::EUR(0)->isZero());
@@ -192,13 +192,13 @@ class MoneyTest extends TestCase
         static::assertTrue(Money::EUR(-25)->isNegative());
     }
 
-    public function testAllocateTo()
+    public function test_allocate_to()
     {
         static::assertEquals([Money::USD(5), Money::USD(5)], Money::USD(10)->allocateTo(2));
         static::assertEquals([Money::EUR(5), Money::EUR(5)], Money::EUR(10)->allocateTo(2));
     }
 
-    public function testCallUndefinedMethod()
+    public function test_call_undefined_method()
     {
         $this->expectException(BadMethodCallException::class);
         $this->expectExceptionMessage('Call to undefined method '.Money::class.'::undefined()');
@@ -206,7 +206,7 @@ class MoneyTest extends TestCase
         Money::USD(15)->undefined();
     }
 
-    public function testGetters()
+    public function test_getters()
     {
         $money = new Money(100, new Currency('USD'));
         $actual = ['amount' => '100', 'currency' => 'USD', 'formatted' => '$1.00'];
@@ -218,7 +218,7 @@ class MoneyTest extends TestCase
         static::assertEquals('$1.00', $money);
     }
 
-    public function testSerializeWithAttributes()
+    public function test_serialize_with_attributes()
     {
         $money = new Money(100, new Currency('USD'));
         $money->attributes(['foo' => 'bar']);
@@ -229,7 +229,7 @@ class MoneyTest extends TestCase
         );
     }
 
-    public function testMacroable()
+    public function test_macroable()
     {
         Money::macro('someMacro', function () {
             return 'some-return-value';

@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Validator;
 
 class CurrencyTest extends TestCase
 {
-    public function testValidationPasses()
+    public function test_validation_passes()
     {
         $v = Validator::make(
             [
@@ -26,7 +26,7 @@ class CurrencyTest extends TestCase
         $this->assertFalse($v->fails());
     }
 
-    public function testValidationFails()
+    public function test_validation_fails()
     {
         $v = Validator::make(
             [

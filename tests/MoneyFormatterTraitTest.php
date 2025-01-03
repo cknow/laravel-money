@@ -14,7 +14,7 @@ use NumberFormatter as N;
 
 class MoneyFormatterTraitTest extends TestCase
 {
-    public function testFormat()
+    public function test_format()
     {
         static::assertEquals('$1.00', Money::USD(100)->format());
         static::assertEquals('€1.00', Money::EUR(100)->format());
@@ -24,7 +24,7 @@ class MoneyFormatterTraitTest extends TestCase
         static::assertEquals('1', Money::USD(100)->format('en_US', Money::getCurrencies(), N::DECIMAL));
     }
 
-    public function testDefaultFormatter()
+    public function test_default_formatter()
     {
         config(['money.defaultFormatter' => null]);
         static::assertEquals('$1.00', Money::USD(100)->format());
@@ -35,11 +35,11 @@ class MoneyFormatterTraitTest extends TestCase
         config(['money.defaultFormatter' => [CurrencySymbolMoneyFormatter::class, ['right' => true]]]);
         static::assertEquals('1.00$', Money::USD(100)->format());
 
-        config(['money.defaultFormatter' => [BitcoinMoneyFormatter::class, ['fractionDigits' => 2, 'currencies' => new BitcoinCurrencies()]]]);
+        config(['money.defaultFormatter' => [BitcoinMoneyFormatter::class, ['fractionDigits' => 2, 'currencies' => new BitcoinCurrencies]]]);
         static::assertEquals("\xC9\x830.41", Money::XBT(41000000)->format());
     }
 
-    public function testInvalidDefaultFormatter()
+    public function test_invalid_default_formatter()
     {
         $defaultFormatter = [BitcoinMoneyFormatter::class];
 
@@ -50,10 +50,10 @@ class MoneyFormatterTraitTest extends TestCase
         static::assertEquals('$1.00', Money::USD(100)->format());
     }
 
-    public function testFormatByAggregate()
+    public function test_format_by_aggregate()
     {
         $formatters = [
-            'XBT' => new BitcoinMoneyFormatter(2, new BitcoinCurrencies()),
+            'XBT' => new BitcoinMoneyFormatter(2, new BitcoinCurrencies),
             'EUR' => new DecimalMoneyFormatter(Money::getCurrencies()),
             'USD' => new IntlLocalizedDecimalFormatter(new N('en_US', N::DECIMAL), Money::getCurrencies()),
             'BRL' => new IntlMoneyFormatter(new N('pt_BR', N::DECIMAL), Money::getCurrencies()),
@@ -65,26 +65,26 @@ class MoneyFormatterTraitTest extends TestCase
         static::assertEquals('5', Money::BRL(500)->formatByAggregate($formatters));
     }
 
-    public function testFormatByBitcoin()
+    public function test_format_by_bitcoin()
     {
         static::assertEquals("\xC9\x835", Money::XBT(500000000)->formatByBitcoin(0));
         static::assertEquals("\xC9\x830.41", Money::XBT(41000000)->formatByBitcoin(2));
-        static::assertEquals("\xC9\x8310.0000", Money::XBT(1000000000)->formatByBitcoin(4, new BitcoinCurrencies()));
+        static::assertEquals("\xC9\x8310.0000", Money::XBT(1000000000)->formatByBitcoin(4, new BitcoinCurrencies));
     }
 
-    public function testFormatByCurrencySymbol()
+    public function test_format_by_currency_symbol()
     {
         static::assertEquals('$1.00', Money::USD(100)->formatByCurrencySymbol());
         static::assertEquals('1.00$', Money::USD(100)->formatByCurrencySymbol(true));
     }
 
-    public function testFormatByDecimal()
+    public function test_format_by_decimal()
     {
         static::assertEquals('1.00', Money::USD(100)->formatByDecimal(Money::getCurrencies()));
         static::assertEquals('1.00', Money::USD(100)->formatByDecimal());
     }
 
-    public function testFormatByIntl()
+    public function test_format_by_intl()
     {
         static::assertEquals('$1.00', Money::USD(100)->formatByIntl());
         static::assertEquals('€1.00', Money::EUR(100)->formatByIntl());
@@ -94,7 +94,7 @@ class MoneyFormatterTraitTest extends TestCase
         static::assertEquals('1', Money::USD(100)->formatByIntl('en_US', Money::getCurrencies(), N::DECIMAL));
     }
 
-    public function testFormatByIntlLocalizedDecimal()
+    public function test_format_by_intl_localized_decimal()
     {
         static::assertEquals(
             '$1.00',
@@ -114,7 +114,7 @@ class MoneyFormatterTraitTest extends TestCase
         );
     }
 
-    public function testFormatByFormatter()
+    public function test_format_by_formatter()
     {
         $formatter = new DecimalMoneyFormatter(Money::getCurrencies());
 

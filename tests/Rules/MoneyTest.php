@@ -9,7 +9,7 @@ use stdClass;
 
 class MoneyTest extends TestCase
 {
-    public function testValidationPasses()
+    public function test_validation_passes()
     {
         $v = Validator::make(
             [
@@ -43,7 +43,7 @@ class MoneyTest extends TestCase
         $this->assertFalse($v->fails());
     }
 
-    public function testValidationFails()
+    public function test_validation_fails()
     {
         $v = Validator::make(
             [

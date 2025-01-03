@@ -12,54 +12,54 @@ class ISOCurrenciesTest extends TestCase
         parent::setUp();
     }
 
-    public function testContains()
+    public function test_contains()
     {
-        $currencies = new ISOCurrencies();
+        $currencies = new ISOCurrencies;
         static::assertTrue($currencies->contains(new \Money\Currency('EUR')));
         static::assertTrue($currencies->contains(new \Money\Currency('USD')));
     }
 
-    public function testSubunitFor()
+    public function test_subunit_for()
     {
-        $currencies = new ISOCurrencies();
+        $currencies = new ISOCurrencies;
         static::assertEquals(2, $currencies->subunitFor(new \Money\Currency('EUR')));
         static::assertEquals(2, $currencies->subunitFor(new \Money\Currency('USD')));
     }
 
-    public function testSubunitForInvalidCurrency()
+    public function test_subunit_for_invalid_currency()
     {
         $this->expectException(\Money\Exception\UnknownCurrencyException::class);
         $this->expectExceptionMessage('Cannot find ISO currency XYZ');
 
-        $currencies = new ISOCurrencies();
+        $currencies = new ISOCurrencies;
         $currencies->subunitFor(new \Money\Currency('XYZ'));
     }
 
-    public function testNumericCodeFor()
+    public function test_numeric_code_for()
     {
-        $currencies = new ISOCurrencies();
+        $currencies = new ISOCurrencies;
         static::assertEquals(978, $currencies->numericCodeFor(new \Money\Currency('EUR')));
         static::assertEquals(840, $currencies->numericCodeFor(new \Money\Currency('USD')));
     }
 
-    public function testNumericCodeForInvalidCurrency()
+    public function test_numeric_code_for_invalid_currency()
     {
         $this->expectException(\Money\Exception\UnknownCurrencyException::class);
         $this->expectExceptionMessage('Cannot find ISO currency XYZ');
 
-        $currencies = new ISOCurrencies();
+        $currencies = new ISOCurrencies;
         $currencies->numericCodeFor(new \Money\Currency('XYZ'));
     }
 
-    public function testLoadCurrencies()
+    public function test_load_currencies()
     {
-        $currencies = new ISOCurrencies();
+        $currencies = new ISOCurrencies;
         static::assertContainsOnlyInstancesOf(\Money\Currency::class, $currencies->getIterator());
     }
 
-    public function testGetCurrencies()
+    public function test_get_currencies()
     {
-        $currencies = new ISOCurrencies();
+        $currencies = new ISOCurrencies;
 
         static::assertIsArray($currencies->getCurrencies());
         static::assertArrayHasKey('EUR', $currencies->getCurrencies());
@@ -67,14 +67,14 @@ class ISOCurrenciesTest extends TestCase
         static::assertArrayNotHasKey('XYZ', $currencies->getCurrencies());
     }
 
-    public function testInvalidConfigCurrenciesPath()
+    public function test_invalid_config_currencies_path()
     {
         config(['money.isoCurrenciesPath' => null]);
 
         $this->expectException(\RuntimeException::class);
         $this->expectExceptionMessage('Failed to load currency ISO codes.');
 
-        $currencies = new ISOCurrencies();
+        $currencies = new ISOCurrencies;
 
         $reflection = new \ReflectionObject($currencies);
         $property = $reflection->getProperty('currencies');

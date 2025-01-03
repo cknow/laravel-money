@@ -30,7 +30,7 @@ class MoneyCastTest extends TestCase
         $this->loadMigrationsFrom(__DIR__.'/Database/Migrations');
     }
 
-    public function testCastsMoneyWhenRetrievingCastedValues()
+    public function test_casts_money_when_retrieving_casted_values()
     {
         DB::table('users')->insert([
             'money' => '1234.56',
@@ -76,7 +76,7 @@ class MoneyCastTest extends TestCase
         ]);
     }
 
-    public function testCastsMoneyWhenSettingCastedValues()
+    public function test_casts_money_when_setting_casted_values()
     {
         $user = new User([
             'money' => 0,
@@ -134,15 +134,15 @@ class MoneyCastTest extends TestCase
         ]);
     }
 
-    public function testFailsToSetInvalidMoney()
+    public function test_fails_to_set_invalid_money()
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Invalid data provided for Cknow\Money\Tests\Database\Models\User::$money');
 
-        new User(['money' => new stdClass()]);
+        new User(['money' => new stdClass]);
     }
 
-    public function testFailsToParseInvalidMoney()
+    public function test_fails_to_parse_invalid_money()
     {
         $this->expectException(ParserException::class);
         $this->expectExceptionMessage('Unable to parse abc');
@@ -150,9 +150,9 @@ class MoneyCastTest extends TestCase
         new User(['money' => 'abc']);
     }
 
-    public function testSetCurrencyForNewEmptyUser()
+    public function test_set_currency_for_new_empty_user()
     {
-        $user = new User();
+        $user = new User;
 
         $user->debits = 100.99;
 

@@ -79,7 +79,7 @@ trait CurrenciesTrait
      */
     public static function getISOCurrencies()
     {
-        return (new ISOCurrencies())->getCurrencies();
+        return (new ISOCurrencies)->getCurrencies();
     }
 
     /**
@@ -118,7 +118,7 @@ trait CurrenciesTrait
     {
         if (! $currenciesConfig || ! is_array($currenciesConfig)) {
             // for backward compatibility
-            return new ISOCurrencies();
+            return new ISOCurrencies;
         }
 
         $currenciesList = [];
@@ -126,7 +126,7 @@ trait CurrenciesTrait
         if ($currenciesConfig['iso'] ?? false) {
             $currenciesList[] = static::makeCurrenciesForSource(
                 $currenciesConfig['iso'],
-                new ISOCurrencies(),
+                new ISOCurrencies,
                 'ISO'
             );
         }
@@ -134,7 +134,7 @@ trait CurrenciesTrait
         if ($currenciesConfig['bitcoin'] ?? false) {
             $currenciesList[] = static::makeCurrenciesForSource(
                 $currenciesConfig['bitcoin'],
-                new BitcoinCurrencies(),
+                new BitcoinCurrencies,
                 'Bitcoin'
             );
         }

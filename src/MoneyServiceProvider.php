@@ -34,7 +34,7 @@ class MoneyServiceProvider extends ServiceProvider
         });
 
         Validator::extend('currency', function ($attribute, $value) {
-            $rule = new Rules\Currency();
+            $rule = new Rules\Currency;
 
             return $rule->passes($attribute, $value);
         });

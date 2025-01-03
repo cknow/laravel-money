@@ -49,7 +49,7 @@ trait MoneySerializerTrait
      */
     public function serializeByArray()
     {
-        $serializer = new ArrayMoneySerializer();
+        $serializer = new ArrayMoneySerializer;
 
         return $this->serializeBySerializer($serializer);
     }

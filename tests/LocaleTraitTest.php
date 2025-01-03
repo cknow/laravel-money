@@ -6,14 +6,14 @@ use Cknow\Money\LocaleTrait;
 
 class LocaleTraitTest extends TestCase
 {
-    public function testGetLocale()
+    public function test_get_locale()
     {
         $mock = $this->getMockForTrait(LocaleTrait::class);
 
         static::assertEquals('en_US', $mock->getLocale());
     }
 
-    public function testSetLocale()
+    public function test_set_locale()
     {
         $mock = $this->getMockForTrait(LocaleTrait::class);
 
