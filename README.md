@@ -127,7 +127,10 @@ Money::parseByIntlLocalizedDecimal('1.00', 'USD'); // Money::USD(100)
 ```php
 class MyFormatter implements \Money\MoneyFormatter
 {
-    public function format(\Money\Money $money)
+    /**
+     * Formats a Money object as string.
+     */
+    public function format(\Money\Money $money): string
     {
         return 'My Formatter';
     }
