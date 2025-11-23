@@ -2,6 +2,7 @@
 
 namespace Cknow\Money;
 
+use Cknow\Money\Currencies\CryptoCurrencies;
 use Cknow\Money\Currencies\ISOCurrencies;
 use InvalidArgumentException;
 use Money\Currencies;
@@ -136,6 +137,14 @@ trait CurrenciesTrait
                 $currenciesConfig['bitcoin'],
                 new BitcoinCurrencies,
                 'Bitcoin'
+            );
+        }
+
+        if ($currenciesConfig['crypto'] ?? false) {
+            $currenciesList[] = static::makeCurrenciesForSource(
+                $currenciesConfig['crypto'],
+                new CryptoCurrencies,
+                'Crypto'
             );
         }
 
