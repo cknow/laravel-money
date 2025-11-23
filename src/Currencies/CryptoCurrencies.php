@@ -78,7 +78,7 @@ final class CryptoCurrencies implements Currencies
      */
     private function loadCurrencies(): array
     {
-        $file = config('money.isoCurrenciesPath');
+        $file = config('money.cryptoCurrenciesPath');
 
         if (is_file($file)) {
             return require $file;
