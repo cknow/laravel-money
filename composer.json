@@ -21,7 +21,7 @@
         "ext-intl": "*",
         "illuminate/support": "^9.0|^10.0|^11.0|^12.0",
         "illuminate/view": "^9.0|^10.0|^11.0|^12.0",
-        "moneyphp/money": "^4.6"
+        "moneyphp/money": "^4.8"
     },
     "require-dev": {
         "graham-campbell/testbench": "^6.1",
