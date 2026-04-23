@@ -3,6 +3,9 @@
 namespace Cknow\Money\Tests;
 
 use Cknow\Money\Money;
+use Cknow\Money\Tests\Enums\CurrencyIntBacked;
+use Cknow\Money\Tests\Enums\CurrencyNotBacked;
+use Cknow\Money\Tests\Enums\CurrencyStringBacked;
 use InvalidArgumentException;
 use Money\Currency;
 use Money\Exception\ParserException;
@@ -99,6 +102,14 @@ class MoneyParserTraitTest extends TestCase
         $this->expectExceptionMessage('Invalid value {}');
 
         Money::parse(new stdClass);
+    }
+
+    public function test_parse_currency()
+    {
+        static::assertEquals(Money::parseCurrency('USD'), new Currency('USD'));
+        static::assertEquals(Money::parseCurrency(CurrencyStringBacked::USD), new Currency('USD'));
+        static::assertEquals(Money::parseCurrency(CurrencyIntBacked::USD), new Currency('USD'));
+        static::assertEquals(Money::parseCurrency(CurrencyNotBacked::USD), new Currency('USD'));
     }
 
     public function test_parse_invalid_money()

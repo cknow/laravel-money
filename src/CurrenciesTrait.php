@@ -34,6 +34,14 @@ trait CurrenciesTrait
             return new Currency($currency);
         }
 
+        if ($currency instanceof \StringBackedEnum) {
+            return new Currency($currency->value);
+        }
+
+        if ($currency instanceof \UnitEnum) {
+            return new Currency($currency->name);
+        }
+
         return $currency;
     }
 
